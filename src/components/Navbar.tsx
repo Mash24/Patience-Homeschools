@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { Menu, X, BookOpen, Users, Calendar, FileText, Phone, Crown } from 'lucide-react'
 
 export default function Navbar() {
@@ -90,12 +89,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden overflow-hidden"
-          >
+          <div className="lg:hidden overflow-hidden">
             <div className="px-4 pt-2 pb-6 space-y-2 bg-white/95 backdrop-blur-md rounded-2xl mt-4 shadow-luxury border border-gold-100">
               {navigation.map((item) => (
                 <Link
@@ -127,7 +121,7 @@ export default function Navbar() {
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         )}
       </div>
     </nav>
