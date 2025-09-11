@@ -22,33 +22,33 @@ export default function HeroLuxury() {
               TSC-Certified • Safeguarded
             </div>
 
-            <h1 className="font-serif text-4xl md:text-6xl font-semibold leading-[1.1] text-brand-navy">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-tight sm:leading-[1.1] text-brand-navy">
               Bespoke homeschooling by exceptional educators.
             </h1>
 
-            <p className="mt-6 max-w-xl text-lg text-brand-charcoal/80">
+            <p className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base md:text-lg text-brand-charcoal/80 leading-relaxed">
               CBC, IGCSE & British programmes—tailored to your child and delivered at home or online,
               with concierge matching and exclusive events across Nairobi.
             </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="/hire-teacher" prefetch>
-                <button className="h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-6 font-semibold transition-all duration-300 flex items-center gap-2">
-                  Request a Private Tutor <ArrowRight className="h-5 w-5" />
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <Link href="/hire-teacher" prefetch className="w-full sm:w-auto">
+                <button className="w-full max-w-full h-10 sm:h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-4 sm:px-6 font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base truncate">
+                  Request a Private Tutor <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                 </button>
               </Link>
-              <Link href="/teacher-apply" prefetch>
-                <button className="h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-6 font-semibold transition-all duration-300">
+              <Link href="/teacher-apply" prefetch className="w-full sm:w-auto">
+                <button className="w-full max-w-full h-10 sm:h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-4 sm:px-6 font-semibold transition-all duration-300 text-sm sm:text-base truncate">
                   Apply as Elite Educator
                 </button>
               </Link>
             </div>
 
             {/* Trust strip */}
-            <div className="mt-8 flex flex-wrap gap-6 text-sm text-brand-charcoal/70">
-              <Badge icon={<GraduationCap className="h-4 w-4" />} text="Cambridge experience" />
-              <Badge icon={<ShieldCheck className="h-4 w-4" />} text="Background-checked" />
-              <Badge icon={<Sparkles className="h-4 w-4" />} text="98% parent satisfaction" />
+            <div className="mt-6 sm:mt-8 flex flex-wrap gap-3 sm:gap-6 text-xs sm:text-sm text-brand-charcoal/70">
+              <Badge icon={<GraduationCap className="h-3 w-3 sm:h-4 sm:w-4" />} text="Cambridge experience" />
+              <Badge icon={<ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4" />} text="Background-checked" />
+              <Badge icon={<Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />} text="98% parent satisfaction" />
             </div>
           </motion.div>
 
@@ -79,9 +79,9 @@ export default function HeroLuxury() {
 
 function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 shadow-sm ring-1 ring-black/5">
+    <span className="inline-flex items-center gap-1 sm:gap-2 rounded-full bg-white/70 px-2 sm:px-3 py-1 shadow-sm ring-1 ring-black/5 text-xs sm:text-sm">
       {icon}
-      {text}
+      <span className="truncate">{text}</span>
     </span>
   )
 }

@@ -57,18 +57,18 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             What Parents Say
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Hear from families who have transformed their homeschooling experience 
             with Patience Home Schools.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}
@@ -79,33 +79,33 @@ export default function Testimonials() {
               className="card hover:shadow-xl transition-all duration-300 relative"
             >
               {/* Quote Icon */}
-              <div className="absolute -top-4 left-6">
-                <div className="bg-blue-100 p-2 rounded-full">
-                  <Quote className="h-6 w-6 text-blue-600" />
+              <div className="absolute -top-3 sm:-top-4 left-4 sm:left-6">
+                <div className="bg-blue-100 p-1.5 sm:p-2 rounded-full">
+                  <Quote className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
                 </div>
               </div>
 
               {/* Rating */}
-              <div className="flex items-center space-x-1 mb-4 pt-4">
+              <div className="flex items-center space-x-1 mb-3 sm:mb-4 pt-3 sm:pt-4">
                 {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 fill-current" />
                 ))}
               </div>
 
               {/* Content */}
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                "{testimonial.content}"
+              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+                &ldquo;{testimonial.content}&rdquo;
               </p>
 
               {/* Author */}
-              <div className="border-t border-gray-100 pt-4">
-                <div className="font-semibold text-gray-900">
+              <div className="border-t border-gray-100 pt-3 sm:pt-4">
+                <div className="font-semibold text-sm sm:text-base text-gray-900">
                   {testimonial.name}
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-xs sm:text-sm text-gray-600">
                   {testimonial.role}
                 </div>
-                <div className="text-sm text-blue-600">
+                <div className="text-xs sm:text-sm text-blue-600">
                   {testimonial.location}
                 </div>
               </div>
