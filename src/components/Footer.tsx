@@ -5,9 +5,9 @@ export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
       <div className="container-custom">
-        <div className="py-8 sm:py-10 md:py-12 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="py-8 sm:py-10 md:py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
           {/* Brand Section */}
-          <div className="space-y-3 sm:space-y-4">
+          <div className="sm:col-span-2 md:col-span-1 space-y-3 sm:space-y-4">
             <div className="flex items-center space-x-2">
               <div className="bg-blue-600 p-2 rounded-lg">
                 <BookOpen className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
