@@ -31,14 +31,14 @@ export default function HeroLuxury() {
               with concierge matching and exclusive events across Nairobi.
             </p>
 
-            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-              <Link href="/hire-teacher" prefetch className="w-full sm:w-auto">
-                <button className="w-full max-w-full h-10 sm:h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-4 sm:px-6 font-semibold transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base truncate">
-                  Request a Private Tutor <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+            <div className="mt-6 sm:mt-8 flex flex-row items-center gap-2 sm:gap-4">
+              <Link href="/hire-teacher" prefetch className="flex-1">
+                <button className="w-full h-10 sm:h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-3 sm:px-6 font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base truncate">
+                  Request a Private Tutor <ArrowRight className="h-3 w-3 sm:h-5 sm:w-5 flex-shrink-0" />
                 </button>
               </Link>
-              <Link href="/teacher-apply" prefetch className="w-full sm:w-auto">
-                <button className="w-full max-w-full h-10 sm:h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-4 sm:px-6 font-semibold transition-all duration-300 text-sm sm:text-base truncate">
+              <Link href="/teacher-apply" prefetch className="flex-1">
+                <button className="w-full h-10 sm:h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-3 sm:px-6 font-semibold transition-all duration-300 text-xs sm:text-base truncate">
                   Apply as Elite Educator
                 </button>
               </Link>

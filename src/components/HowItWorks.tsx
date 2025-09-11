@@ -52,16 +52,16 @@ export default function HowItWorks() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             How It Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Getting started with Patience Home Schools is simple. Follow these four easy steps 
             to find the perfect teacher for your child.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={step.step}

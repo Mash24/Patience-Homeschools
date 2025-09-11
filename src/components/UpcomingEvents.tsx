@@ -69,7 +69,7 @@ export default function UpcomingEvents() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {events.map((event, index) => (
             <motion.div
               key={event.title}
@@ -169,7 +169,7 @@ export default function UpcomingEvents() {
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               Event Types
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
               <div className="text-center p-6 border border-gray-100 rounded-lg">
                 <Microscope className="h-8 w-8 text-blue-600 mx-auto mb-3" />
                 <h4 className="font-semibold text-gray-900 mb-2">Lab Sessions</h4>

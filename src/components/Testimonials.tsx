@@ -68,7 +68,7 @@ export default function Testimonials() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.name}

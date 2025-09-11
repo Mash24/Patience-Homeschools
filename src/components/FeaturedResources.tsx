@@ -70,7 +70,7 @@ export default function FeaturedResources() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {resources.map((resource, index) => (
             <motion.div
               key={resource.title}
@@ -143,7 +143,7 @@ export default function FeaturedResources() {
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               Resource Categories
             </h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
               {['CBC Materials', 'IGCSE Resources', 'British Curriculum', 'Parent Guides', 'Lab Manuals', 'Study Notes', 'Worksheets', 'Assessment Tools'].map((category, index) => (
                 <div key={category} className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-300">
                   <span className="text-gray-700 font-medium">{category}</span>

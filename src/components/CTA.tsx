@@ -21,16 +21,16 @@ export default function CTA() {
           <p className="mt-2 sm:mt-3 text-sm sm:text-base text-brand-charcoal/80 max-w-2xl mx-auto">
             Speak to an advisor and receive a shortlist within 48 hours.
           </p>
-          <div className="mt-4 sm:mt-6 flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+          <div className="mt-4 sm:mt-6 flex flex-row justify-center gap-2 sm:gap-4">
             <Link 
               href="/hire-teacher" 
-              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl bg-brand-gold px-4 sm:px-6 text-brand-navy hover:bg-brand-gold/90 transition-colors font-semibold text-sm sm:text-base truncate"
+              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl bg-brand-gold px-3 sm:px-6 text-brand-navy hover:bg-brand-gold/90 transition-colors font-semibold text-xs sm:text-base truncate flex-1 max-w-[200px] sm:max-w-none"
             >
               Request a Private Tutor
             </Link>
             <Link 
               href="/teacher-apply" 
-              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl border border-brand-gold/40 px-4 sm:px-6 text-brand-navy hover:bg-brand-gold/10 transition-colors font-semibold text-sm sm:text-base truncate"
+              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl border border-brand-gold/40 px-3 sm:px-6 text-brand-navy hover:bg-brand-gold/10 transition-colors font-semibold text-xs sm:text-base truncate flex-1 max-w-[200px] sm:max-w-none"
             >
               Apply as Elite Educator
             </Link>
