@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --navy-950: #020617;
+  --navy-900: #0f172a;
+  --navy-800: #1e293b;
+  --navy-700: #334155;
+  --gold-500: #f59e0b;
+  --gold-400: #fbbf24;
+  --sage-500: #627062;
+  --charcoal-900: #202124;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  color: var(--charcoal-900);
+  background: #ffffff;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Luxury Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--gold-500) 0%, var(--gold-400) 100%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold-600) 0%, var(--gold-500) 100%);
+}
+
+/* Luxury Components */
+.btn-primary {
+  @apply bg-gradient-to-r from-gold-500 to-gold-400 hover:from-gold-600 hover:to-gold-500 text-navy-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-gold;
+}
+
+.btn-secondary {
+  @apply bg-gradient-to-r from-navy-800 to-navy-700 hover:from-navy-900 hover:to-navy-800 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-luxury;
+}
+
+.btn-outline {
+  @apply border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-navy-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105;
+}
+
+.btn-ghost {
+  @apply text-navy-800 hover:bg-navy-50 font-medium py-3 px-6 rounded-lg transition-all duration-300;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-premium p-8 border border-sage-100 hover:shadow-luxury transition-all duration-500;
+}
+
+.card-luxury {
+  @apply bg-gradient-to-br from-white to-sage-50 rounded-2xl shadow-luxury p-8 border border-gold-200 hover:shadow-gold transition-all duration-500;
+}
+
+.section-padding {
+  @apply py-24 px-4 sm:px-6 lg:px-8;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto;
+}
+
+.container-narrow {
+  @apply max-w-5xl mx-auto;
+}
+
+/* Typography */
+.heading-xl {
+  @apply text-6xl lg:text-7xl font-bold text-navy-900 leading-tight;
+}
+
+.heading-lg {
+  @apply text-4xl lg:text-5xl font-bold text-navy-900 leading-tight;
+}
+
+.heading-md {
+  @apply text-3xl lg:text-4xl font-bold text-navy-900 leading-tight;
+}
+
+.heading-sm {
+  @apply text-2xl lg:text-3xl font-semibold text-navy-900 leading-tight;
+}
+
+.text-luxury {
+  @apply text-lg text-charcoal-700 leading-relaxed;
+}
+
+.text-muted {
+  @apply text-charcoal-600 leading-relaxed;
+}
+
+/* Luxury Animations */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* Gradient Text */
+.text-gradient-gold {
+  @apply bg-gradient-to-r from-gold-500 to-gold-400 bg-clip-text text-transparent;
+}
+
+.text-gradient-navy {
+  @apply bg-gradient-to-r from-navy-800 to-navy-600 bg-clip-text text-transparent;
+}
+
+/* Luxury Backgrounds */
+.bg-luxury-gradient {
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+}
+
+.bg-navy-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+}
+
+/* Luxury Dividers */
+.divider-gold {
+  @apply h-px bg-gradient-to-r from-transparent via-gold-300 to-transparent;
+}
+
+.divider-navy {
+  @apply h-px bg-gradient-to-r from-transparent via-navy-300 to-transparent;
+}
+
+/* Focus States */
+.focus-luxury:focus {
+  @apply outline-none ring-2 ring-gold-500 ring-opacity-50;
+}
+
+/* Selection */
+::selection {
+  background: var(--gold-200);
+  color: var(--navy-900);
+}
+
+/* Luxury Shadows */
+.shadow-luxury {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-gold {
+  box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.1), 0 4px 6px -2px rgba(245, 158, 11, 0.05);
+}
+
+/* Section Backgrounds */
+.section-soft {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
