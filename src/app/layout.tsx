@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   description: 'Experience the gold standard in homeschooling with our curated network of TSC-certified educators, comprehensive resources, and exclusive community events designed for discerning families across Nairobi.',
   keywords: 'premium homeschooling Nairobi, elite education, TSC certified teachers, CBC curriculum, IGCSE Kenya, British curriculum, luxury home education, qualified educators, exclusive learning resources',
   authors: [{ name: 'Patience Education Collective' }],
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover',
   openGraph: {
     title: 'Patience Education Collective - Nairobi\'s Premier Homeschool Network',
     description: 'Experience the gold standard in homeschooling with our curated network of TSC-certified educators and exclusive community events.',

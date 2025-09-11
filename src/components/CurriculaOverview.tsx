@@ -53,7 +53,7 @@ export default function CurriculaOverview() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {curricula.map((curriculum, index) => (
             <motion.div
               key={curriculum.name}
@@ -63,29 +63,29 @@ export default function CurriculaOverview() {
               viewport={{ once: true }}
               className="card hover:shadow-xl transition-all duration-300 group"
             >
-              <div className="text-center mb-6">
-                <div className={`inline-flex p-4 rounded-full ${colorClasses[curriculum.color as keyof typeof colorClasses]} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <curriculum.icon className="h-8 w-8" />
+              <div className="text-center mb-4 sm:mb-6">
+                <div className={`inline-flex p-3 sm:p-4 rounded-full ${colorClasses[curriculum.color as keyof typeof colorClasses]} mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <curriculum.icon className="h-6 w-6 sm:h-8 sm:w-8" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 leading-tight">
                   {curriculum.name}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                   {curriculum.description}
                 </p>
               </div>
 
-              <ul className="space-y-2">
+              <ul className="space-y-1 sm:space-y-2">
                 {curriculum.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                    <span className="text-gray-600 text-sm">{feature}</span>
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
+                    <span className="text-gray-600 text-xs sm:text-sm leading-relaxed">{feature}</span>
                   </li>
                 ))}
               </ul>
 
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <button className="w-full btn-outline text-sm">
+              <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-100">
+                <button className="w-full btn-outline text-xs sm:text-sm whitespace-nowrap">
                   Learn More
                 </button>
               </div>

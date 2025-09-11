@@ -61,7 +61,7 @@ export default function HowItWorks() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
           {steps.map((step, index) => (
             <motion.div
               key={step.step}
@@ -80,22 +80,22 @@ export default function HowItWorks() {
 
               <div className="card text-center hover:shadow-xl transition-all duration-300 relative z-10">
                 {/* Step Number */}
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                <div className="absolute -top-3 sm:-top-4 left-1/2 transform -translate-x-1/2">
+                  <div className="bg-blue-600 text-white w-6 h-6 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-xs sm:text-sm">
                     {step.step}
                   </div>
                 </div>
 
                 {/* Icon */}
-                <div className={`inline-flex p-4 rounded-full ${colorClasses[step.color as keyof typeof colorClasses]} mb-4 mt-4`}>
-                  <step.icon className="h-8 w-8" />
+                <div className={`inline-flex p-3 sm:p-4 rounded-full ${colorClasses[step.color as keyof typeof colorClasses]} mb-3 sm:mb-4 mt-3 sm:mt-4`}>
+                  <step.icon className="h-6 w-6 sm:h-8 sm:w-8" />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 leading-tight">
                   {step.title}
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
                   {step.description}
                 </p>
               </div>

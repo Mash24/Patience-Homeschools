@@ -67,19 +67,19 @@ export default function Hero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="grid grid-cols-3 gap-8 pt-8"
+              className="grid grid-cols-3 gap-3 sm:gap-4 lg:gap-8 pt-4 sm:pt-6 lg:pt-8"
             >
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">50+</div>
-                <div className="text-sm text-charcoal-600 font-medium">Elite Educators</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">50+</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Elite Educators</div>
               </div>
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-navy group-hover:scale-110 transition-transform duration-300">200+</div>
-                <div className="text-sm text-charcoal-600 font-medium">Prestigious Families</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-navy group-hover:scale-110 transition-transform duration-300">200+</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Prestigious Families</div>
               </div>
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">3</div>
-                <div className="text-sm text-charcoal-600 font-medium">Premium Curricula</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">3</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Premium Curricula</div>
               </div>
             </motion.div>
           </motion.div>

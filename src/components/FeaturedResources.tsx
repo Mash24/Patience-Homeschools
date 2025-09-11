@@ -70,7 +70,7 @@ export default function FeaturedResources() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {resources.map((resource, index) => (
             <motion.div
               key={resource.title}
@@ -91,27 +91,27 @@ export default function FeaturedResources() {
               </div>
 
               {/* Resource Content */}
-              <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2">
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base leading-tight">
                 {resource.title}
               </h3>
-              <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+              <p className="text-gray-600 text-xs sm:text-sm mb-4 leading-relaxed">
                 {resource.description}
               </p>
 
               {/* Resource Stats */}
-              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+              <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
                 <div className="flex items-center space-x-1">
-                  <Download className="h-4 w-4" />
-                  <span>{resource.downloads} downloads</span>
+                  <Download className="h-3 w-3" />
+                  <span className="truncate">{resource.downloads} downloads</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(resource.date).toLocaleDateString()}</span>
+                  <Calendar className="h-3 w-3" />
+                  <span className="truncate">{new Date(resource.date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit' })}</span>
                 </div>
               </div>
 
               {/* Download Button */}
-              <button className="w-full btn-outline text-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-300">
+              <button className="w-full btn-outline text-xs sm:text-sm group-hover:bg-blue-600 group-hover:text-white transition-all duration-300 whitespace-nowrap">
                 Download Free
               </button>
             </motion.div>
@@ -143,7 +143,7 @@ export default function FeaturedResources() {
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               Resource Categories
             </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
               {['CBC Materials', 'IGCSE Resources', 'British Curriculum', 'Parent Guides', 'Lab Manuals', 'Study Notes', 'Worksheets', 'Assessment Tools'].map((category, index) => (
                 <div key={category} className="text-center p-4 bg-white rounded-lg hover:shadow-md transition-shadow duration-300">
                   <span className="text-gray-700 font-medium">{category}</span>

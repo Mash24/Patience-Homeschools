@@ -49,23 +49,23 @@ export default function TeacherApplyHero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6"
+            className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6"
           >
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">50+</div>
-              <div className="text-sm text-gray-600">Active Teachers</div>
+              <div className="text-lg sm:text-xl lg:text-2xl font-bold text-green-600">50+</div>
+              <div className="text-xs sm:text-sm text-gray-600">Active Teachers</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600">200+</div>
-              <div className="text-sm text-gray-600">Happy Families</div>
+              <div className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-600">200+</div>
+              <div className="text-xs sm:text-sm text-gray-600">Happy Families</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600">KSh 2,500</div>
-              <div className="text-sm text-gray-600">Avg. Hourly Rate</div>
+              <div className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-600">KSh 2,500</div>
+              <div className="text-xs sm:text-sm text-gray-600">Avg. Hourly Rate</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-purple-600">98%</div>
-              <div className="text-sm text-gray-600">Satisfaction Rate</div>
+              <div className="text-lg sm:text-xl lg:text-2xl font-bold text-purple-600">98%</div>
+              <div className="text-xs sm:text-sm text-gray-600">Satisfaction Rate</div>
             </div>
           </motion.div>
         </div>

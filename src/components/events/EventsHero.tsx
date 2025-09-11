@@ -38,22 +38,22 @@ export default function EventsHero() {
             </p>
 
             {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 pt-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-8 pt-4 sm:pt-6 lg:pt-8">
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">25+</div>
-                <div className="text-sm text-charcoal-600 font-medium">Monthly Events</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">25+</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Monthly Events</div>
               </div>
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-navy group-hover:scale-110 transition-transform duration-300">500+</div>
-                <div className="text-sm text-charcoal-600 font-medium">Active Participants</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-navy group-hover:scale-110 transition-transform duration-300">500+</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Active Participants</div>
               </div>
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">15+</div>
-                <div className="text-sm text-charcoal-600 font-medium">Premium Venues</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-gold group-hover:scale-110 transition-transform duration-300">15+</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Premium Venues</div>
               </div>
               <div className="text-center group">
-                <div className="text-3xl font-bold text-gradient-navy group-hover:scale-110 transition-transform duration-300">98%</div>
-                <div className="text-sm text-charcoal-600 font-medium">Satisfaction Rate</div>
+                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gradient-navy group-hover:scale-110 transition-transform duration-300">98%</div>
+                <div className="text-xs sm:text-sm text-charcoal-600 font-medium">Satisfaction Rate</div>
               </div>
             </div>
           </motion.div>

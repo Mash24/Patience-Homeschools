@@ -136,22 +136,22 @@ export default function OurMission() {
                 successful careers, and created a thriving community of learners and educators.
               </p>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600 mb-2">200+</div>
-                  <div className="text-sm text-gray-600">Happy Families</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">200+</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Happy Families</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600 mb-2">50+</div>
-                  <div className="text-sm text-gray-600">Qualified Teachers</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-600 mb-1 sm:mb-2">50+</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Qualified Teachers</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">98%</div>
-                  <div className="text-sm text-gray-600">Satisfaction Rate</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 sm:mb-2">98%</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Satisfaction Rate</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-600 mb-2">3+</div>
-                  <div className="text-sm text-gray-600">Years of Service</div>
+                  <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">3+</div>
+                  <div className="text-xs sm:text-sm text-gray-600">Years of Service</div>
                 </div>
               </div>
             </div>

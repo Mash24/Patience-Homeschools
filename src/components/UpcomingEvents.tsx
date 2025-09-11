@@ -69,7 +69,7 @@ export default function UpcomingEvents() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {events.map((event, index) => (
             <motion.div
               key={event.title}
@@ -90,35 +90,34 @@ export default function UpcomingEvents() {
               </div>
 
               {/* Event Content */}
-              <h3 className="font-semibold text-gray-900 mb-2 text-lg">
+              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base leading-tight">
                 {event.title}
               </h3>
-              <p className="text-gray-600 text-sm mb-4">
+              <p className="text-gray-600 text-xs sm:text-sm mb-4 leading-relaxed">
                 {event.description}
               </p>
 
               {/* Event Details */}
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Calendar className="h-4 w-4" />
-                  <span>{new Date(event.date).toLocaleDateString('en-US', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
+                  <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="truncate">{new Date(event.date).toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    month: 'short', 
                     day: 'numeric' 
                   })}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Clock className="h-4 w-4" />
-                  <span>{event.time}</span>
+                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
+                  <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="truncate">{event.time}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <MapPin className="h-4 w-4" />
-                  <span>{event.location}</span>
+                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
+                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="truncate">{event.location}</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Users className="h-4 w-4" />
-                  <span>{event.attendees}/{event.maxAttendees} registered</span>
+                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
+                  <Users className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="truncate">{event.attendees}/{event.maxAttendees} registered</span>
                 </div>
               </div>
 
@@ -169,7 +168,7 @@ export default function UpcomingEvents() {
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               Event Types
             </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               <div className="text-center p-6 border border-gray-100 rounded-lg">
                 <Microscope className="h-8 w-8 text-blue-600 mx-auto mb-3" />
                 <h4 className="font-semibold text-gray-900 mb-2">Lab Sessions</h4>
