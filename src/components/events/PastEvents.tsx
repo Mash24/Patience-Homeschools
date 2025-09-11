@@ -106,7 +106,7 @@ export default function PastEvents() {
                 {/* Event Image */}
                 <div className="relative overflow-hidden rounded-xl">
                   <div className="aspect-video bg-gradient-to-br from-sage-100 to-sage-200 flex items-center justify-center">
-                    <Image className="h-16 w-16 text-sage-400" />
+                    <Image className="h-16 w-16 text-sage-400" alt="" />
                   </div>
                   <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <Play className="h-12 w-12 text-white" />

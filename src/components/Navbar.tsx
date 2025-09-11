@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Menu, X, BookOpen, Users, Calendar, FileText, Phone, Crown } from 'lucide-react'
 
 export default function Navbar() {
