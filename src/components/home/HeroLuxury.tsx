@@ -22,24 +22,24 @@ export default function HeroLuxury() {
               TSC-Certified • Safeguarded
             </div>
 
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-tight sm:leading-[1.1] text-brand-navy">
+            <h1 className="font-serif text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-tight sm:leading-[1.1] text-brand-navy">
               Bespoke homeschooling by exceptional educators.
             </h1>
 
-            <p className="mt-4 sm:mt-6 max-w-xl text-sm sm:text-base md:text-lg text-brand-charcoal/80 leading-relaxed">
+            <p className="mt-3 sm:mt-4 md:mt-6 max-w-xl text-xs xs:text-sm sm:text-base md:text-lg text-brand-charcoal/80 leading-relaxed">
               CBC, IGCSE & British programmes—tailored to your child and delivered at home or online,
               with concierge matching and exclusive events across Nairobi.
             </p>
 
-            <div className="mt-6 sm:mt-8 flex flex-row items-center gap-2 sm:gap-4">
-              <Link href="/hire-teacher" prefetch className="flex-1">
-                <button className="w-full h-10 sm:h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-3 sm:px-6 font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-base truncate">
-                  Request a Private Tutor <ArrowRight className="h-3 w-3 sm:h-5 sm:w-5 flex-shrink-0" />
+            <div className="mt-4 sm:mt-6 md:mt-8 flex flex-col xs:flex-row items-stretch xs:items-center gap-2 sm:gap-3 md:gap-4">
+              <Link href="/hire-teacher" prefetch className="w-full xs:flex-1">
+                <button className="w-full h-10 sm:h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-2 xs:px-3 sm:px-6 font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs xs:text-sm sm:text-base whitespace-nowrap overflow-hidden">
+                  <span className="truncate">Request a Private Tutor</span> <ArrowRight className="h-3 w-3 sm:h-5 sm:w-5 flex-shrink-0" />
                 </button>
               </Link>
-              <Link href="/teacher-apply" prefetch className="flex-1">
-                <button className="w-full h-10 sm:h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-3 sm:px-6 font-semibold transition-all duration-300 text-xs sm:text-base truncate">
-                  Apply as Elite Educator
+              <Link href="/teacher-apply" prefetch className="w-full xs:flex-1">
+                <button className="w-full h-10 sm:h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-2 xs:px-3 sm:px-6 font-semibold transition-all duration-300 text-xs xs:text-sm sm:text-base whitespace-nowrap overflow-hidden">
+                  <span className="truncate">Apply as Elite Educator</span>
                 </button>
               </Link>
             </div>

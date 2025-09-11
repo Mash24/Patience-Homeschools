@@ -15,24 +15,24 @@ export default function CTA() {
           viewport={{ once: true }}
           className="rounded-2xl border border-brand-gold/20 bg-brand-gold/10 px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-12 text-center"
         >
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-brand-navy">
+          <h2 className="text-lg xs:text-xl sm:text-2xl md:text-3xl font-serif text-brand-navy">
             Ready to begin?
           </h2>
-          <p className="mt-2 sm:mt-3 text-sm sm:text-base text-brand-charcoal/80 max-w-2xl mx-auto">
+          <p className="mt-2 sm:mt-3 text-xs xs:text-sm sm:text-base text-brand-charcoal/80 max-w-2xl mx-auto leading-relaxed">
             Speak to an advisor and receive a shortlist within 48 hours.
           </p>
-          <div className="mt-4 sm:mt-6 flex flex-row justify-center gap-2 sm:gap-4">
+          <div className="mt-4 sm:mt-6 flex flex-col xs:flex-row justify-center gap-2 sm:gap-3 md:gap-4">
             <Link 
               href="/hire-teacher" 
-              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl bg-brand-gold px-3 sm:px-6 text-brand-navy hover:bg-brand-gold/90 transition-colors font-semibold text-xs sm:text-base truncate flex-1 max-w-[200px] sm:max-w-none"
+              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl bg-brand-gold px-3 sm:px-6 text-brand-navy hover:bg-brand-gold/90 transition-colors font-semibold text-xs xs:text-sm sm:text-base whitespace-nowrap overflow-hidden w-full xs:w-auto xs:flex-1 xs:max-w-[200px] sm:max-w-none"
             >
-              Request a Private Tutor
+              <span className="truncate">Request a Private Tutor</span>
             </Link>
             <Link 
               href="/teacher-apply" 
-              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl border border-brand-gold/40 px-3 sm:px-6 text-brand-navy hover:bg-brand-gold/10 transition-colors font-semibold text-xs sm:text-base truncate flex-1 max-w-[200px] sm:max-w-none"
+              className="inline-flex h-10 sm:h-12 items-center justify-center rounded-xl border border-brand-gold/40 px-3 sm:px-6 text-brand-navy hover:bg-brand-gold/10 transition-colors font-semibold text-xs xs:text-sm sm:text-base whitespace-nowrap overflow-hidden w-full xs:w-auto xs:flex-1 xs:max-w-[200px] sm:max-w-none"
             >
-              Apply as Elite Educator
+              <span className="truncate">Apply as Elite Educator</span>
             </Link>
           </div>
         </motion.div>
