@@ -67,21 +67,21 @@ a {
   background: linear-gradient(180deg, var(--gold-600) 0%, var(--gold-500) 100%);
 }
 
-/* Luxury Components */
+/* Mobile-First Luxury Components */
 .btn-primary {
-  @apply bg-gradient-to-r from-gold-500 to-gold-400 hover:from-gold-600 hover:to-gold-500 text-navy-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-gold;
+  @apply bg-gradient-to-r from-gold-500 to-gold-400 hover:from-gold-600 hover:to-gold-500 text-navy-900 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-gold text-sm sm:text-base whitespace-normal break-words min-w-0;
 }
 
 .btn-secondary {
-  @apply bg-gradient-to-r from-navy-800 to-navy-700 hover:from-navy-900 hover:to-navy-800 text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-luxury;
+  @apply bg-gradient-to-r from-navy-800 to-navy-700 hover:from-navy-900 hover:to-navy-800 text-white font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-luxury text-sm sm:text-base whitespace-normal break-words min-w-0;
 }
 
 .btn-outline {
-  @apply border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-navy-900 font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105;
+  @apply border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-navy-900 font-semibold py-3 px-6 sm:py-4 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 text-sm sm:text-base whitespace-normal break-words min-w-0;
 }
 
 .btn-ghost {
-  @apply text-navy-800 hover:bg-navy-50 font-medium py-3 px-6 rounded-lg transition-all duration-300;
+  @apply text-navy-800 hover:bg-navy-50 font-medium py-2 px-4 sm:py-3 sm:px-6 rounded-lg transition-all duration-300 text-sm sm:text-base;
 }
 
 .card {
@@ -93,7 +93,7 @@ a {
 }
 
 .section-padding {
-  @apply py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8;
+  @apply py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6 lg:px-8;
 }
 
 .container-custom {
@@ -101,32 +101,46 @@ a {
 }
 
 .container-narrow {
-  @apply max-w-5xl mx-auto;
+  @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
 }
 
-/* Typography */
+/* Mobile-First Container */
+.container-mobile {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Responsive Typography Scale */
 .heading-xl {
-  @apply text-6xl lg:text-7xl font-bold text-navy-900 leading-tight;
+  @apply text-[clamp(2rem,6vw,3.5rem)] font-bold text-navy-900 leading-tight;
 }
 
 .heading-lg {
-  @apply text-4xl lg:text-5xl font-bold text-navy-900 leading-tight;
+  @apply text-[clamp(1.75rem,5vw,3rem)] font-bold text-navy-900 leading-tight;
 }
 
 .heading-md {
-  @apply text-3xl lg:text-4xl font-bold text-navy-900 leading-tight;
+  @apply text-[clamp(1.5rem,4vw,2.25rem)] font-bold text-navy-900 leading-tight;
 }
 
 .heading-sm {
-  @apply text-2xl lg:text-3xl font-semibold text-navy-900 leading-tight;
+  @apply text-[clamp(1.25rem,3vw,1.875rem)] font-semibold text-navy-900 leading-tight;
 }
 
 .text-luxury {
-  @apply text-lg text-charcoal-700 leading-relaxed;
+  @apply text-[15px] sm:text-[16px] md:text-[18px] text-charcoal-700 leading-relaxed;
 }
 
 .text-muted {
-  @apply text-charcoal-600 leading-relaxed;
+  @apply text-[14px] sm:text-[15px] md:text-[16px] text-charcoal-600 leading-relaxed;
+}
+
+/* Mobile-First Button Styles */
+.btn-mobile {
+  @apply px-4 py-2 text-sm sm:text-base whitespace-normal break-words min-w-0;
+}
+
+.btn-mobile-short {
+  @apply px-3 py-2 text-xs sm:text-sm whitespace-nowrap;
 }
 
 /* Luxury Animations */
