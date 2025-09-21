@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     }
 
     // Check if Supabase is configured
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
       console.log('Supabase not configured - storing in memory for demo')
       // For demo purposes, return a mock response
       return NextResponse.json({ 

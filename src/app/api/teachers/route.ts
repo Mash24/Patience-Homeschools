@@ -1,6 +1,8 @@
+export const runtime = 'nodejs';
+
 import { NextResponse } from 'next/server'
 import { TeacherApplicationSchema } from '@/lib/schemas'
-import { createAdminClient } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabaseServer'
 import { sendTeacherApplicationNotification } from '@/lib/email'
 
 export async function POST(req: Request) {
@@ -19,21 +21,14 @@ export async function POST(req: Request) {
       )
     }
 
-    // Check if Supabase is configured
-    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
-      console.log('Supabase not configured - storing in memory for demo')
-      // For demo purposes, return a mock response
-      return NextResponse.json({ 
-        success: true, 
-        id: `demo-${Date.now()}`,
-        message: 'Application submitted successfully (demo mode)' 
-      })
-    }
-
-    const supabase = createAdminClient()
+    // Debug: Log available env keys
+    console.log(
+      'Env keys present:',
+      Object.keys(process.env).filter(k => k.includes('SUPABASE')).sort()
+    );
     
     // Insert the teacher application into the database
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('teachers')
       .insert({
         name: parsed.data.personalInfo.fullName,
@@ -95,9 +90,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const supabase = createAdminClient()
-    
-    const { data, error } = await supabase
+    const { data, error } = await supabaseServer
       .from('teachers')
       .select('*')
       .order('created_at', { ascending: false })
