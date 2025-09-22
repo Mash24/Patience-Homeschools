@@ -11,6 +11,7 @@ import ApplicationProcess from '@/components/teacher-apply/ApplicationProcess'
 export default function TeacherApplyPage() {
   const [activeSection, setActiveSection] = useState('hero')
   const [showScrollTop, setShowScrollTop] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
 
   const sections = [
     { id: 'hero', label: 'Overview', component: TeacherApplyHero },
@@ -21,8 +22,15 @@ export default function TeacherApplyPage() {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (typeof window === 'undefined') return
+      
       const scrollPosition = window.scrollY
       setShowScrollTop(scrollPosition > 300)
+
+      // Calculate scroll progress
+      const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+      const progress = scrollHeight > 0 ? Math.min(scrollPosition / scrollHeight, 1) : 0
+      setScrollProgress(progress)
 
       // Update active section based on scroll position
       const sectionElements = sections.map(section => ({
@@ -40,11 +48,15 @@ export default function TeacherApplyPage() {
       }
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
   }, [])
 
   const scrollToSection = (sectionId: string) => {
+    if (typeof window === 'undefined') return
+    
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ 
@@ -55,6 +67,8 @@ export default function TeacherApplyPage() {
   }
 
   const scrollToTop = () => {
+    if (typeof window === 'undefined') return
+    
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -160,7 +174,7 @@ export default function TeacherApplyPage() {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 to-purple-500 origin-left z-50"
         style={{
-          transform: `scaleX(${Math.min(window.scrollY / (document.documentElement.scrollHeight - window.innerHeight), 1)})`
+          transform: `scaleX(${scrollProgress})`
         }}
       />
     </div>
