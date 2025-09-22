@@ -48,8 +48,8 @@ export default function Footer() {
                 Subscribe →
               </button>
             </form>
+            </div>
           </div>
-        </div>
       </section>
 
       {/* Main grid */}
@@ -67,7 +67,7 @@ export default function Footer() {
               <h3 id="footer-brand" className="text-white font-bold text-lg">
                 Patience Education Collective
               </h3>
-            </div>
+              </div>
             <p className="text-sm leading-relaxed text-gray-300 mb-4">
               Nairobi's premier homeschool network. TSC-certified tutors, concierge matching,
               and exclusive community events.
@@ -130,7 +130,7 @@ export default function Footer() {
               </li>
             </ul>
           </address>
-        </div>
+          </div>
 
         {/* Mobile Accordion */}
         <div className="md:hidden space-y-4">
@@ -220,22 +220,22 @@ export default function Footer() {
             </button>
             {expandedSections.contact && (
               <address className="mt-3 space-y-3 not-italic">
-                <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2">
                   <MapPin className="h-4 w-4 text-yellow-400 flex-shrink-0" />
                   <span className="text-gray-300">Nairobi, Kenya</span>
-                </div>
-                <div className="flex items-center space-x-2">
+              </div>
+              <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-yellow-400 flex-shrink-0" />
                   <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="tel:+254700000000">+254 700 000 000</a>
-                </div>
-                <div className="flex items-center space-x-2">
+              </div>
+              <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-yellow-400 flex-shrink-0" />
                   <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@patiencecollective.co.ke">info@patiencecollective.co.ke</a>
-                </div>
+              </div>
               </address>
             )}
-          </div>
         </div>
+      </div>
 
         {/* Bottom bar */}
         <div className="mt-8 border-t border-white/5 pt-6 text-sm text-gray-400 flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -243,7 +243,7 @@ export default function Footer() {
           <span className="mt-2 sm:mt-0">Built with care for Nairobi's homeschooling community.</span>
         </div>
       </div>
-
+      
       {/* Bottom spacer for floating concierge button */}
       <div className="h-20 sm:h-0" />
     </footer>
