@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
-import FooterLuxury from '@/components/layout/FooterLuxury'
+import Footer from '@/components/Footer'
 import WhatsAppConcierge from '@/components/shared/WhatsAppConcierge'
 import Script from 'next/script'
 
@@ -73,7 +73,7 @@ export default function RootLayout({
         <main className="min-h-screen pt-20">
           {children}
         </main>
-        <FooterLuxury />
+        <Footer />
         <WhatsAppConcierge />
       </body>
     </html>

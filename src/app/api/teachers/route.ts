@@ -31,18 +31,18 @@ export async function POST(req: Request) {
     const { data, error } = await supabaseServer
       .from('teachers')
       .insert({
-        name: parsed.data.personalInfo.fullName,
+        full_name: parsed.data.personalInfo.fullName,
         email: parsed.data.personalInfo.email,
         phone: parsed.data.personalInfo.phone,
-        city: parsed.data.personalInfo.location,
-        curricula: parsed.data.experience.curriculumExperience,
-        subjects: parsed.data.experience.subjectsTaught,
-        levels: parsed.data.experience.subjectsTaught, // Simplified for now
-        mode: parsed.data.availability.onlineTeaching ? 'online' : 'both',
-        years_experience: parseInt(parsed.data.experience.yearsOfExperience) || 0,
+        location: parsed.data.personalInfo.location,
+        qualification: parsed.data.education.highestQualification,
+        institution: parsed.data.education.institution,
         tsc_number: parsed.data.education.tscNumber,
-        bio: parsed.data.additionalInfo.teachingPhilosophy,
-        status: 'pending',
+        years_experience_text: parsed.data.experience.yearsOfExperience,
+        curriculum: parsed.data.experience.curriculumExperience,
+        subjects: parsed.data.experience.subjectsTaught,
+        teaching_philosophy: parsed.data.additionalInfo.teachingPhilosophy,
+        motivation: parsed.data.additionalInfo.motivation,
       })
       .select('id')
       .single()
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
         city: parsed.data.personalInfo.location,
         curricula: parsed.data.experience.curriculumExperience,
         subjects: parsed.data.experience.subjectsTaught,
-        yearsExperience: parseInt(parsed.data.experience.yearsOfExperience) || 0,
+        yearsExperience: parsed.data.experience.yearsOfExperience,
         tscNumber: parsed.data.education.tscNumber,
       })
     } catch (emailError) {

@@ -81,14 +81,14 @@ export default function CurriculumDetails() {
           </p>
         </div>
 
-        <div className="space-y-16">
+        <div className="space-y-12 md:space-y-16">
           {curricula.map((curriculum, index) => (
             <motion.div
               key={curriculum.name}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="card-luxury"
+              className="card-luxury p-6 md:p-8"
             >
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Left Column - Curriculum Info */}
@@ -159,11 +159,11 @@ export default function CurriculumDetails() {
                     </div>
                   </div>
 
-                  <div className="space-y-4">
-                    <button className="w-full btn-primary">
+                  <div className="space-y-3 md:space-y-4">
+                    <button className="w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl">
                       Learn More
                     </button>
-                    <button className="w-full btn-outline">
+                    <button className="w-full border-2 border-gold-500 text-gold-600 hover:bg-gold-500 hover:text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200">
                       Find Teachers
                     </button>
                   </div>
