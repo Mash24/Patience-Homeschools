@@ -20,7 +20,8 @@ export default function TeacherApplicationWizard() {
     { id: 2, title: 'Education', icon: GraduationCap },
     { id: 3, title: 'Experience', icon: BookOpen },
     { id: 4, title: 'Documents', icon: File },
-    { id: 5, title: 'Philosophy', icon: FileText }
+    { id: 5, title: 'Philosophy', icon: FileText },
+    { id: 6, title: 'Preview', icon: Eye }
   ]
 
   const [currentStep, setCurrentStep] = useState(1)
@@ -39,6 +40,7 @@ export default function TeacherApplicationWizard() {
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
   const [showPreview, setShowPreview] = useState(false)
   const [applicationStatus, setApplicationStatus] = useState<'draft' | 'submitted' | 'under_review' | 'approved' | 'rejected'>('draft')
+  const [showConfirmationDialog, setShowConfirmationDialog] = useState(false)
 
   const {
     register,
@@ -179,6 +181,7 @@ export default function TeacherApplicationWizard() {
     setErrorMessage('')
 
     try {
+      // First, submit the teacher application
       const response = await fetch('/api/teachers', {
         method: 'POST',
         headers: {
@@ -195,6 +198,46 @@ export default function TeacherApplicationWizard() {
 
       setApplicationId(result.id)
       setApplicationStatus('submitted')
+
+      // Upload files if any are selected
+      const uploadPromises = []
+      const teacherId = result.teacherId || result.data?.teacherId
+      
+      if (teacherId) {
+        for (const [fileType, file] of Object.entries(uploadedFiles)) {
+          if (file) {
+            const formData = new FormData()
+            formData.append('file', file)
+            formData.append('teacherId', teacherId)
+            formData.append('documentType', fileType)
+
+            uploadPromises.push(
+              fetch('/api/teachers/upload', {
+                method: 'POST',
+                body: formData,
+              }).then(async (uploadResponse) => {
+                if (!uploadResponse.ok) {
+                  const errorData = await uploadResponse.json()
+                  console.warn(`Failed to upload ${fileType}:`, errorData.error)
+                }
+                return uploadResponse.json()
+              })
+            )
+          }
+        }
+      } else {
+        console.warn('No teacher ID available for file uploads')
+      }
+
+      // Wait for all uploads to complete (don't fail the whole process if uploads fail)
+      if (uploadPromises.length > 0) {
+        try {
+          await Promise.allSettled(uploadPromises)
+        } catch (uploadError) {
+          console.warn('Some file uploads failed:', uploadError)
+        }
+      }
+
       setSubmitStatus('success')
       
       // Clear localStorage after successful submission
@@ -212,6 +255,16 @@ export default function TeacherApplicationWizard() {
 
   const handlePreview = () => {
     setShowPreview(true)
+  }
+
+  const handleEditSection = (stepNumber: number) => {
+    setCurrentStep(stepNumber)
+  }
+
+  const handleConfirmSubmission = async () => {
+    setShowConfirmationDialog(false)
+    const formData = getValues()
+    await onSubmit(formData)
   }
 
   const getStatusColor = (status: string) => {
@@ -296,9 +349,16 @@ export default function TeacherApplicationWizard() {
 
   const nextStep = async () => {
     const fieldsToValidate = getFieldsForStep(currentStep)
-    const isValid = await trigger(fieldsToValidate)
     
-    if (isValid && currentStep < steps.length) {
+    // Only validate if there are fields to validate
+    if (fieldsToValidate.length > 0) {
+      const isValid = await trigger(fieldsToValidate as any)
+      if (!isValid) {
+        return // Don't proceed if validation fails
+      }
+    }
+    
+    if (currentStep < steps.length) {
       setCurrentStep(currentStep + 1)
     }
   }
@@ -499,7 +559,15 @@ export default function TeacherApplicationWizard() {
             )}
             
             <form 
-              onSubmit={handleSubmit(onSubmit)} 
+              onSubmit={(e) => {
+                // Only allow submission on the final step (preview step)
+                if (currentStep !== steps.length) {
+                  e.preventDefault()
+                  return
+                }
+                e.preventDefault()
+                setShowConfirmationDialog(true)
+              }}
               className="space-y-8"
               role="form"
               aria-label="Teacher Application Form"
@@ -1193,6 +1261,215 @@ export default function TeacherApplicationWizard() {
                     </div>
                   </motion.div>
                 )}
+
+                {/* Step 6: Preview */}
+                {currentStep === 6 && (
+                  <motion.div
+                    key="step6"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="space-y-8"
+                  >
+                    <div className="text-center mb-8">
+                      <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl px-6 py-3 mb-4">
+                        <div className="p-2 bg-gradient-to-br from-green-500 to-green-600 rounded-xl">
+                          <Eye className="h-6 w-6 text-white" />
+                        </div>
+                        <h3 className="text-xl font-bold text-gray-900">Review Your Application</h3>
+                      </div>
+                      <p className="text-gray-600 text-sm">Please review all information before submitting your application</p>
+                    </div>
+
+                    <div className="space-y-6">
+                      {/* Personal Information */}
+                      <div className="bg-white border border-gray-200 rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-lg font-semibold text-gray-900 flex items-center">
+                            <User className="h-5 w-5 mr-2 text-blue-600" />
+                            Personal Information
+                          </h4>
+                          <button
+                            onClick={() => handleEditSection(1)}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                          >
+                            <span>Edit</span>
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                          <div><span className="font-medium text-gray-600">Name:</span> {getValues('personalInfo.fullName') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">Email:</span> {getValues('personalInfo.email') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">Phone:</span> {getValues('personalInfo.phone') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">Location:</span> {getValues('personalInfo.location') || 'Not provided'}</div>
+                        </div>
+                      </div>
+
+                      {/* Education */}
+                      <div className="bg-white border border-gray-200 rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-lg font-semibold text-gray-900 flex items-center">
+                            <GraduationCap className="h-5 w-5 mr-2 text-green-600" />
+                            Education & Qualifications
+                          </h4>
+                          <button
+                            onClick={() => handleEditSection(2)}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                          >
+                            <span>Edit</span>
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                          <div><span className="font-medium text-gray-600">Qualification:</span> {getValues('education.highestQualification') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">Institution:</span> {getValues('education.institution') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">TSC Number:</span> {getValues('education.tscNumber') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">Experience:</span> {getValues('experience.yearsOfExperience') || 'Not provided'} years</div>
+                        </div>
+                      </div>
+
+                      {/* Experience */}
+                      <div className="bg-white border border-gray-200 rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-lg font-semibold text-gray-900 flex items-center">
+                            <BookOpen className="h-5 w-5 mr-2 text-purple-600" />
+                            Teaching Experience
+                          </h4>
+                          <button
+                            onClick={() => handleEditSection(3)}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                          >
+                            <span>Edit</span>
+                          </button>
+                        </div>
+                        <div className="space-y-3 text-sm">
+                          <div>
+                            <span className="font-medium text-gray-600">Curriculum Experience:</span>
+                            <div className="mt-1">
+                              {getValues('experience.curriculumExperience')?.length > 0 ? (
+                                <div className="flex flex-wrap gap-2">
+                                  {getValues('experience.curriculumExperience')?.map((curriculum, index) => (
+                                    <span key={index} className="bg-purple-100 text-purple-800 px-2 py-1 rounded-full text-xs">
+                                      {curriculum}
+                                    </span>
+                                  ))}
+                                </div>
+                              ) : (
+                                <span className="text-gray-500">None selected</span>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <span className="font-medium text-gray-600">Subject Expertise:</span>
+                            <div className="mt-1">
+                              {getValues('experience.subjectsTaught')?.length > 0 ? (
+                                <div className="flex flex-wrap gap-2">
+                                  {getValues('experience.subjectsTaught')?.map((subject, index) => (
+                                    <span key={index} className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs">
+                                      {subject}
+                                    </span>
+                                  ))}
+                                </div>
+                              ) : (
+                                <span className="text-gray-500">None selected</span>
+                              )}
+                            </div>
+                          </div>
+                          <div>
+                            <span className="font-medium text-gray-600">Teaching Mode:</span>
+                            <span className="ml-2">{getValues('availability.onlineTeaching') ? 'Online' : 'In-person'}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Documents */}
+                      <div className="bg-white border border-gray-200 rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-lg font-semibold text-gray-900 flex items-center">
+                            <File className="h-5 w-5 mr-2 text-orange-600" />
+                            Documents
+                          </h4>
+                          <button
+                            onClick={() => handleEditSection(4)}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                          >
+                            <span>Edit</span>
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                          {Object.entries(uploadedFiles).map(([key, file]) => (
+                            <div key={key} className="flex items-center space-x-3">
+                              <File className="h-4 w-4 text-gray-500" />
+                              <div className="flex-1 min-w-0">
+                                <div className="font-medium text-gray-900 capitalize">
+                                  {key.replace(/([A-Z])/g, ' $1').trim()}
+                                </div>
+                                <div className="text-gray-500">
+                                  {file ? `${file.name} (${formatFileSize(file.size)})` : 'Not uploaded'}
+                                </div>
+                              </div>
+                              {file && (
+                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Teaching Philosophy */}
+                      <div className="bg-white border border-gray-200 rounded-xl p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <h4 className="text-lg font-semibold text-gray-900 flex items-center">
+                            <FileText className="h-5 w-5 mr-2 text-indigo-600" />
+                            Teaching Philosophy
+                          </h4>
+                          <button
+                            onClick={() => handleEditSection(5)}
+                            className="text-sm text-blue-600 hover:text-blue-700 font-medium flex items-center"
+                          >
+                            <span>Edit</span>
+                          </button>
+                        </div>
+                        <div className="space-y-4 text-sm">
+                          {getValues('additionalInfo.teachingPhilosophy') ? (
+                            <div>
+                              <span className="font-medium text-gray-600">Philosophy:</span>
+                              <p className="mt-2 text-gray-700 leading-relaxed">
+                                {getValues('additionalInfo.teachingPhilosophy')}
+                              </p>
+                            </div>
+                          ) : (
+                            <div className="text-gray-500">No philosophy provided</div>
+                          )}
+                          {getValues('additionalInfo.whyJoinUs') && (
+                            <div>
+                              <span className="font-medium text-gray-600">Why Join Us:</span>
+                              <p className="mt-2 text-gray-700 leading-relaxed">
+                                {getValues('additionalInfo.whyJoinUs')}
+                              </p>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                      <div className="flex items-start space-x-3">
+                        <div className="flex-shrink-0">
+                          <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center">
+                            <span className="text-white text-xs font-bold">!</span>
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold text-blue-900 mb-2">Ready to Submit?</h4>
+                          <p className="text-sm text-blue-800">
+                            Please review all information carefully. Once submitted, you won't be able to make changes to your application.
+                            We'll review your application and get back to you within 48 hours.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
               </AnimatePresence>
 
               {/* Navigation Buttons */}
@@ -1416,6 +1693,55 @@ export default function TeacherApplicationWizard() {
                 className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
               >
                 Continue Application
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
+
+      {/* Confirmation Dialog */}
+      {showConfirmationDialog && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl"
+          >
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-2">Ready to Submit?</h3>
+              <p className="text-gray-600 text-sm">
+                Are you sure you want to submit your teacher application? Please make sure all information is correct as you won't be able to make changes after submission.
+              </p>
+            </div>
+            
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowConfirmationDialog(false)}
+                className="flex-1 px-4 py-3 text-gray-600 hover:text-gray-800 font-medium transition-colors border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                Review Again
+              </button>
+              <button
+                onClick={handleConfirmSubmission}
+                disabled={isSubmitting}
+                className={`flex-1 px-4 py-3 rounded-lg font-medium transition-colors ${
+                  isSubmitting
+                    ? 'bg-gray-400 text-white cursor-not-allowed'
+                    : 'bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800'
+                }`}
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center">
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                    Submitting...
+                  </div>
+                ) : (
+                  'Yes, Submit Application'
+                )}
               </button>
             </div>
           </motion.div>

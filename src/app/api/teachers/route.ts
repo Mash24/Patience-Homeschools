@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { TeacherApplicationSchema } from '@/lib/schemas'
+import { createAdminClient } from '@/lib/supabase'
 
 export async function POST(request: NextRequest) {
   try {
@@ -11,23 +12,67 @@ export async function POST(request: NextRequest) {
     // Generate a unique application ID
     const applicationId = `APP-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
     
-    // In a real application, you would save this to a database
-    // For now, we'll just log it and return success
-    console.log('Teacher Application Received:', {
-      id: applicationId,
+    // Check if Supabase is configured
+    if (!process.env.SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.log('Supabase not configured - storing in memory for demo')
+      // For demo purposes, return a mock response
+      return NextResponse.json({ 
+        success: true, 
+        id: applicationId,
+        message: 'Application submitted successfully (demo mode)' 
+      })
+    }
+
+    const supabase = createAdminClient()
+    
+    // Insert the teacher application into the database
+    const { data, error } = await supabase
+      .from('teachers')
+      .insert({
+        name: validatedData.personalInfo.fullName,
+        email: validatedData.personalInfo.email,
+        phone: validatedData.personalInfo.phone,
+        city: validatedData.personalInfo.location,
+        bio: validatedData.additionalInfo.teachingPhilosophy,
+        curricula: validatedData.experience.curriculumExperience,
+        subjects: validatedData.experience.subjectsTaught,
+        levels: [], // Not captured in current form
+        mode: validatedData.availability.onlineTeaching ? 'online' : 'in_home',
+        service_areas: [validatedData.personalInfo.location],
+        years_experience: parseInt(validatedData.experience.yearsOfExperience.split('-')[0]) || 0,
+        tsc_number: validatedData.education.tscNumber || null,
+        verified: false,
+        status: 'pending'
+      })
+      .select('id')
+      .single()
+
+    if (error) {
+      console.error('Database error:', error)
+      return NextResponse.json(
+        { 
+          success: false, 
+          error: 'Failed to save teacher application' 
+        }, 
+        { status: 500 }
+      )
+    }
+
+    console.log('Teacher Application Saved:', {
+      id: data.id,
+      applicationId,
       data: validatedData,
       timestamp: new Date().toISOString()
     })
     
-    // Simulate some processing time
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    
     return NextResponse.json({
       success: true,
       id: applicationId,
+      teacherId: data.id, // Return the actual database UUID
       message: 'Application submitted successfully! We will review your application and get back to you within 48 hours.',
       data: {
         applicationId,
+        teacherId: data.id,
         status: 'submitted',
         submittedAt: new Date().toISOString()
       }
