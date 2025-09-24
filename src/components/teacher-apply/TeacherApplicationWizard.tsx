@@ -723,6 +723,21 @@ export default function TeacherApplicationWizard() {
                           </p>
                         )}
                       </div>
+                      
+                      <div className="space-y-2">
+                        <label className="block text-sm font-semibold text-gray-700">
+                          ID Number
+                        </label>
+                        <div className="relative">
+                        <input
+                          type="text"
+                          {...register('personalInfo.idNumber')}
+                            className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-xl transition-all duration-200 focus:outline-none focus:border-blue-500 focus:ring-blue-100"
+                            placeholder="National ID number (optional)"
+                        />
+                        </div>
+                        <p className="text-xs text-gray-500">Optional - for verification purposes</p>
+                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -769,6 +784,20 @@ export default function TeacherApplicationWizard() {
                         {errors.education?.institution && (
                           <p className="text-red-500 text-sm mt-1">{errors.education.institution.message}</p>
                         )}
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Year of Graduation
+                        </label>
+                        <input
+                          type="number"
+                          {...register('education.yearOfGraduation')}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="e.g., 2020"
+                          min="1950"
+                          max="2030"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">Optional</p>
                       </div>
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1198,7 +1227,7 @@ export default function TeacherApplicationWizard() {
                       <div className="space-y-3">
                         <label className="block text-sm font-semibold text-gray-700">
                           Describe your teaching philosophy and approach *
-                      </label>
+                        </label>
                         <div className="relative">
                       <textarea
                         {...register('additionalInfo.teachingPhilosophy')}
@@ -1222,7 +1251,7 @@ export default function TeacherApplicationWizard() {
                             <span>{errors.additionalInfo.teachingPhilosophy.message}</span>
                           </p>
                         )}
-                        <p className="text-xs text-gray-500">Minimum 100 characters</p>
+                        <p className="text-xs text-gray-500">Minimum 100 characters (required)</p>
                     </div>
 
                       <div className="space-y-3">
@@ -1238,6 +1267,21 @@ export default function TeacherApplicationWizard() {
                           />
                         </div>
                         <p className="text-xs text-gray-500">Optional but recommended</p>
+                      </div>
+
+                      <div className="space-y-3">
+                        <label className="block text-sm font-semibold text-gray-700">
+                          Professional References
+                        </label>
+                        <div className="relative">
+                      <textarea
+                        {...register('additionalInfo.references')}
+                            rows={3}
+                            className="w-full px-4 py-4 bg-white border-2 border-gray-200 rounded-xl transition-all duration-200 focus:outline-none focus:border-indigo-500 focus:ring-indigo-100 resize-none"
+                            placeholder="Please provide 2-3 professional references with their names, positions, and contact information."
+                          />
+                        </div>
+                        <p className="text-xs text-gray-500">Optional - helps with verification</p>
                       </div>
                     </div>
 
@@ -1302,6 +1346,7 @@ export default function TeacherApplicationWizard() {
                           <div><span className="font-medium text-gray-600">Email:</span> {getValues('personalInfo.email') || 'Not provided'}</div>
                           <div><span className="font-medium text-gray-600">Phone:</span> {getValues('personalInfo.phone') || 'Not provided'}</div>
                           <div><span className="font-medium text-gray-600">Location:</span> {getValues('personalInfo.location') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">ID Number:</span> {getValues('personalInfo.idNumber') || 'Not provided'}</div>
                         </div>
                       </div>
 
@@ -1322,6 +1367,7 @@ export default function TeacherApplicationWizard() {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                           <div><span className="font-medium text-gray-600">Qualification:</span> {getValues('education.highestQualification') || 'Not provided'}</div>
                           <div><span className="font-medium text-gray-600">Institution:</span> {getValues('education.institution') || 'Not provided'}</div>
+                          <div><span className="font-medium text-gray-600">Year of Graduation:</span> {getValues('education.yearOfGraduation') || 'Not provided'}</div>
                           <div><span className="font-medium text-gray-600">TSC Number:</span> {getValues('education.tscNumber') || 'Not provided'}</div>
                           <div><span className="font-medium text-gray-600">Experience:</span> {getValues('experience.yearsOfExperience') || 'Not provided'} years</div>
                         </div>
@@ -1445,6 +1491,14 @@ export default function TeacherApplicationWizard() {
                               <span className="font-medium text-gray-600">Why Join Us:</span>
                               <p className="mt-2 text-gray-700 leading-relaxed">
                                 {getValues('additionalInfo.whyJoinUs')}
+                              </p>
+                            </div>
+                          )}
+                          {getValues('additionalInfo.references') && (
+                            <div>
+                              <span className="font-medium text-gray-600">Professional References:</span>
+                              <p className="mt-2 text-gray-700 leading-relaxed">
+                                {getValues('additionalInfo.references')}
                               </p>
                             </div>
                           )}

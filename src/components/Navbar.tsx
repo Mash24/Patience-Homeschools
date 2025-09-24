@@ -41,13 +41,13 @@ export default function Navbar() {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-lg sm:text-xl font-bold text-navy-900 group-hover:text-gold-600 transition-colors duration-300">
-                Patience Education Collective
+                Nelimac Learning
               </h1>
-              <p className="text-xs sm:text-sm text-charcoal-600 font-medium">Nairobi's Premier Homeschool Network</p>
+              <p className="text-xs sm:text-sm text-charcoal-600 font-medium">Nairobi's Premier Education Network</p>
             </div>
             <div className="block sm:hidden">
               <h1 className="text-sm font-bold text-navy-900 group-hover:text-gold-600 transition-colors duration-300">
-                Patience
+                Nelimac
               </h1>
             </div>
           </Link>

@@ -1,7 +1,8 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { FileText, Clock, CheckCircle, Users, Mail, Phone } from 'lucide-react'
+import { FileText, Clock, CheckCircle, Users, Mail, Phone, ArrowRight, ExternalLink } from 'lucide-react'
+import { useState, useEffect } from 'react'
 
 const steps = [
   {
@@ -73,8 +74,32 @@ const timeline = [
 ]
 
 export default function ApplicationProcess() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    // Check for reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setReducedMotion(mediaQuery.matches)
+    
+    const handleChange = (e: MediaQueryListEvent) => setReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+  const scrollToApplication = () => {
+    const applicationSection = document.getElementById('application')
+    if (applicationSection) {
+      applicationSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      })
+    }
+  }
+
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-white" aria-labelledby="application-process-heading">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -83,7 +108,7 @@ export default function ApplicationProcess() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 id="application-process-heading" className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Application Process
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -93,15 +118,17 @@ export default function ApplicationProcess() {
         </motion.div>
 
         {/* Process Steps - Desktop */}
-        <div className="hidden md:grid grid-cols-1 lg:grid-cols-4 gap-8 mb-16">
+        <div className="hidden md:grid grid-cols-1 lg:grid-cols-4 gap-8 mb-16" role="list" aria-label="Application process steps">
           {steps.map((step, index) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
+              initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 50 }}
+              whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
+              transition={reducedMotion ? {} : { duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
               className="relative"
+              role="listitem"
+              aria-label={`Step ${step.step}: ${step.title}`}
             >
               {/* Connection Line */}
               {index < steps.length - 1 && (
@@ -110,16 +137,16 @@ export default function ApplicationProcess() {
                 </div>
               )}
 
-              <div className="card text-center hover:shadow-xl transition-all duration-300 relative z-10">
+              <div className="card text-center hover:shadow-xl transition-all duration-300 relative z-10 focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2" tabIndex={0}>
                 {/* Step Number */}
                 <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm">
+                  <div className="bg-blue-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm" aria-hidden="true">
                     {step.step}
                   </div>
                 </div>
 
                 {/* Icon */}
-                <div className={`inline-flex p-4 rounded-full ${colorClasses[step.color as keyof typeof colorClasses]} mb-4 mt-4`}>
+                <div className={`inline-flex p-4 rounded-full ${colorClasses[step.color as keyof typeof colorClasses]} mb-4 mt-4`} aria-hidden="true">
                   <step.icon className="h-8 w-8" />
                 </div>
 
@@ -133,15 +160,15 @@ export default function ApplicationProcess() {
 
                 {/* Duration */}
                 <div className="flex items-center justify-center space-x-1 text-sm text-gray-500 mb-4">
-                  <Clock className="h-4 w-4" />
-                  <span>{step.duration}</span>
+                  <Clock className="h-4 w-4" aria-hidden="true" />
+                  <span>Duration: {step.duration}</span>
                 </div>
 
                 {/* Details */}
-                <ul className="text-left space-y-1">
+                <ul className="text-left space-y-1" role="list" aria-label={`Details for ${step.title}`}>
                   {step.details.map((detail, detailIndex) => (
                     <li key={detailIndex} className="flex items-center space-x-2 text-xs text-gray-600">
-                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" aria-hidden="true"></div>
                       <span>{detail}</span>
                     </li>
                   ))}
@@ -152,20 +179,23 @@ export default function ApplicationProcess() {
         </div>
 
         {/* Process Steps - Mobile Accordion */}
-        <div className="md:hidden space-y-4 mb-16">
+        <div className="md:hidden space-y-4 mb-16" role="list" aria-label="Application process steps">
           {steps.map((step, index) => (
             <motion.div
               key={step.step}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              initial={reducedMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+              whileInView={reducedMotion ? {} : { opacity: 1, y: 0 }}
+              transition={reducedMotion ? {} : { duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="card"
+              className="card focus-within:ring-2 focus-within:ring-blue-500 focus-within:ring-offset-2"
+              role="listitem"
+              tabIndex={0}
+              aria-label={`Step ${step.step}: ${step.title}`}
             >
               <div className="flex items-center space-x-4">
                 {/* Step Number */}
                 <div className="flex-shrink-0">
-                  <div className="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm">
+                  <div className="bg-blue-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm" aria-hidden="true">
                     {step.step}
                   </div>
                 </div>
@@ -173,7 +203,7 @@ export default function ApplicationProcess() {
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex items-center space-x-3 mb-2">
-                    <div className={`inline-flex p-2 rounded-lg ${colorClasses[step.color as keyof typeof colorClasses]}`}>
+                    <div className={`inline-flex p-2 rounded-lg ${colorClasses[step.color as keyof typeof colorClasses]}`} aria-hidden="true">
                       <step.icon className="h-5 w-5" />
                     </div>
                     <h3 className="text-lg font-semibold text-gray-900">
@@ -184,15 +214,15 @@ export default function ApplicationProcess() {
                     {step.description}
                   </p>
                   <div className="flex items-center space-x-1 text-sm text-gray-500 mb-3">
-                    <Clock className="h-4 w-4" />
-                    <span>{step.duration}</span>
+                    <Clock className="h-4 w-4" aria-hidden="true" />
+                    <span>Duration: {step.duration}</span>
                   </div>
                   
                   {/* Details */}
-                  <ul className="space-y-1">
+                  <ul className="space-y-1" role="list" aria-label={`Details for ${step.title}`}>
                     {step.details.map((detail, detailIndex) => (
                       <li key={detailIndex} className="flex items-center space-x-2 text-xs text-gray-600">
-                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full"></div>
+                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full" aria-hidden="true"></div>
                         <span>{detail}</span>
                       </li>
                     ))}
@@ -383,9 +413,10 @@ export default function ApplicationProcess() {
                   </p>
                   <a 
                     href="tel:+254700000000"
-                    className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
+                    className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300 focus:ring-offset-2"
+                    aria-label="Call us at +254 700 000 000"
                   >
-                    <Phone className="h-4 w-4" />
+                    <Phone className="h-4 w-4" aria-hidden="true" />
                     <span>+254 700 000 000</span>
                   </a>
               </div>
@@ -410,11 +441,12 @@ export default function ApplicationProcess() {
                     Send us your questions anytime and we'll respond within 24 hours
                   </p>
                   <a 
-                    href="mailto:teachers@patiencehomeschools.co.ke"
-                    className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 break-all"
+                    href="mailto:teachers@nelimaclearning.co.ke"
+                    className="inline-flex items-center space-x-2 bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105 break-all focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-offset-2"
+                    aria-label="Email us at teachers@nelimaclearning.co.ke"
                   >
-                    <Mail className="h-4 w-4 flex-shrink-0" />
-                    <span className="text-xs md:text-sm">teachers@patiencehomeschools.co.ke</span>
+                    <Mail className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                    <span className="text-xs md:text-sm">teachers@nelimaclearning.co.ke</span>
                   </a>
               </div>
             </div>
@@ -471,12 +503,14 @@ export default function ApplicationProcess() {
             viewport={{ once: true }}
             className="text-center"
           >
-            <button className="group bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-8 md:py-5 md:px-12 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+            <button 
+              onClick={scrollToApplication}
+              className="group bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-8 md:py-5 md:px-12 rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-green-300 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              aria-label="Start your teacher application now"
+            >
               <span className="flex items-center space-x-2">
                 <span>Start Your Application Now</span>
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
               </span>
             </button>
           </motion.div>

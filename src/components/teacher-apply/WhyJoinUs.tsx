@@ -247,7 +247,7 @@ export default function WhyJoinUs() {
                 id: '1',
                 name: 'Grace Wanjiku',
                 role: 'Mathematics Teacher, 3 years',
-                content: 'Working with Patience Education Collective has given me the flexibility to teach while maintaining my work-life balance. The families are wonderful to work with and the support team is always there when I need help.',
+                content: 'Working with Nelimac Learning has given me the flexibility to teach while maintaining my work-life balance. The families are wonderful to work with and the support team is always there when I need help.',
                 rating: 5
               },
               {

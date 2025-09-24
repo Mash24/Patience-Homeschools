@@ -5,7 +5,7 @@ const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KE
 export async function sendAdminEmail({
   subject,
   html,
-  to = 'admin@patiencehomeschools.co.ke'
+  to = 'admin@nelimaclearning.co.ke'
 }: {
   subject: string
   html: string
@@ -18,7 +18,7 @@ export async function sendAdminEmail({
 
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Patience Education Collective <noreply@patiencehomeschools.co.ke>',
+      from: 'Nelimac Learning <noreply@nelimaclearning.co.ke>',
       to: [to],
       subject,
       html,
@@ -128,6 +128,48 @@ export async function sendTeacherApplicationNotification(teacherData: {
 
   return sendAdminEmail({
     subject: `New Teacher Application: ${teacherData.name} - ${teacherData.curricula.join(', ')}`,
+    html,
+  })
+}
+
+export async function sendParentRegistrationNotification(data: {
+  parentName: string
+  email: string
+  phone?: string
+  city?: string
+  childrenCount: number
+  userId: string
+}) {
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <h2 style="color: #0f172a;">New Parent Registration</h2>
+      
+      <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="color: #334155; margin-top: 0;">Parent Details</h3>
+        <p><strong>Name:</strong> ${data.parentName}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Phone:</strong> ${data.phone || 'Not provided'}</p>
+        <p><strong>City:</strong> ${data.city || 'Not provided'}</p>
+        <p><strong>Children:</strong> ${data.childrenCount}</p>
+        <p><strong>User ID:</strong> ${data.userId}</p>
+      </div>
+      
+      <div style="margin: 20px 0;">
+        <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin" 
+           style="background: #f59e0b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+          View in Admin Dashboard
+        </a>
+      </div>
+      
+      <p style="color: #64748b; font-size: 14px;">
+        This parent has successfully registered and their account is now active. 
+        You can view their full profile in the admin dashboard.
+      </p>
+    </div>
+  `
+
+  return sendAdminEmail({
+    subject: `New Parent Registration: ${data.parentName}`,
     html,
   })
 }

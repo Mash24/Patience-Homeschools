@@ -3,9 +3,9 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { ChevronUp, Navigation } from 'lucide-react'
-import TeacherApplyHero from '@/components/teacher-apply/TeacherApplyHero'
-import TeacherApplicationWizard from '@/components/teacher-apply/TeacherApplicationWizard'
-import WhyJoinUs from '@/components/teacher-apply/WhyJoinUs'
+import TeacherApplyHeroEnhanced from '@/components/teacher-apply/TeacherApplyHeroEnhanced'
+import TeacherApplicationWizardEnhanced from '@/components/teacher-apply/TeacherApplicationWizardEnhanced'
+import WhyJoinUsEnhanced from '@/components/teacher-apply/WhyJoinUsEnhanced'
 import ApplicationProcess from '@/components/teacher-apply/ApplicationProcess'
 
 export default function TeacherApplyPage() {
@@ -14,9 +14,9 @@ export default function TeacherApplyPage() {
   const [scrollProgress, setScrollProgress] = useState(0)
 
   const sections = [
-    { id: 'hero', label: 'Overview', component: TeacherApplyHero },
-    { id: 'application', label: 'Application', component: TeacherApplicationWizard },
-    { id: 'benefits', label: 'Benefits', component: WhyJoinUs },
+    { id: 'hero', label: 'Overview', component: TeacherApplyHeroEnhanced },
+    { id: 'application', label: 'Application', component: TeacherApplicationWizardEnhanced },
+    { id: 'benefits', label: 'Benefits', component: WhyJoinUsEnhanced },
     { id: 'process', label: 'Process', component: ApplicationProcess }
   ]
 
@@ -133,17 +133,17 @@ export default function TeacherApplyPage() {
       <div className="pt-16">
         {/* Hero Section */}
         <section id="hero">
-          <TeacherApplyHero />
+          <TeacherApplyHeroEnhanced />
         </section>
 
         {/* Application Section */}
         <section id="application">
-          <TeacherApplicationWizard />
+          <TeacherApplicationWizardEnhanced />
         </section>
 
         {/* Benefits Section */}
         <section id="benefits">
-          <WhyJoinUs />
+          <WhyJoinUsEnhanced />
         </section>
 
         {/* Process Section */}

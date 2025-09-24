@@ -36,8 +36,8 @@ export async function POST(request: NextRequest) {
         bio: validatedData.additionalInfo.teachingPhilosophy,
         curricula: validatedData.experience.curriculumExperience,
         subjects: validatedData.experience.subjectsTaught,
-        levels: [], // Not captured in current form
-        mode: validatedData.availability.onlineTeaching ? 'online' : 'in_home',
+        levels: [], // Not captured in current form - could be added later
+        mode: validatedData.availability.onlineTeaching ? 'both' : 'in_home', // Fixed logic
         service_areas: [validatedData.personalInfo.location],
         years_experience: parseInt(validatedData.experience.yearsOfExperience.split('-')[0]) || 0,
         tsc_number: validatedData.education.tscNumber || null,

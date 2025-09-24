@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://patiencehomeschools.co.ke'
+  const baseUrl = 'https://nelimaclearning.co.ke'
   
   return [
     {

@@ -9,13 +9,13 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Patience Education Collective - Nairobi\'s Premier Homeschool Network',
-  description: 'Experience the gold standard in homeschooling with our curated network of TSC-certified educators, comprehensive resources, and exclusive community events designed for discerning families across Nairobi.',
-  keywords: 'premium homeschooling Nairobi, elite education, TSC certified teachers, CBC curriculum, IGCSE Kenya, British curriculum, luxury home education, qualified educators, exclusive learning resources',
-  authors: [{ name: 'Patience Education Collective' }],
+  title: 'Nelimac Learning - Nairobi\'s Premier Education Network',
+  description: 'Experience the gold standard in education with our curated network of TSC-certified educators, comprehensive resources, and exclusive community events designed for discerning families across Nairobi.',
+  keywords: 'premium education Nairobi, elite learning, TSC certified teachers, CBC curriculum, IGCSE Kenya, British curriculum, luxury education, qualified educators, exclusive learning resources',
+  authors: [{ name: 'Nelimac Learning' }],
   openGraph: {
-    title: 'Patience Education Collective - Nairobi\'s Premier Homeschool Network',
-    description: 'Experience the gold standard in homeschooling with our curated network of TSC-certified educators and exclusive community events.',
+    title: 'Nelimac Learning - Nairobi\'s Premier Education Network',
+    description: 'Experience the gold standard in education with our curated network of TSC-certified educators and exclusive community events.',
     type: 'website',
     locale: 'en_KE',
   },
@@ -45,10 +45,10 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "EducationalOrganization",
-              "name": "Patience Education Collective",
-              "description": "Nairobi's Premier Homeschool Network with TSC-certified educators",
-              "url": "https://patiencehomeschools.co.ke",
-              "logo": "https://patiencehomeschools.co.ke/logo.png",
+              "name": "Nelimac Learning",
+              "description": "Nairobi's Premier Education Network with TSC-certified educators",
+              "url": "https://nelimaclearning.co.ke",
+              "logo": "https://nelimaclearning.co.ke/logo.png",
               "address": {
                 "@type": "PostalAddress",
                 "addressLocality": "Nairobi",
@@ -58,11 +58,11 @@ export default function RootLayout({
                 "@type": "ContactPoint",
                 "telephone": "+254-XXX-XXX-XXX",
                 "contactType": "customer service",
-                "email": "info@patiencehomeschools.co.ke"
+                "email": "info@nelimaclearning.co.ke"
               },
               "sameAs": [
-                "https://facebook.com/patiencehomeschools",
-                "https://instagram.com/patiencehomeschools"
+                "https://facebook.com/nelimaclearning",
+                "https://instagram.com/nelimaclearning"
               ]
             })
           }}

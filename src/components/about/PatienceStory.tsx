@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { GraduationCap, Users, Heart, Award } from 'lucide-react'
 
-export default function PatienceStory() {
+export default function NelimacStory() {
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
@@ -17,24 +17,24 @@ export default function PatienceStory() {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
-                Meet Patience
+                Our Story
               </h2>
               <div className="space-y-6 text-gray-600 leading-relaxed">
                 <p>
-                  Patience founded Patience Home Schools with a simple yet powerful vision: 
+                  Nelimac Learning was founded with a simple yet powerful vision: 
                   to make quality education accessible to every family in Nairobi, regardless 
                   of their circumstances or location.
                 </p>
                 <p>
                   With over 8 years of experience in education and a deep understanding of 
-                  Kenya's diverse curricula, Patience recognized the need for a platform 
+                  Kenya's diverse curricula, we recognized the need for a platform 
                   that could connect qualified teachers with families seeking personalized 
                   education solutions.
                 </p>
                 <p>
-                  Her journey began when she noticed that many families were struggling to 
+                  Our journey began when we noticed that many families were struggling to 
                   find qualified teachers who could adapt to their children's unique learning 
-                  styles and support different curricula. This inspired her to create a 
+                  styles and support different curricula. This inspired us to create a 
                   comprehensive platform that addresses these challenges.
                 </p>
               </div>

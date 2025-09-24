@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/admin/', '/api/'],
     },
-    sitemap: 'https://patiencehomeschools.co.ke/sitemap.xml',
+    sitemap: 'https://nelimaclearning.co.ke/sitemap.xml',
   }
 }

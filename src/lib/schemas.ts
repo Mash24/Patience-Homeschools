@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-// Parent Lead Schema
+// Parent Lead Schema (for teacher matching)
 export const ParentLeadSchema = z.object({
   parentName: z.string().min(2, 'Parent name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
@@ -18,6 +18,71 @@ export const ParentLeadSchema = z.object({
 })
 
 export type ParentLeadData = z.infer<typeof ParentLeadSchema>
+
+// Enhanced Parent Registration Schema
+export const ParentRegistrationSchema = z.object({
+  // Personal Information
+  firstName: z.string().min(2, 'First name must be at least 2 characters'),
+  lastName: z.string().min(2, 'Last name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().min(10, 'Please enter a valid phone number'),
+  password: z.string().min(8, 'Password must be at least 8 characters'),
+  confirmPassword: z.string(),
+  
+  // Location Information
+  city: z.string().min(2, 'Please enter your city'),
+  area: z.string().min(2, 'Please enter your area'),
+  address: z.string().optional(),
+  
+  // Family Information
+  children: z.array(z.object({
+    firstName: z.string().min(1, 'Child name is required'),
+    lastName: z.string().min(1, 'Child surname is required'),
+    dateOfBirth: z.string().min(1, 'Date of birth is required'),
+    gradeLevel: z.string().min(1, 'Grade level is required'),
+    school: z.string().optional(),
+    specialNeeds: z.string().optional(),
+    interests: z.array(z.string()).optional(),
+  })).min(1, 'Please add at least one child'),
+  
+  // Education Preferences
+  preferredCurricula: z.array(z.string()).min(1, 'Please select at least one curriculum'),
+  preferredSubjects: z.array(z.string()).min(1, 'Please select at least one subject'),
+  teachingMode: z.enum(['in_home', 'online', 'hybrid']),
+  
+  // Additional Information
+  goals: z.string().optional(),
+  budgetConsiderations: z.string().optional(),
+  schedulePreferences: z.string().optional(),
+  emergencyContact: z.string().optional(),
+  
+  // Communication Preferences
+  preferredContactMethod: z.enum(['email', 'phone', 'whatsapp']),
+  newsletterSubscription: z.boolean().default(true),
+  smsNotifications: z.boolean().default(true),
+  
+  // Terms and Conditions
+  agreeToTerms: z.boolean().refine(val => val === true, 'You must agree to the terms and conditions'),
+  agreeToPrivacy: z.boolean().refine(val => val === true, 'You must agree to the privacy policy'),
+}).refine(data => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+})
+
+export type ParentRegistrationData = z.infer<typeof ParentRegistrationSchema>
+
+// Child Schema (for individual child data)
+export const ChildSchema = z.object({
+  firstName: z.string().min(1, 'Child name is required'),
+  lastName: z.string().min(1, 'Child surname is required'),
+  dateOfBirth: z.string().min(1, 'Date of birth is required'),
+  gradeLevel: z.string().min(1, 'Grade level is required'),
+  school: z.string().optional(),
+  specialNeeds: z.string().optional(),
+  interests: z.array(z.string()).optional(),
+})
+
+export type ChildData = z.infer<typeof ChildSchema>
 
 // Teacher Application Schema
 export const TeacherApplicationSchema = z.object({
@@ -50,7 +115,7 @@ export const TeacherApplicationSchema = z.object({
     onlineTeaching: z.boolean().default(false),
   }),
   additionalInfo: z.object({
-    teachingPhilosophy: z.string().optional(),
+    teachingPhilosophy: z.string().min(100, 'Teaching philosophy must be at least 100 characters'),
     whyJoinUs: z.string().optional(),
     references: z.string().optional(),
   }),
@@ -95,6 +160,7 @@ export interface Teacher {
   name: string
   email: string
   phone?: string
+  id_number?: string
   bio?: string
   city?: string
   curricula: string[]
@@ -106,6 +172,10 @@ export interface Teacher {
   rate_min?: number
   rate_max?: number
   tsc_number?: string
+  year_of_graduation?: number
+  additional_certifications?: string
+  previous_schools?: string
+  references?: string
   verified: boolean
   status: 'pending' | 'approved' | 'rejected'
   score: number
@@ -117,6 +187,8 @@ export interface TeacherDocument {
   teacher_id: string
   kind: string
   file_path: string
+  file_name?: string
+  file_size?: number
   verified_at?: string
   created_at: string
 }

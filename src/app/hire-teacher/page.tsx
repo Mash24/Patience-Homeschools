@@ -1,15 +1,19 @@
-import HireTeacherHero from '@/components/hire-teacher/HireTeacherHero'
-import TeacherMatchingForm from '@/components/hire-teacher/TeacherMatchingForm'
-import HowMatchingWorks from '@/components/hire-teacher/HowMatchingWorks'
-import FeaturedTeachers from '@/components/hire-teacher/FeaturedTeachers'
+import HireTeacherHeroEnhanced from '@/components/hire-teacher/HireTeacherHeroEnhanced'
+import TeacherMatchingFormEnhanced from '@/components/hire-teacher/TeacherMatchingFormEnhanced'
+import HowMatchingWorksEnhanced from '@/components/hire-teacher/HowMatchingWorksEnhanced'
+import FeaturedTeachersEnhanced from '@/components/hire-teacher/FeaturedTeachersEnhanced'
+import TestimonialsSection from '@/components/hire-teacher/TestimonialsSection'
+import FAQSection from '@/components/hire-teacher/FAQSection'
 
 export default function HireTeacherPage() {
   return (
     <div className="min-h-screen">
-      <HireTeacherHero />
-      <TeacherMatchingForm />
-      <HowMatchingWorks />
-      <FeaturedTeachers />
+      <HireTeacherHeroEnhanced />
+      <TeacherMatchingFormEnhanced />
+      <HowMatchingWorksEnhanced />
+      <FeaturedTeachersEnhanced />
+      <TestimonialsSection />
+      <FAQSection />
     </div>
   )
 }

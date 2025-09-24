@@ -25,7 +25,7 @@ export default function Footer() {
               Stay Informed
             </h2>
             <p className="text-base md:text-lg text-gray-300 mb-6">
-              Insights on elite homeschooling in Nairobi.
+              Insights on elite education in Nairobi.
             </p>
 
             {/* ✅ Server Action instead of onSubmit */}
@@ -65,11 +65,11 @@ export default function Footer() {
                 </svg>
               </div>
               <h3 id="footer-brand" className="text-white font-bold text-lg">
-                Patience Education Collective
+                Nelimac Learning
               </h3>
               </div>
             <p className="text-sm leading-relaxed text-gray-300 mb-4">
-              Nairobi's premier homeschool network. TSC-certified tutors, concierge matching,
+              Nairobi's premier education network. TSC-certified tutors, concierge matching,
               and exclusive community events.
             </p>
             <ul aria-label="Social links" className="flex items-center gap-3">
@@ -126,7 +126,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@patiencecollective.co.ke">info@patiencecollective.co.ke</a>
+                <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@nelimaclearning.co.ke">info@nelimaclearning.co.ke</a>
               </li>
             </ul>
           </address>
@@ -143,11 +143,11 @@ export default function Footer() {
                 </svg>
               </div>
               <h3 id="footer-brand-mobile" className="text-white font-bold text-lg">
-                Patience Education Collective
+                Nelimac Learning
               </h3>
             </div>
             <p className="text-sm leading-relaxed text-gray-300 mb-4">
-              Nairobi's premier homeschool network. TSC-certified tutors, concierge matching,
+              Nairobi's premier education network. TSC-certified tutors, concierge matching,
               and exclusive community events.
             </p>
             <ul aria-label="Social links" className="flex items-center gap-3 mb-6">
@@ -230,7 +230,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@patiencecollective.co.ke">info@patiencecollective.co.ke</a>
+                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@nelimaclearning.co.ke">info@nelimaclearning.co.ke</a>
               </div>
               </address>
             )}
@@ -239,8 +239,8 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 border-t border-white/5 pt-6 text-sm text-gray-400 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Patience Education Collective. All rights reserved.</span>
-          <span className="mt-2 sm:mt-0">Built with care for Nairobi's homeschooling community.</span>
+          <span>© {new Date().getFullYear()} Nelimac Learning. All rights reserved.</span>
+          <span className="mt-2 sm:mt-0">Built with care for Nairobi's education community.</span>
         </div>
       </div>
       

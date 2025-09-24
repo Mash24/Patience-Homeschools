@@ -1,4 +1,4 @@
--- Patience Education Collective Database Schema
+-- Nelimac Learning Database Schema
 -- Run this in Supabase SQL Editor
 
 -- Enable necessary extensions
@@ -13,7 +13,7 @@ create table if not exists profiles (
   created_at timestamptz default now()
 );
 
--- PARENT LEADS
+-- PARENT LEADS (for teacher matching requests)
 create table if not exists parent_leads (
   id uuid primary key default gen_random_uuid(),
   parent_name text not null,
@@ -33,12 +33,55 @@ create table if not exists parent_leads (
   created_at timestamptz default now()
 );
 
+-- PARENTS (registered parent accounts)
+create table if not exists parents (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references profiles(id) on delete cascade,
+  first_name text not null,
+  last_name text not null,
+  email text not null,
+  phone text,
+  city text,
+  area text,
+  address text,
+  preferred_curricula text[],
+  preferred_subjects text[],
+  teaching_mode text check (teaching_mode in ('in_home','online','hybrid')) default 'in_home',
+  goals text,
+  budget_considerations text,
+  schedule_preferences text,
+  emergency_contact text,
+  preferred_contact_method text check (preferred_contact_method in ('email','phone','whatsapp')) default 'email',
+  newsletter_subscription boolean default true,
+  sms_notifications boolean default true,
+  status text check (status in ('active','inactive','suspended')) default 'active',
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+-- CHILDREN (children of registered parents)
+create table if not exists children (
+  id uuid primary key default gen_random_uuid(),
+  parent_id uuid references parents(id) on delete cascade,
+  first_name text not null,
+  last_name text not null,
+  date_of_birth date,
+  grade_level text,
+  school text,
+  special_needs text,
+  interests text[],
+  status text check (status in ('active','inactive')) default 'active',
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
 -- TEACHERS
 create table if not exists teachers (
   id uuid primary key default gen_random_uuid(),
   name text not null,
   email text not null,
   phone text,
+  id_number text,
   bio text,
   city text,
   curricula text[] not null,
@@ -50,6 +93,10 @@ create table if not exists teachers (
   rate_min int,
   rate_max int,
   tsc_number text,
+  year_of_graduation int,
+  additional_certifications text,
+  previous_schools text,
+  references text,
   verified boolean default false,
   status text check (status in ('pending','approved','rejected')) default 'pending',
   score numeric default 0,
@@ -60,8 +107,10 @@ create table if not exists teachers (
 create table if not exists teacher_documents (
   id uuid primary key default gen_random_uuid(),
   teacher_id uuid references teachers(id) on delete cascade,
-  kind text, -- 'cv','certificate','coc','tsc'
+  kind text not null, -- 'tscCertificate','cv','profilePhoto','otherDocuments'
   file_path text not null,
+  file_name text,
+  file_size bigint,
   verified_at timestamptz,
   created_at timestamptz default now()
 );
@@ -107,6 +156,8 @@ create table if not exists resources (
 -- Enable Row Level Security
 alter table profiles enable row level security;
 alter table parent_leads enable row level security;
+alter table parents enable row level security;
+alter table children enable row level security;
 alter table teachers enable row level security;
 alter table teacher_documents enable row level security;
 alter table matches enable row level security;
@@ -139,6 +190,48 @@ using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'ad
 
 create policy "admin can update leads"
 on parent_leads for update
+to authenticated
+using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+-- Parents policies
+create policy "parents can view own data"
+on parents for select
+to authenticated
+using (user_id = auth.uid());
+
+create policy "parents can update own data"
+on parents for update
+to authenticated
+using (user_id = auth.uid());
+
+create policy "admin can select all parents"
+on parents for select
+to authenticated
+using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+create policy "admin can update parents"
+on parents for update
+to authenticated
+using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'admin'));
+
+-- Children policies
+create policy "parents can view own children"
+on children for select
+to authenticated
+using (exists (select 1 from parents p where p.id = parent_id and p.user_id = auth.uid()));
+
+create policy "parents can update own children"
+on children for update
+to authenticated
+using (exists (select 1 from parents p where p.id = parent_id and p.user_id = auth.uid()));
+
+create policy "parents can insert own children"
+on children for insert
+to authenticated
+with check (exists (select 1 from parents p where p.id = parent_id and p.user_id = auth.uid()));
+
+create policy "admin can select all children"
+on children for select
 to authenticated
 using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'admin'));
 
@@ -205,10 +298,21 @@ using (exists (select 1 from profiles p where p.id = auth.uid() and p.role = 'ad
 -- Create indexes for better performance
 create index if not exists idx_parent_leads_status on parent_leads(status);
 create index if not exists idx_parent_leads_created_at on parent_leads(created_at desc);
+create index if not exists idx_parents_user_id on parents(user_id);
+create index if not exists idx_parents_status on parents(status);
+create index if not exists idx_parents_city on parents(city);
+create index if not exists idx_parents_created_at on parents(created_at desc);
+create index if not exists idx_children_parent_id on children(parent_id);
+create index if not exists idx_children_status on children(status);
+create index if not exists idx_children_grade_level on children(grade_level);
 create index if not exists idx_teachers_status on teachers(status);
 create index if not exists idx_teachers_curricula on teachers using gin(curricula);
 create index if not exists idx_teachers_subjects on teachers using gin(subjects);
 create index if not exists idx_teachers_verified on teachers(verified);
+create index if not exists idx_teachers_email on teachers(email);
+create index if not exists idx_teachers_tsc_number on teachers(tsc_number);
+create index if not exists idx_teacher_documents_teacher_id on teacher_documents(teacher_id);
+create index if not exists idx_teacher_documents_kind on teacher_documents(kind);
 create index if not exists idx_events_date on events(date);
 create index if not exists idx_events_status on events(status);
 create index if not exists idx_resources_category on resources(category);

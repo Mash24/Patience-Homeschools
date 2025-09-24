@@ -72,7 +72,9 @@ export async function POST(request: NextRequest) {
       .insert({
         teacher_id: teacherId,
         kind: documentType,
-        file_path: uploadData.path
+        file_path: uploadData.path,
+        file_name: file.name,
+        file_size: file.size
       })
       .select('id')
       .single()
