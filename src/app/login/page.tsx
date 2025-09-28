@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { motion } from 'framer-motion'
 import { supabase } from '@/lib/supabase'
 import { ArrowRight, Mail, Shield, Users, CheckCircle, Sparkles } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
-export default function LoginPage() {
+function LoginContent() {
   const [email, setEmail] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isEmailSent, setIsEmailSent] = useState(false)
@@ -265,5 +265,30 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center"
+      >
+        <div className="flex items-center justify-center space-x-3">
+          <Mail className="h-6 w-6 animate-pulse text-blue-600" />
+          <span className="text-lg font-medium text-gray-900">Loading login...</span>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <LoginContent />
+    </Suspense>
   )
 }

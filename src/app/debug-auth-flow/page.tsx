@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -9,7 +9,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export default function DebugAuthFlowPage() {
+function DebugAuthFlowContent() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
   const [teacher, setTeacher] = useState<any>(null)
@@ -303,5 +303,24 @@ export default function DebugAuthFlowPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Debugging auth flow...</p>
+      </div>
+    </div>
+  )
+}
+
+export default function DebugAuthFlowPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <DebugAuthFlowContent />
+    </Suspense>
   )
 }

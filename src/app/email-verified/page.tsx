@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { CheckCircle, Mail, ArrowRight, Clock } from 'lucide-react'
 
-export default function EmailVerificationSuccessPage() {
+function EmailVerificationContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [countdown, setCountdown] = useState(3)
@@ -117,5 +117,30 @@ export default function EmailVerificationSuccessPage() {
         </motion.div>
       </motion.div>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center"
+      >
+        <div className="flex items-center justify-center space-x-3">
+          <CheckCircle className="h-6 w-6 animate-pulse text-green-600" />
+          <span className="text-lg font-medium text-gray-900">Loading verification...</span>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+export default function EmailVerificationSuccessPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <EmailVerificationContent />
+    </Suspense>
   )
 }

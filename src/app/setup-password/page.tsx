@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import { motion } from 'framer-motion'
@@ -11,7 +11,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export default function PasswordSetupPage() {
+function SetupPasswordContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [password, setPassword] = useState('')
@@ -263,5 +263,30 @@ export default function PasswordSetupPage() {
         </div>
       </motion.div>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center"
+      >
+        <div className="flex items-center justify-center space-x-3">
+          <Lock className="h-6 w-6 animate-pulse text-blue-600" />
+          <span className="text-lg font-medium text-gray-900">Loading password setup...</span>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+export default function PasswordSetupPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <SetupPasswordContent />
+    </Suspense>
   )
 }
