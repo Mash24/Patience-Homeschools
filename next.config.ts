@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Increase body size limit for file uploads
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb', // Allow up to 10MB file uploads
+    },
+  },
   images: {
     remotePatterns: [
       {

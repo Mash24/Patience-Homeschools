@@ -1,7 +1,8 @@
 'use client'
 
 import { motion, AnimatePresence } from 'framer-motion'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
+import { supabase } from '@/lib/supabase'
 import { 
   Star, 
   MapPin, 
@@ -44,6 +45,42 @@ import {
   ChevronUp
 } from 'lucide-react'
 
+interface Teacher {
+  id: string
+  full_name?: string
+  name?: string
+  email?: string
+  phone?: string
+  location_area?: string
+  location?: string
+  subjects?: string[]
+  curricula?: string[]
+  curriculum?: string
+  grade_levels?: string[]
+  experience_years?: number
+  experience?: string
+  education_background?: string
+  education?: string
+  teaching_philosophy?: string
+  availability?: string[]
+  hourly_rate_range?: string
+  hourlyRate?: string
+  tsc_number?: string
+  status?: string
+  is_featured?: boolean
+  is_verified?: boolean
+  isVerified?: boolean
+  bio?: string
+  rating?: number
+  reviews?: number
+  successRate?: number
+  studentsHelped?: number
+  responseTime?: string
+  badge?: string
+  badgeColor?: string
+  isOnline?: boolean
+}
+
 export default function FeaturedTeachersEnhanced() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCurriculum, setSelectedCurriculum] = useState('all')
@@ -53,8 +90,55 @@ export default function FeaturedTeachersEnhanced() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [favoriteTeachers, setFavoriteTeachers] = useState<string[]>([])
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set())
+  const [teachers, setTeachers] = useState<Teacher[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  const teachers = [
+  useEffect(() => {
+    loadTeachers()
+  }, [])
+
+  const loadTeachers = async () => {
+    try {
+      // First try to get approved and verified teachers
+      let { data, error } = await supabase
+        .from('teachers')
+        .select('*')
+        .eq('status', 'approved')
+        .eq('is_verified', true)
+        .order('is_featured', { ascending: false })
+        .order('created_at', { ascending: false })
+
+      // If no approved teachers found, get submitted teachers as fallback
+      if (!error && (!data || data.length === 0)) {
+        console.log('No approved teachers found, loading submitted teachers as fallback')
+        const fallbackResult = await supabase
+          .from('teachers')
+          .select('*')
+          .eq('status', 'submitted')
+          .order('created_at', { ascending: false })
+          .limit(6) // Limit to 6 for demo purposes
+        
+        if (!fallbackResult.error) {
+          data = fallbackResult.data
+          error = fallbackResult.error
+        }
+      }
+
+      if (error) {
+        console.error('Error loading teachers:', error)
+        return
+      }
+
+      setTeachers(data || [])
+    } catch (error) {
+      console.error('Error loading teachers:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  // Fallback static data for demo purposes
+  const fallbackTeachers = [
     {
       id: '1',
       name: 'Grace Wanjiku',
@@ -235,15 +319,21 @@ export default function FeaturedTeachersEnhanced() {
   const subjects = ['all', 'Mathematics', 'English', 'Science', 'Kiswahili', 'French', 'German', 'Computer Studies', 'Art', 'Music']
   const locations = ['all', 'Westlands', 'Karen', 'Runda', 'Kilimani', 'Lavington', 'Parklands']
 
+  const displayTeachers = teachers.length > 0 ? teachers : fallbackTeachers
+
   const filteredTeachers = useMemo(() => {
-    return teachers.filter(teacher => {
-      const matchesSearch = teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          teacher.subjects.some(subject => subject.toLowerCase().includes(searchTerm.toLowerCase())) ||
-                          teacher.specialties.some(specialty => specialty.toLowerCase().includes(searchTerm.toLowerCase()))
+    return displayTeachers.filter(teacher => {
+      const teacherName = teacher.full_name || teacher.name || ''
+      const teacherSubjects = teacher.subjects || []
+      const teacherCurricula = teacher.curricula || []
+      const teacherLocation = teacher.location_area || teacher.location || ''
       
-      const matchesCurriculum = selectedCurriculum === 'all' || teacher.curriculum === selectedCurriculum
-      const matchesSubject = selectedSubject === 'all' || teacher.subjects.includes(selectedSubject)
-      const matchesLocation = selectedLocation === 'all' || teacher.location === selectedLocation
+      const matchesSearch = teacherName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          teacherSubjects.some(subject => subject.toLowerCase().includes(searchTerm.toLowerCase()))
+      
+      const matchesCurriculum = selectedCurriculum === 'all' || teacherCurricula.includes(selectedCurriculum)
+      const matchesSubject = selectedSubject === 'all' || teacherSubjects.includes(selectedSubject)
+      const matchesLocation = selectedLocation === 'all' || teacherLocation.toLowerCase().includes(selectedLocation.toLowerCase())
 
       return matchesSearch && matchesCurriculum && matchesSubject && matchesLocation
     }).sort((a, b) => {
@@ -282,6 +372,19 @@ export default function FeaturedTeachersEnhanced() {
     })
   }
 
+  if (isLoading) {
+    return (
+      <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center py-12">
+            <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading teachers...</p>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -293,15 +396,16 @@ export default function FeaturedTeachersEnhanced() {
           viewport={{ once: true }}
           className="text-center mb-12 sm:mb-16 lg:mb-20"
         >
-          <div className="inline-flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-full px-4 py-2 mb-6">
-            <Sparkles className="h-4 w-4 text-blue-600" />
-            <span className="text-sm font-medium text-blue-700">Verified Teachers</span>
+          <div className="inline-flex items-center space-x-2 bg-purple-50 border border-purple-200 rounded-full px-4 py-2 mb-6">
+            <Star className="h-4 w-4 text-purple-600" />
+            <span className="text-sm font-medium text-purple-700">Meet Our Teachers</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-            Meet Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Expert Teachers</span>
+            Our <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Expert Teacher Network</span>
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Browse our carefully vetted, TSC-certified teachers. Each one is passionate about helping your child succeed.
+            TSC-certified educators who are passionate about helping students succeed. 
+            <span className="font-semibold text-purple-600">Join our network</span> and make a difference in students' lives.
           </p>
         </motion.div>
 
@@ -487,21 +591,21 @@ export default function FeaturedTeachersEnhanced() {
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white text-sm sm:text-lg font-bold shadow-lg">
-                          {teacher.name.split(' ').map(n => n[0]).join('')}
+                          {(teacher.full_name || teacher.name || '').split(' ').map((n: string) => n[0]).join('')}
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center space-x-2 mb-1">
-                            <h3 className="text-lg sm:text-xl font-bold text-gray-900">{teacher.name}</h3>
-                            {teacher.isVerified && (
+                            <h3 className="text-lg sm:text-xl font-bold text-gray-900">{teacher.full_name || teacher.name}</h3>
+                            {(teacher.is_verified || teacher.isVerified) && (
                               <CheckCircle2 className="h-4 w-4 text-blue-600" />
                             )}
                           </div>
                           <div className="flex items-center space-x-2 text-sm text-gray-600">
                             <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                            <span>{teacher.rating}</span>
+                            <span>{teacher.rating || '4.8'}</span>
                             <span>•</span>
                             <MapPin className="h-3 w-3" />
-                            <span>{teacher.location}</span>
+                            <span>{teacher.location_area || teacher.location}</span>
                           </div>
                         </div>
                       </div>
@@ -517,31 +621,28 @@ export default function FeaturedTeachersEnhanced() {
 
                     {/* Compact Info Row */}
                     <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="flex items-center space-x-2 p-2 bg-blue-50 rounded-lg">
-                        <BookOpen className="h-4 w-4 text-blue-600" />
-                        <span className="text-sm font-medium text-blue-800">{teacher.curriculum}</span>
-                      </div>
-                      <div className="flex items-center space-x-2 p-2 bg-green-50 rounded-lg">
-                        <Award className="h-4 w-4 text-green-600" />
-                        <span className="text-sm font-medium text-green-800">{teacher.experience}</span>
-                      </div>
+            <div className="flex items-center space-x-2 p-2 bg-blue-50 rounded-lg">
+              <BookOpen className="h-4 w-4 text-blue-600" />
+              <span className="text-sm font-medium text-blue-800">{(teacher.curricula || [teacher.curriculum]).join(', ')}</span>
+            </div>
+            <div className="flex items-center space-x-2 p-2 bg-green-50 rounded-lg">
+              <Award className="h-4 w-4 text-green-600" />
+              <span className="text-sm font-medium text-green-800">{teacher.experience_years || teacher.experience} years</span>
+            </div>
                     </div>
 
                     {/* Subjects - Compact */}
                     <div className="mb-4">
                       <div className="flex flex-wrap gap-1">
-                        {teacher.subjects.slice(0, 2).map((subject, subjectIndex) => {
-                          const IconComponent = teacher.subjectIcons[subjectIndex]
-                          return (
-                            <div key={subjectIndex} className="flex items-center space-x-1 px-2 py-1 bg-gray-100 rounded-md">
-                              <IconComponent className="h-3 w-3 text-gray-600" />
-                              <span className="text-xs font-medium text-gray-700">{subject}</span>
-                            </div>
-                          )
-                        })}
-                        {teacher.subjects.length > 2 && (
+                        {(teacher.subjects || []).slice(0, 2).map((subject, subjectIndex) => (
+                          <div key={subjectIndex} className="flex items-center space-x-1 px-2 py-1 bg-gray-100 rounded-md">
+                            <BookOpen className="h-3 w-3 text-gray-600" />
+                            <span className="text-xs font-medium text-gray-700">{subject}</span>
+                          </div>
+                        ))}
+                        {(teacher.subjects || []).length > 2 && (
                           <div className="px-2 py-1 bg-gray-100 rounded-md">
-                            <span className="text-xs text-gray-600">+{teacher.subjects.length - 2}</span>
+                            <span className="text-xs text-gray-600">+{(teacher.subjects || []).length - 2}</span>
                           </div>
                         )}
                       </div>
@@ -559,37 +660,34 @@ export default function FeaturedTeachersEnhanced() {
                         >
                           {/* Bio */}
                           <div className="mb-4 p-3 bg-gray-50 rounded-lg">
-                            <p className="text-sm text-gray-700 leading-relaxed">{teacher.bio}</p>
+                            <p className="text-sm text-gray-700 leading-relaxed">{teacher.bio || teacher.teaching_philosophy || 'Passionate educator dedicated to student success.'}</p>
                           </div>
 
                           {/* All Subjects */}
                           <div className="mb-4">
                             <h4 className="text-sm font-semibold text-gray-700 mb-2">All Subjects</h4>
                             <div className="flex flex-wrap gap-2">
-                              {teacher.subjects.map((subject, subjectIndex) => {
-                                const IconComponent = teacher.subjectIcons[subjectIndex]
-                                return (
-                                  <div key={subjectIndex} className="flex items-center space-x-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-200">
-                                    <IconComponent className="h-4 w-4 text-blue-600" />
-                                    <span className="text-sm font-medium text-blue-800">{subject}</span>
-                                  </div>
-                                )
-                              })}
+                              {(teacher.subjects || []).map((subject, subjectIndex) => (
+                                <div key={subjectIndex} className="flex items-center space-x-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-200">
+                                  <BookOpen className="h-4 w-4 text-blue-600" />
+                                  <span className="text-sm font-medium text-blue-800">{subject}</span>
+                                </div>
+                              ))}
                             </div>
                           </div>
 
                           {/* Stats */}
                           <div className="grid grid-cols-3 gap-3 mb-4">
                             <div className="text-center p-3 bg-blue-50 rounded-lg">
-                              <div className="text-lg font-bold text-blue-600">{teacher.successRate}%</div>
+                              <div className="text-lg font-bold text-blue-600">{teacher.successRate || '95'}%</div>
                               <div className="text-xs text-blue-600">Success Rate</div>
                             </div>
                             <div className="text-center p-3 bg-green-50 rounded-lg">
-                              <div className="text-lg font-bold text-green-600">{teacher.studentsHelped}</div>
+                              <div className="text-lg font-bold text-green-600">{teacher.studentsHelped || '50+'}</div>
                               <div className="text-xs text-green-600">Students</div>
                             </div>
                             <div className="text-center p-3 bg-purple-50 rounded-lg">
-                              <div className="text-lg font-bold text-purple-600">{teacher.responseTime}</div>
+                              <div className="text-lg font-bold text-purple-600">{teacher.responseTime || '< 2h'}</div>
                               <div className="text-xs text-purple-600">Response</div>
                             </div>
                           </div>
@@ -598,11 +696,11 @@ export default function FeaturedTeachersEnhanced() {
                           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
                             <div className="p-3 bg-orange-50 rounded-lg">
                               <div className="text-sm font-medium text-orange-800 mb-1">Education</div>
-                              <div className="text-xs text-orange-600">{teacher.education}</div>
+                              <div className="text-xs text-orange-600">{teacher.education_background || teacher.education || 'University Degree'}</div>
                             </div>
                             <div className="p-3 bg-indigo-50 rounded-lg">
                               <div className="text-sm font-medium text-indigo-800 mb-1">Availability</div>
-                              <div className="text-xs text-indigo-600">{teacher.availability}</div>
+                              <div className="text-xs text-indigo-600">{(teacher.availability || []).join(', ') || 'Flexible'}</div>
                             </div>
                           </div>
                         </motion.div>
@@ -686,23 +784,26 @@ export default function FeaturedTeachersEnhanced() {
         >
           <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Can't Find What You're Looking For?
+              Ready to Get Started?
             </h3>
             <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-              We have 50+ qualified teachers across all curricula and subjects. 
-              Submit your requirements and we'll find the perfect match for you.
+              <span className="font-semibold text-blue-600">Parents:</span> Request a teacher and we'll call you within 24 hours. 
+              <span className="font-semibold text-purple-600"> Teachers:</span> Join our network and start making a difference.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button 
                 onClick={() => document.getElementById('teacher-matching-form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="btn-primary"
               >
-                Submit Your Requirements
+                Request a Teacher
               </button>
-              <button className="btn-outline inline-flex items-center justify-center">
-                <Phone className="mr-2 h-5 w-5" />
-                Call Our Team
-              </button>
+              <a
+                href="/teacher-apply"
+                className="btn-outline inline-flex items-center justify-center"
+              >
+                <GraduationCap className="mr-2 h-5 w-5" />
+                Join as Teacher
+              </a>
             </div>
           </div>
         </motion.div>

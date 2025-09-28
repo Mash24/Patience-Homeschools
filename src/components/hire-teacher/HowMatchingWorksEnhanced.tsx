@@ -22,7 +22,7 @@ import {
   DollarSign
 } from 'lucide-react'
 
-export default function HowMatchingWorksEnhanced() {
+export default function HowItWorksEnhanced() {
   const [activeStep, setActiveStep] = useState(0)
 
   const steps = [
@@ -181,10 +181,10 @@ export default function HowMatchingWorksEnhanced() {
           className="text-center mb-16"
         >
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            How Our Intelligent Matching Works
+            How It Works
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Our AI-powered system ensures you find the perfect teacher for your child's unique learning needs and preferences.
+            Our admin-driven process ensures personalized teacher matching for every family
           </p>
           
           {/* Stats */}

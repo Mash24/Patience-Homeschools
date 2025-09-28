@@ -67,7 +67,7 @@ export async function sendParentLeadNotification(leadData: {
       </div>
       
       <div style="margin: 20px 0;">
-        <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin" 
+        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin" 
            style="background: #f59e0b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
           View in Admin Dashboard
         </a>
@@ -114,7 +114,7 @@ export async function sendTeacherApplicationNotification(teacherData: {
       </div>
       
       <div style="margin: 20px 0;">
-        <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin" 
+        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin" 
            style="background: #f59e0b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
           Review Application
         </a>
@@ -155,7 +155,7 @@ export async function sendParentRegistrationNotification(data: {
       </div>
       
       <div style="margin: 20px 0;">
-        <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin" 
+        <a href="${process.env.NEXT_PUBLIC_APP_URL}/admin" 
            style="background: #f59e0b; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
           View in Admin Dashboard
         </a>

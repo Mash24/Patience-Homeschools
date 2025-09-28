@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { ParentLeadSchema } from '@/lib/schemas'
-import { createAdminClient } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabaseServer'
 import { sendParentLeadNotification } from '@/lib/email'
 
 export async function POST(req: Request) {
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       })
     }
 
-    const supabase = createAdminClient()
+    const supabase = supabaseServer
     
     // Insert the lead into the database
     const { data, error } = await supabase
@@ -97,7 +97,7 @@ export async function POST(req: Request) {
 
 export async function GET(req: Request) {
   try {
-    const supabase = createAdminClient()
+    const supabase = supabaseServer
     
     const { data, error } = await supabase
       .from('parent_leads')

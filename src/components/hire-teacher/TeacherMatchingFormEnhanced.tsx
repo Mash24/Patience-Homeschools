@@ -122,12 +122,10 @@ export default function TeacherMatchingFormEnhanced() {
   ]
 
   const steps = [
-    { number: 1, title: 'Parent Info', icon: User, fields: ['parentName', 'email', 'phone', 'city'] },
-    { number: 2, title: 'Child Details', icon: BookOpen, fields: ['childFirstName', 'gradeLevel'] },
-    { number: 3, title: 'Curriculum & Subjects', icon: GraduationCap, fields: ['curricula', 'subjects'] },
-    { number: 4, title: 'Teaching Mode', icon: Calendar, fields: ['mode'] },
-    { number: 5, title: 'Preferences', icon: Target, fields: ['locationArea', 'scheduleNote', 'goals', 'budgetBand'] },
-    { number: 6, title: 'Review & Submit', icon: Send, fields: [] }
+    { number: 1, title: 'Your Details', icon: User, fields: ['parentName', 'email', 'phone', 'city'] },
+    { number: 2, title: 'Student Info', icon: BookOpen, fields: ['childFirstName', 'gradeLevel'] },
+    { number: 3, title: 'Learning Needs', icon: GraduationCap, fields: ['curricula', 'subjects'] },
+    { number: 4, title: 'Submit Request', icon: Send, fields: [] }
   ]
 
   // Auto-save functionality
@@ -269,7 +267,7 @@ export default function TeacherMatchingFormEnhanced() {
               </motion.div>
               <h2 className="text-3xl font-bold text-green-800 mb-4">Request Submitted Successfully!</h2>
               <p className="text-lg text-green-700 mb-8">
-                Thank you for your interest! We've received your request and will match you with suitable teachers within 24 hours.
+                Thank you for your interest! We've received your request and will call you within 24 hours to discuss your child's learning needs.
               </p>
               <div className="bg-green-50 rounded-xl p-6 mb-8">
                 <p className="text-sm text-green-600 mb-2">Reference ID:</p>
@@ -277,19 +275,19 @@ export default function TeacherMatchingFormEnhanced() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                 <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <Clock className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <Phone className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                   <div className="font-semibold text-blue-800">24 Hours</div>
-                  <div className="text-sm text-blue-600">Response Time</div>
+                  <div className="text-sm text-blue-600">Call Back Time</div>
                 </div>
                 <div className="text-center p-4 bg-purple-50 rounded-lg">
                   <Users className="h-8 w-8 text-purple-600 mx-auto mb-2" />
-                  <div className="font-semibold text-purple-800">3 Teachers</div>
-                  <div className="text-sm text-purple-600">Matched for You</div>
+                  <div className="font-semibold text-purple-800">Perfect Match</div>
+                  <div className="text-sm text-purple-600">Teacher Selection</div>
                 </div>
                 <div className="text-center p-4 bg-orange-50 rounded-lg">
-                  <Star className="h-8 w-8 text-orange-600 mx-auto mb-2" />
-                  <div className="font-semibold text-orange-800">100%</div>
-                  <div className="text-sm text-orange-600">Satisfaction</div>
+                  <Calendar className="h-8 w-8 text-orange-600 mx-auto mb-2" />
+                  <div className="font-semibold text-orange-800">Quick Start</div>
+                  <div className="text-sm text-orange-600">Learning Journey</div>
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -331,18 +329,32 @@ export default function TeacherMatchingFormEnhanced() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          {/* Header - Ultra Mobile Optimized */}
+          {/* Header - Simple Lead Intake */}
           <div className="text-center mb-6 sm:mb-8 lg:mb-12 px-2 sm:px-0">
-            <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-blue-50 border border-blue-200 rounded-full px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 mb-3 sm:mb-4 lg:mb-6">
-              <Sparkles className="h-3 w-3 sm:h-4 sm:w-4 text-blue-600" />
-              <span className="text-xs sm:text-sm font-medium text-blue-700">Smart Matching</span>
+            <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-green-50 border border-green-200 rounded-full px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 mb-3 sm:mb-4 lg:mb-6">
+              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
+              <span className="text-xs sm:text-sm font-medium text-green-700">No Signup Required</span>
             </div>
             <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
-              Find Your Perfect Teacher
+              Request a Teacher
             </h2>
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-2 sm:px-4 lg:px-0 leading-relaxed">
-              Connect with 3 qualified teachers within 24 hours
+              Tell us about your child's learning needs and we'll connect you with the perfect teacher
             </p>
+            <div className="flex items-center justify-center space-x-4 mt-4 text-sm text-gray-500">
+              <div className="flex items-center space-x-1">
+                <Clock className="h-4 w-4" />
+                <span>2 minutes</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Shield className="h-4 w-4" />
+                <span>Secure</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Heart className="h-4 w-4" />
+                <span>Free consultation</span>
+              </div>
+            </div>
           </div>
 
           {/* Enhanced Progress Bar - Responsive */}
@@ -589,7 +601,7 @@ export default function TeacherMatchingFormEnhanced() {
                   </motion.div>
                 )}
 
-                {/* Step 3: Curriculum & Subjects */}
+                {/* Step 3: Learning Needs (Final Step) */}
                 {currentStep === 3 && (
                   <motion.div
                     key="step3"
@@ -601,7 +613,7 @@ export default function TeacherMatchingFormEnhanced() {
                   >
                     <div className="flex items-center mb-6">
                       <GraduationCap className="h-6 w-6 text-purple-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Curriculum & Subjects</h3>
+                      <h3 className="text-xl font-semibold text-gray-900">Learning Needs</h3>
                     </div>
                     
                     {stepErrors[3] && stepErrors[3].length > 0 && (
@@ -621,9 +633,9 @@ export default function TeacherMatchingFormEnhanced() {
                     )}
                     
                     {/* Curriculum Selection */}
-                    <div className="mb-6 sm:mb-8">
-                      <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Preferred Curriculum *</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                    <div className="mb-8">
+                      <h4 className="text-lg font-medium text-gray-900 mb-4">Preferred Curriculum *</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         {curricula.map((curriculum) => (
                           <label key={curriculum.value} className="relative cursor-pointer">
                             <input
@@ -632,29 +644,29 @@ export default function TeacherMatchingFormEnhanced() {
                               onChange={() => handleCurriculumChange(curriculum.value)}
                               className="sr-only"
                             />
-                            <div className={`p-3 sm:p-4 rounded-lg border-2 transition-all ${
+                            <div className={`p-4 rounded-lg border-2 transition-all ${
                               watchedCurricula?.includes(curriculum.value)
                                 ? 'border-blue-500 bg-blue-50'
                                 : 'border-gray-200 hover:border-gray-300'
                             }`}>
                               <div className="flex items-center mb-2">
-                                <span className="text-xl sm:text-2xl mr-2">{curriculum.icon}</span>
-                                <div className="font-medium text-gray-900 text-sm sm:text-base">{curriculum.label}</div>
+                                <span className="text-2xl mr-3">{curriculum.icon}</span>
+                                <div className="font-medium text-gray-900">{curriculum.label}</div>
                               </div>
-                              <div className="text-xs sm:text-sm text-gray-600">{curriculum.description}</div>
+                              <div className="text-sm text-gray-600">{curriculum.description}</div>
                             </div>
                           </label>
                         ))}
                       </div>
                       {errors.curricula && (
-                        <p className="text-red-500 text-xs sm:text-sm mt-2">{errors.curricula.message}</p>
+                        <p className="text-red-500 text-sm mt-2">{errors.curricula.message}</p>
                       )}
                     </div>
 
-                    {/* Subject Selection - Ultra Mobile Optimized */}
-                    <div>
-                      <h4 className="text-sm sm:text-base lg:text-lg font-medium text-gray-900 mb-2 sm:mb-3 lg:mb-4">Subjects Needed *</h4>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-1.5 sm:gap-2 lg:gap-3">
+                    {/* Subject Selection */}
+                    <div className="mb-8">
+                      <h4 className="text-lg font-medium text-gray-900 mb-4">Subjects Needed *</h4>
+                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
                         {subjects.map((subject) => (
                           <label key={subject.value} className="relative cursor-pointer">
                             <input
@@ -663,26 +675,79 @@ export default function TeacherMatchingFormEnhanced() {
                               onChange={() => handleSubjectChange(subject.value)}
                               className="sr-only"
                             />
-                            <div className={`p-1.5 sm:p-2 lg:p-3 rounded-lg border-2 transition-all text-center ${
+                            <div className={`p-3 rounded-lg border-2 transition-all text-center ${
                               watchedSubjects?.includes(subject.value)
                                 ? 'border-blue-500 bg-blue-50'
                                 : `${subject.color} hover:border-gray-400`
                             }`}>
-                              <div className="text-sm sm:text-lg lg:text-2xl mb-0.5 sm:mb-1">{subject.icon}</div>
-                              <div className="text-xs sm:text-xs lg:text-sm font-medium text-gray-900 leading-tight">{subject.value}</div>
-                              <div className="text-xs text-gray-500 hidden lg:block">{subject.category}</div>
+                              <div className="text-lg mb-1">{subject.icon}</div>
+                              <div className="text-xs font-medium text-gray-900 leading-tight">{subject.value}</div>
                             </div>
                           </label>
                         ))}
                       </div>
                       {errors.subjects && (
-                        <p className="text-red-500 text-xs mt-1.5 sm:mt-2">{errors.subjects.message}</p>
+                        <p className="text-red-500 text-sm mt-2">{errors.subjects.message}</p>
                       )}
+                    </div>
+
+                    {/* Additional Info */}
+                    <div className="space-y-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Preferred Teaching Mode
+                        </label>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                          {teachingModes.map((mode) => (
+                            <label key={mode.value} className="relative cursor-pointer">
+                              <input
+                                type="radio"
+                                value={mode.value}
+                                {...register('mode')}
+                                className="sr-only"
+                              />
+                              <div className={`p-4 rounded-lg border-2 transition-all ${
+                                watchedMode === mode.value
+                                  ? 'border-blue-500 bg-blue-50'
+                                  : `${mode.color} hover:border-gray-400`
+                              }`}>
+                                <mode.icon className={`h-6 w-6 ${mode.iconColor} mb-2`} />
+                                <h4 className="font-semibold text-gray-900 mb-1">{mode.label}</h4>
+                                <p className="text-sm text-gray-600">{mode.description}</p>
+                              </div>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Location Area
+                        </label>
+                        <input
+                          type="text"
+                          {...register('locationArea')}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          placeholder="e.g., Westlands, Karen, Runda"
+                        />
+                      </div>
+                      
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          Additional Notes (Optional)
+                        </label>
+                        <textarea
+                          {...register('goals')}
+                          rows={3}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                          placeholder="Any specific learning goals, schedule preferences, or special requirements..."
+                        />
+                      </div>
                     </div>
                   </motion.div>
                 )}
 
-                {/* Step 4: Teaching Mode */}
+                {/* Step 4: Submit Request */}
                 {currentStep === 4 && (
                   <motion.div
                     key="step4"
@@ -693,154 +758,8 @@ export default function TeacherMatchingFormEnhanced() {
                     className="p-8"
                   >
                     <div className="flex items-center mb-6">
-                      <Calendar className="h-6 w-6 text-indigo-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Teaching Mode</h3>
-                    </div>
-                    
-                    {stepErrors[4] && stepErrors[4].length > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                        <div className="flex items-center">
-                          <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-                          <div>
-                            <p className="text-red-700 font-medium">Please fix the following errors:</p>
-                            <ul className="text-red-600 text-sm mt-1">
-                              {stepErrors[4].map((error, index) => (
-                                <li key={index}>• {error}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-                      {teachingModes.map((mode) => (
-                        <label key={mode.value} className="relative cursor-pointer">
-                          <input
-                            type="radio"
-                            value={mode.value}
-                            {...register('mode')}
-                            className="sr-only"
-                          />
-                          <div className={`p-3 sm:p-4 lg:p-6 rounded-xl border-2 transition-all ${
-                            watchedMode === mode.value
-                              ? 'border-blue-500 bg-blue-50'
-                              : `${mode.color} hover:border-gray-400`
-                          }`}>
-                            <mode.icon className={`h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 ${mode.iconColor} mb-2 sm:mb-3 lg:mb-4`} />
-                            <h4 className="font-semibold text-gray-900 mb-1.5 sm:mb-2 text-xs sm:text-sm lg:text-base">{mode.label}</h4>
-                            <p className="text-xs sm:text-sm text-gray-600 mb-2 sm:mb-3 lg:mb-4">{mode.description}</p>
-                            <ul className="space-y-0.5 sm:space-y-1">
-                              {mode.benefits.map((benefit, index) => (
-                                <li key={index} className="text-xs text-gray-600 flex items-center">
-                                  <CheckCircle className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-green-500 mr-1.5 sm:mr-2 flex-shrink-0" />
-                                  <span className="leading-tight">{benefit}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                    {errors.mode && (
-                      <p className="text-red-500 text-sm mt-2">{errors.mode.message}</p>
-                    )}
-                  </motion.div>
-                )}
-
-                {/* Step 5: Preferences */}
-                {currentStep === 5 && (
-                  <motion.div
-                    key="step5"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.3 }}
-                    className="p-8"
-                  >
-                    <div className="flex items-center mb-6">
-                      <Target className="h-6 w-6 text-orange-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Additional Preferences</h3>
-                    </div>
-                    
-                    {stepErrors[5] && stepErrors[5].length > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
-                        <div className="flex items-center">
-                          <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
-                          <div>
-                            <p className="text-red-700 font-medium">Please fix the following errors:</p>
-                            <ul className="text-red-600 text-sm mt-1">
-                              {stepErrors[5].map((error, index) => (
-                                <li key={index}>• {error}</li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="space-y-4 sm:space-y-6">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Location Area
-                        </label>
-                        <input
-                          type="text"
-                          {...register('locationArea')}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
-                          placeholder="e.g., Westlands, Karen, Runda"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Schedule Preferences
-                        </label>
-                        <textarea
-                          {...register('scheduleNote')}
-                          rows={3}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base resize-none"
-                          placeholder="e.g., Weekdays after 3 PM, Weekend mornings"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Learning Goals
-                        </label>
-                        <textarea
-                          {...register('goals')}
-                          rows={3}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base resize-none"
-                          placeholder="Tell us about your child's learning goals and any specific needs"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Budget Considerations
-                        </label>
-                        <textarea
-                          {...register('budgetBand')}
-                          rows={2}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base resize-none"
-                          placeholder="Tell us about your budget considerations and what you're looking for in terms of value"
-                        />
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Step 6: Review & Submit */}
-                {currentStep === 6 && (
-                  <motion.div
-                    key="step6"
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -50 }}
-                    transition={{ duration: 0.3 }}
-                    className="p-8"
-                  >
-                    <div className="flex items-center mb-6">
                       <Send className="h-6 w-6 text-green-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Review & Submit</h3>
+                      <h3 className="text-xl font-semibold text-gray-900">Ready to Submit?</h3>
                     </div>
                     
                     {submitStatus === 'error' && (
@@ -852,15 +771,20 @@ export default function TeacherMatchingFormEnhanced() {
                       </div>
                     )}
 
-                    <div className="bg-gray-50 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-3 sm:mb-4 text-sm sm:text-base">Summary of Your Request</h4>
-                      <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm">
+                    {/* Summary */}
+                    <div className="bg-gray-50 rounded-lg p-6 mb-6">
+                      <h4 className="font-semibold text-gray-900 mb-4">Your Request Summary</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                         <div className="flex justify-between">
                           <span className="text-gray-600">Parent:</span>
                           <span className="font-medium">{watch('parentName')}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Child:</span>
+                          <span className="text-gray-600">Phone:</span>
+                          <span className="font-medium">{watch('phone')}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Student:</span>
                           <span className="font-medium">{watch('childFirstName')} - {watch('gradeLevel')}</span>
                         </div>
                         <div className="flex justify-between">
@@ -875,29 +799,65 @@ export default function TeacherMatchingFormEnhanced() {
                           <span className="text-gray-600">Mode:</span>
                           <span className="font-medium">{teachingModes.find(m => m.value === watchedMode)?.label}</span>
                         </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Location:</span>
+                          <span className="font-medium">{watch('locationArea') || 'Not specified'}</span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="bg-blue-50 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
-                      <h4 className="font-semibold text-blue-900 mb-2 text-sm sm:text-base">What Happens Next?</h4>
-                      <ul className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-blue-800">
-                        <li className="flex items-center">
-                          <Clock className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
-                          <span>We'll review your requirements within 24 hours</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
-                          <span>We'll match you with 3 qualified teachers</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Star className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
-                          <span>You'll receive detailed teacher profiles</span>
-                        </li>
-                        <li className="flex items-center">
-                          <Heart className="h-3 w-3 sm:h-4 sm:w-4 mr-2 flex-shrink-0" />
-                          <span>Schedule interviews and choose your perfect match</span>
-                        </li>
-                      </ul>
+                    {/* What Happens Next */}
+                    <div className="bg-blue-50 rounded-lg p-6 mb-6">
+                      <h4 className="font-semibold text-blue-900 mb-3">What Happens Next?</h4>
+                      <div className="space-y-3 text-sm text-blue-800">
+                        <div className="flex items-center">
+                          <Phone className="h-4 w-4 mr-3 flex-shrink-0" />
+                          <span>We'll call you within 24 hours to discuss your needs</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Users className="h-4 w-4 mr-3 flex-shrink-0" />
+                          <span>We'll find the perfect teacher for your child</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-3 flex-shrink-0" />
+                          <span>Arrange a meeting between you and the teacher</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Heart className="h-4 w-4 mr-3 flex-shrink-0" />
+                          <span>Start your child's personalized learning journey</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Submit Button */}
+                    <div className="text-center">
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          const isValid = await validateCurrentStep()
+                          if (isValid) {
+                            const formData = getValues()
+                            await onSubmit(formData)
+                          }
+                        }}
+                        disabled={isSubmitting}
+                        className="btn-primary inline-flex items-center text-lg px-8 py-4 min-w-[200px] group"
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                            <span>Submitting...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Send className="h-5 w-5 mr-2 group-hover:scale-110 transition-transform" />
+                            <span>Submit Request</span>
+                          </>
+                        )}
+                      </button>
+                      <p className="text-xs text-gray-500 mt-3">
+                        By submitting, you agree to our terms of service and privacy policy
+                      </p>
                     </div>
                   </motion.div>
                 )}
@@ -940,34 +900,7 @@ export default function TeacherMatchingFormEnhanced() {
                     <span>Next</span>
                     <ArrowRight className="ml-1.5 sm:ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 group-hover:translate-x-1 transition-transform" />
                   </button>
-                ) : (
-                  <button
-                    type="button"
-                    onClick={async () => {
-                      const isValid = await validateCurrentStep()
-                      if (isValid) {
-                        const formData = getValues()
-                        await onSubmit(formData)
-                      }
-                    }}
-                    disabled={isSubmitting}
-                    className="btn-primary inline-flex items-center min-w-[120px] sm:min-w-[140px] lg:min-w-[200px] group text-xs sm:text-sm lg:text-base px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 border-b-2 border-white mr-1.5 sm:mr-2"></div>
-                        <span className="hidden sm:inline">Submitting...</span>
-                        <span className="sm:hidden">Submitting</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 mr-1.5 sm:mr-2 group-hover:scale-110 transition-transform" />
-                        <span className="hidden sm:inline">Submit Request</span>
-                        <span className="sm:hidden">Submit</span>
-                      </>
-                    )}
-                  </button>
-                )}
+                ) : null}
               </div>
             </form>
           </div>

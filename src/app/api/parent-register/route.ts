@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { ParentRegistrationSchema } from '@/lib/schemas'
-import { createAdminClient } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabaseServer'
 import { sendParentRegistrationNotification } from '@/lib/email'
 
 export async function POST(req: Request) {
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       })
     }
 
-    const supabase = createAdminClient()
+    const supabase = supabaseServer
     
     // Create user account in Supabase Auth
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { TeacherApplicationSchema } from '@/lib/schemas'
-import { createAdminClient } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabaseServer'
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    const supabase = createAdminClient()
+    const supabase = supabaseServer
     
     // Insert the teacher application into the database
     const { data, error } = await supabase
