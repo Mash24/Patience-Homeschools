@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 
@@ -9,7 +9,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-export default function AuthCallbackDebugPage() {
+function AuthCallbackDebugContent() {
   const searchParams = useSearchParams()
   const [debugInfo, setDebugInfo] = useState<any>(null)
   const [user, setUser] = useState<any>(null)
@@ -107,5 +107,31 @@ export default function AuthCallbackDebugPage() {
         </div>
       </div>
     </div>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+          Auth Callback Debug
+        </h1>
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div className="flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+            <span className="ml-3 text-gray-600">Loading debug information...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default function AuthCallbackDebugPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <AuthCallbackDebugContent />
+    </Suspense>
   )
 }
