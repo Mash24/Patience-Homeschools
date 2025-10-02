@@ -1,21 +1,22 @@
 import { NextResponse } from 'next/server'
-import { checkSupabaseConnection } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 
 export async function GET() {
   try {
-    const supabaseCheck = await checkSupabaseConnection()
+    // Test Supabase connection
+    const { data, error } = await supabase.from('profiles').select('count').limit(1)
     
     const health = {
       status: 'ok',
       timestamp: new Date().toISOString(),
       services: {
-        database: supabaseCheck.success ? 'connected' : 'disconnected',
+        database: error ? 'disconnected' : 'connected',
         email: process.env.RESEND_API_KEY ? 'configured' : 'not configured',
       },
       version: '1.0.0',
     }
 
-    if (!supabaseCheck.success) {
+    if (error) {
       return NextResponse.json(health, { status: 503 })
     }
 

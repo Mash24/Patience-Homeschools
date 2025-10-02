@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 interface DuplicateApplicationModalProps {
   isOpen: boolean
-  onClose: () => void
+  onCloseAction: () => void
   existingApplication: {
     id: string
     fullName: string
@@ -14,14 +14,14 @@ interface DuplicateApplicationModalProps {
     status: string
     applicationDate: string
   }
-  onSignIn: () => void
+  onSignInAction: () => void
 }
 
 export default function DuplicateApplicationModal({
   isOpen,
-  onClose,
+  onCloseAction,
   existingApplication,
-  onSignIn,
+  onSignInAction,
 }: DuplicateApplicationModalProps) {
   const router = useRouter()
 
@@ -71,7 +71,7 @@ export default function DuplicateApplicationModal({
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[100]"
-          onClick={onClose}
+          onClick={onCloseAction}
         >
           <motion.div
             initial={{ y: -50, opacity: 0, scale: 0.9 }}
@@ -84,7 +84,7 @@ export default function DuplicateApplicationModal({
             {/* Header */}
             <div className="bg-gradient-to-r from-amber-400 to-orange-500 p-6 text-white relative">
               <button
-                onClick={onClose}
+                onClick={onCloseAction}
                 className="absolute top-4 right-4 p-2 hover:bg-white/20 rounded-full transition-colors"
               >
                 <X className="h-5 w-5" />
@@ -138,7 +138,7 @@ export default function DuplicateApplicationModal({
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={onSignIn}
+                  onClick={onSignInAction}
                   className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-3 shadow-lg"
                 >
                   <User className="h-6 w-6" />

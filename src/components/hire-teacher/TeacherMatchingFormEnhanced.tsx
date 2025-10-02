@@ -693,33 +693,33 @@ export default function TeacherMatchingFormEnhanced() {
 
                     {/* Additional Info */}
                     <div className="space-y-6">
-                      <div>
+                          <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           Preferred Teaching Mode
                         </label>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                          {teachingModes.map((mode) => (
-                            <label key={mode.value} className="relative cursor-pointer">
-                              <input
-                                type="radio"
-                                value={mode.value}
-                                {...register('mode')}
-                                className="sr-only"
-                              />
+                      {teachingModes.map((mode) => (
+                        <label key={mode.value} className="relative cursor-pointer">
+                          <input
+                            type="radio"
+                            value={mode.value}
+                            {...register('mode')}
+                            className="sr-only"
+                          />
                               <div className={`p-4 rounded-lg border-2 transition-all ${
-                                watchedMode === mode.value
-                                  ? 'border-blue-500 bg-blue-50'
-                                  : `${mode.color} hover:border-gray-400`
-                              }`}>
+                            watchedMode === mode.value
+                              ? 'border-blue-500 bg-blue-50'
+                              : `${mode.color} hover:border-gray-400`
+                          }`}>
                                 <mode.icon className={`h-6 w-6 ${mode.iconColor} mb-2`} />
                                 <h4 className="font-semibold text-gray-900 mb-1">{mode.label}</h4>
                                 <p className="text-sm text-gray-600">{mode.description}</p>
-                              </div>
-                            </label>
-                          ))}
-                        </div>
-                      </div>
-                      
+                          </div>
+                        </label>
+                      ))}
+                    </div>
+                    </div>
+                    
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           Location Area

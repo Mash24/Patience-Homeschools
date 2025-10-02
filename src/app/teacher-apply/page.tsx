@@ -563,9 +563,9 @@ export default function TeacherApplicationForm() {
         {showDuplicateModal && duplicateApplicationData && (
           <DuplicateApplicationModal
             isOpen={showDuplicateModal}
-            onClose={() => setShowDuplicateModal(false)}
+            onCloseAction={() => setShowDuplicateModal(false)}
             existingApplication={duplicateApplicationData.existingApplication}
-            onSignIn={handleSignIn}
+            onSignInAction={handleSignIn}
           />
         )}
     </div>
