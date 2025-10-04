@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import AdminLayout from '@/components/admin/AdminLayout'
-import TeachersManagement from './TeachersManagement'
+import TeachersManagement from '@/components/admin/TeachersManagement'
 
 export default async function TeachersPage() {
   const supabase = await createClient()

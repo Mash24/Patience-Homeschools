@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import DashboardLayout from '@/components/DashboardLayout'
 import { motion } from 'framer-motion'
@@ -73,7 +73,7 @@ interface AssignmentData {
   start_date: string
 }
 
-export default function CreateAssignmentPage() {
+function CreateAssignmentContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const leadId = searchParams.get('leadId')
@@ -610,6 +610,24 @@ export default function CreateAssignmentPage() {
         </div>
       </div>
     </DashboardLayout>
+  )
+}
+
+function LoadingFallback() {
+  return (
+    <DashboardLayout role="admin">
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    </DashboardLayout>
+  )
+}
+
+export default function CreateAssignmentPage() {
+  return (
+    <Suspense fallback={<LoadingFallback />}>
+      <CreateAssignmentContent />
+    </Suspense>
   )
 }
 
