@@ -8,7 +8,7 @@ const testimonials = [
   {
     name: 'Sarah Mwangi',
     role: 'Parent of Grade 6 Student',
-    content: 'Patience Home Schools connected us with an amazing CBC teacher who understood my daughter\'s learning style. The resources and support have been invaluable.',
+    content: 'Nelimac Learning connected us with an amazing CBC teacher who understood my daughter\'s learning style. The resources and support have been invaluable.',
     rating: 5,
     location: 'Westlands, Nairobi'
   },
@@ -174,7 +174,7 @@ export default function Testimonials() {
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Hear from families who have transformed their homeschooling experience 
-            with Patience Home Schools.
+            with Nelimac Learning.
           </p>
         </motion.div>
 

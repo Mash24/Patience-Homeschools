@@ -38,6 +38,7 @@ import {
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ParentLeadSchema, type ParentLeadData } from '@/lib/schemas'
+import { CURRICULA_FORM_OPTIONS } from '@/lib/constants'
 
 export default function TeacherMatchingFormEnhanced() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -70,11 +71,29 @@ export default function TeacherMatchingFormEnhanced() {
   const watchedCurricula = watch('curricula')
   const watchedMode = watch('mode')
 
-  const curricula = [
-    { value: 'CBC', label: 'CBC', description: 'Competency Based Curriculum', icon: '🎯' },
-    { value: 'IGCSE', label: 'IGCSE', description: 'International General Certificate', icon: '🌍' },
-    { value: 'British Curriculum', label: 'British Curriculum', description: 'UK National Curriculum', icon: '🇬🇧' }
-  ]
+  const curricula = CURRICULA_FORM_OPTIONS.map(curriculum => ({
+    ...curriculum,
+    icon: getCurriculumIcon(curriculum.value)
+  }))
+
+  function getCurriculumIcon(curriculum: string): string {
+    const icons: Record<string, string> = {
+      "CBC (Competency-Based Curriculum)": "🎯",
+      "8-4-4 (KCPE/KCSE)": "🇰🇪",
+      "Cambridge IGCSE / A-Levels": "🌍",
+      "British National Curriculum": "🇬🇧",
+      "Edexcel IGCSE / A-Levels": "📚",
+      "International Baccalaureate (IB)": "🌐",
+      "American Curriculum (SAT/AP/ACT)": "🇺🇸",
+      "Montessori (Early Years)": "🧸",
+      "ACE (Accelerated Christian Education)": "⛪",
+      "Islamic Integrated Education": "🕌",
+      "Indian Curriculum (CBSE/ICSE)": "🇮🇳",
+      "French Curriculum (AEFE)": "🇫🇷",
+      "German Curriculum (Abitur)": "🇩🇪"
+    }
+    return icons[curriculum] || "📖"
+  }
 
   const subjects = [
     { value: 'Mathematics', icon: '🔢', category: 'Core', color: 'bg-blue-50 border-blue-200' },

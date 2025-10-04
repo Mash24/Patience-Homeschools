@@ -6,6 +6,7 @@ import { Upload, Send, User, GraduationCap, FileText, Award, CheckCircle, AlertC
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TeacherApplicationSchema, type TeacherApplicationData } from '@/lib/schemas'
+import { CURRICULA_OPTIONS } from '@/lib/constants'
 
 export default function TeacherApplicationFormNew() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -37,7 +38,7 @@ export default function TeacherApplicationFormNew() {
   const watchedSubjects = watch('experience.subjectsTaught')
   const watchedCurricula = watch('experience.curriculumExperience')
 
-  const curricula = ['CBC', 'IGCSE', 'British Curriculum']
+  const curricula = CURRICULA_OPTIONS
   const subjects = [
     'Mathematics', 'English', 'Science', 'Physics', 'Chemistry', 'Biology',
     'Social Studies', 'Kiswahili', 'French', 'German', 'Computer Studies',
@@ -378,7 +379,7 @@ export default function TeacherApplicationFormNew() {
                 </h3>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    What interests you about joining Patience Education Collective?
+                    What interests you about joining Nelimac Learning?
                   </label>
                   <textarea
                     {...register('additionalInfo.whyJoinUs')}

@@ -108,6 +108,6 @@ export async function GET() {
   return NextResponse.json({
     message: 'Teacher application API endpoint',
     methods: ['POST'],
-    description: 'Submit teacher applications to Patience Education Collective'
+    description: 'Submit teacher applications to Nelimac Learning'
   })
 }

@@ -36,9 +36,11 @@ async function seedAdmin() {
     }
 
     // Create admin user
-    const adminEmail = 'admin@nelimaclearning.co.ke'
+    const adminEmail = 'jackmwakano@gmail.com'
+    const adminPassword = '@Test123!'
     const { data: authData, error: authError } = await supabase.auth.admin.createUser({
       email: adminEmail,
+      password: adminPassword,
       email_confirm: true,
       user_metadata: {
         full_name: 'System Administrator',
@@ -59,8 +61,7 @@ async function seedAdmin() {
       .insert({
         id: authData.user.id,
         role: 'admin',
-        full_name: 'System Administrator',
-        email: adminEmail
+        full_name: 'System Administrator'
       })
 
     if (profileError) {
@@ -70,6 +71,7 @@ async function seedAdmin() {
 
     console.log('✅ Admin profile created successfully!')
     console.log('📧 Admin email:', adminEmail)
+    console.log('🔑 Admin password:', adminPassword)
     console.log('🆔 Admin ID:', authData.user.id)
 
     // Generate magic link for admin

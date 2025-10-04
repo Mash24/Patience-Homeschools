@@ -4,13 +4,13 @@ import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Eye, EyeOff, Mail, Lock, ArrowRight, AlertCircle, CheckCircle, Loader2 } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase-client'
 
 function SignInContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('admin@nelimaclearning.co.ke')
+  const [password, setPassword] = useState('@Test123!')
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
@@ -32,6 +32,7 @@ function SignInContent() {
     setSuccess('')
 
     try {
+      const supabase = createClient()
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -45,48 +46,23 @@ function SignInContent() {
       if (data.user) {
         setSuccess('Sign in successful! Redirecting...')
         
-        // Check user role and redirect accordingly
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', data.user.id)
-          .single()
+        // Check user role from JWT metadata
+        const role = data.user.app_metadata?.role || data.user.user_metadata?.role
+        console.log('Signin - User:', data.user.email)
+        console.log('Signin - Role from metadata:', role)
 
-        console.log('Signin - Profile check:', profile)
-        console.log('Signin - Profile role:', profile?.role)
-        console.log('Signin - Profile role type:', typeof profile?.role)
-
-        setTimeout(async () => {
-          if (profile?.role === 'teacher') {
-            console.log('Signin - Redirecting to teacher dashboard')
-            router.push('/teacher/dashboard')
-          } else if (profile?.role === 'admin') {
+        setTimeout(() => {
+          if (role === 'admin') {
             console.log('Signin - Redirecting to admin dashboard')
-            router.push('/admin')
+            router.replace('/admin') // Use replace instead of push
+          } else if (role === 'teacher') {
+            console.log('Signin - Redirecting to teacher dashboard')
+            router.replace('/teacher/dashboard')
           } else {
-            console.log('Signin - Profile found but role is not teacher/admin:', profile?.role)
-            
-            // If profile exists but role is wrong, try to update it
-            if (profile && profile.role !== 'teacher') {
-              console.log('Signin - Updating profile role to teacher')
-              const { error: updateError } = await supabase
-                .from('profiles')
-                .update({ role: 'teacher' })
-                .eq('id', data.user.id)
-              
-              if (!updateError) {
-                console.log('Signin - Profile role updated, redirecting to teacher dashboard')
-                router.push('/teacher/dashboard')
-                return
-              }
-            }
-            
-            console.log('Signin - Checking teacher record...')
-            // If user doesn't have a valid role, check if they have a teacher record
-            // If they do, create a profile and redirect to teacher dashboard
-            checkAndCreateProfile(data.user)
+            console.log('Signin - No valid role found, redirecting to teacher application')
+            router.replace('/teacher-apply')
           }
-        }, 1500)
+        }, 1000) // Reduced timeout
       }
     } catch (err: any) {
       setError(err.message || 'An error occurred during sign in')
@@ -187,6 +163,7 @@ function SignInContent() {
     setSuccess('')
 
     try {
+      const supabase = createClient()
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`,
       })

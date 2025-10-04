@@ -7,7 +7,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 const faqs = [
   {
     question: 'How does the teacher matching process work?',
-    answer: 'Parents submit their requirements through our form, and our system matches them with 3 qualified teachers based on curriculum expertise, subject specialization, location, and availability. Patience reviews and approves the final matches.'
+    answer: 'Parents submit their requirements through our form, and our system matches them with 3 qualified teachers based on curriculum expertise, subject specialization, location, and availability. Nelimac Learning reviews and approves the final matches.'
   },
   {
     question: 'What qualifications do your teachers have?',

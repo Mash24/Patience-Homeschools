@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { submitProvisionalApplication, sendApplicationMagicLink } from '@/lib/teacher-application-actions'
 import DuplicateApplicationModal from '@/components/DuplicateApplicationModal'
+import { CURRICULA_OPTIONS } from '@/lib/constants'
 import { 
   User,  Mail, Phone, MapPin, 
   BookOpen, 
@@ -75,7 +76,7 @@ const subjects = [
   'French', 'German', 'Spanish', 'Kiswahili', 'Religious Studies', 'Business Studies'
 ]
 
-const curricula = ['CBC', 'IGCSE', 'British', 'American', 'IB', 'Cambridge']
+const curricula = CURRICULA_OPTIONS
 
 const gradeLevels = [
   'Pre-Primary (3-5 years)', 'Grade 1-3', 'Grade 4-6', 'Grade 7-9', 

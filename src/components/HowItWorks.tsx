@@ -56,7 +56,7 @@ export default function HowItWorks() {
             How It Works
           </h2>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Getting started with Patience Home Schools is simple. Follow these four easy steps 
+            Getting started with Nelimac Learning is simple. Follow these four easy steps 
             to find the perfect teacher for your child.
           </p>
         </motion.div>

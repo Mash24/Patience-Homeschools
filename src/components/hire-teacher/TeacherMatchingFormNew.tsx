@@ -6,6 +6,7 @@ import { Send, User, BookOpen, Calendar, MapPin, DollarSign, CheckCircle, AlertC
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ParentLeadSchema, type ParentLeadData } from '@/lib/schemas'
+import { CURRICULA_OPTIONS } from '@/lib/constants'
 
 export default function TeacherMatchingFormNew() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -32,7 +33,7 @@ export default function TeacherMatchingFormNew() {
   const watchedSubjects = watch('subjects')
   const watchedCurricula = watch('curricula')
 
-  const curricula = ['CBC', 'IGCSE', 'British Curriculum']
+  const curricula = CURRICULA_OPTIONS
   const subjects = [
     'Mathematics', 'English', 'Science', 'Social Studies', 'Kiswahili',
     'French', 'German', 'Computer Studies', 'Art', 'Music', 'PE'

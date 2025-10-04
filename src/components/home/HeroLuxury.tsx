@@ -6,83 +6,114 @@ import Link from 'next/link'
 
 export default function HeroLuxury() {
   return (
-    <section className="relative overflow-hidden">
-      {/* background wash */}
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(60%_60%_at_20%_20%,rgba(180,140,29,0.10),transparent)]" />
-      <div className="container mx-auto max-w-screen-xl px-6 md:px-8 py-20 md:py-28">
-        <div className="grid items-center gap-12 md:grid-cols-2">
+    <section className="relative bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left: Copy */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
+            className="space-y-8"
           >
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-brand-gold/30 bg-brand-gold/10 px-3 py-1 text-sm text-brand-gold">
+            {/* Trust Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 border border-amber-200 px-4 py-2 text-sm text-amber-700">
               <ShieldCheck className="h-4 w-4" />
-              TSC-Certified • Safeguarded
+              TSC-Certified • Background-Checked
             </div>
 
-            <h1 className="font-serif text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold leading-tight sm:leading-[1.1] text-brand-navy">
-              Bespoke homeschooling by exceptional educators.
-            </h1>
+            {/* Headline - Split Promise + Curriculums */}
+            <div className="space-y-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                Trusted homeschool teachers for your child
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-600 font-medium">
+                CBC • IGCSE • British Programmes
+              </p>
+            </div>
 
-            <p className="mt-3 sm:mt-4 md:mt-6 max-w-xl text-xs xs:text-sm sm:text-base md:text-lg text-brand-charcoal/80 leading-relaxed">
-              CBC, IGCSE & British programmes—tailored to your child and delivered at home or online,
-              with concierge matching and exclusive events across Nairobi.
+            {/* Subheading */}
+            <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+              Handpicked tutors available for in-home or online learning across Nairobi. 
+              Get matched with the perfect teacher for your child's needs.
             </p>
 
-            <div className="mt-4 sm:mt-6 md:mt-8 flex flex-col xs:flex-row items-stretch xs:items-center gap-2 sm:gap-3 md:gap-4">
-              <Link href="/hire-teacher" prefetch className="w-full xs:flex-1">
-                <button className="w-full h-10 sm:h-12 rounded-xl bg-brand-gold text-brand-navy hover:bg-brand-gold/90 px-2 xs:px-3 sm:px-6 font-semibold transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 text-xs xs:text-sm sm:text-base whitespace-nowrap overflow-hidden">
-                  <span className="truncate">Request a Private Tutor</span> <ArrowRight className="h-3 w-3 sm:h-5 sm:w-5 flex-shrink-0" />
-                </button>
-              </Link>
-              <Link href="/teacher-apply" prefetch className="w-full xs:flex-1">
-                <button className="w-full h-10 sm:h-12 rounded-xl border border-brand-gold/40 text-brand-navy hover:bg-brand-gold/10 px-2 xs:px-3 sm:px-6 font-semibold transition-all duration-300 text-xs xs:text-sm sm:text-base whitespace-nowrap overflow-hidden">
-                  <span className="truncate">Apply as Elite Educator</span>
-                </button>
-              </Link>
-            </div>
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row items-start gap-3">
+  <Link href="/hire-teacher" prefetch className="inline-flex">
+    <button
+      type="button"
+      aria-label="Request a private tutor"
+      data-cta="hero_request_tutor"
+      className="inline-flex items-center gap-2 rounded-lg bg-amber-500 px-6 py-3 text-white font-semibold
+                 hover:bg-amber-600 active:bg-amber-700 transition-colors
+                 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/50"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" className="-ml-0.5"><path fill="currentColor" d="M12 2l3 7h7l-5.5 4.1L18 21l-6-4-6 4 1.5-7.9L2 9h7z"/></svg>
+      <span>Request a Private Tutor</span>
+    </button>
+  </Link>
 
-            {/* Trust strip */}
-            <div className="mt-6 sm:mt-8 flex flex-wrap gap-3 sm:gap-6 text-xs sm:text-sm text-brand-charcoal/70">
-              <Badge icon={<GraduationCap className="h-3 w-3 sm:h-4 sm:w-4" />} text="Cambridge experience" />
-              <Badge icon={<ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4" />} text="Background-checked" />
-              <Badge icon={<Sparkles className="h-3 w-3 sm:h-4 sm:w-4" />} text="98% parent satisfaction" />
+  <div className="flex flex-col">
+    <Link href="/teacher-apply" prefetch className="inline-flex">
+      <button
+        type="button"
+        aria-label="Apply to join the teaching faculty"
+        data-cta="hero_join_faculty"
+        className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-5 py-3
+                   text-gray-700 hover:bg-gray-50 transition-colors
+                   focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-300"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3l9 5-9 5-9-5 9-5zm0 7l7.8-4.33L12 4.34 4.2 5.67 12 10zM4 13l8 4 8-4v2l-8 4-8-4v-2z"/></svg>
+        <span>Apply as an Elite Teacher</span>
+      </button>
+    </Link>
+    <span className="mt-1 text-xs text-gray-500">TSC-verified applicants only</span>
+  </div>
+</div>
+
+
+            {/* Trust Elements - 3 Essentials */}
+            <div className="flex flex-wrap gap-6 text-sm text-gray-600">
+              <div className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-amber-500" />
+                <span>Background-checked</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <GraduationCap className="h-4 w-4 text-amber-500" />
+                <span>TSC-certified</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-amber-500" />
+                <span>98% parent satisfaction</span>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right: Editorial image */}
+          {/* Right: Image */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="relative"
           >
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-soft">
-              {/* Replace with your real image */}
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-xl">
               <Image
                 src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=1600&auto=format&fit=crop"
-                alt="Professional teacher working with student on educational materials"
+                alt="Child learning with tutor in a home setting"
                 fill
                 priority
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
             </div>
+            {/* Micro-caption */}
+            <p className="mt-4 text-sm text-gray-500 text-center">
+              Private tutoring across Nairobi • CBC • IGCSE • British
+            </p>
           </motion.div>
         </div>
       </div>
     </section>
-  )
-}
-
-function Badge({ icon, text }: { icon: React.ReactNode; text: string }) {
-  return (
-    <span className="inline-flex items-center gap-1 sm:gap-2 rounded-full bg-white/70 px-2 sm:px-3 py-1 shadow-sm ring-1 ring-black/5 text-xs sm:text-sm">
-      {icon}
-      <span className="truncate">{text}</span>
-    </span>
   )
 }
 

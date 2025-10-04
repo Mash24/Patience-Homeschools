@@ -14,7 +14,7 @@ export default function AboutHero() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              About Patience Home Schools
+              About Nelimac Learning
             </h1>
             <p className="text-xl text-gray-600 mb-8 leading-relaxed">
               We're passionate about providing quality education and creating meaningful 

@@ -1256,7 +1256,7 @@ export default function TeacherApplicationWizard() {
 
                       <div className="space-y-3">
                         <label className="block text-sm font-semibold text-gray-700">
-                        What interests you about joining Patience Education Collective?
+                        What interests you about joining Nelimac Learning?
                       </label>
                         <div className="relative">
                       <textarea

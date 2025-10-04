@@ -35,6 +35,7 @@ import {
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ParentRegistrationSchema, type ParentRegistrationData, type ChildData } from '@/lib/schemas'
+import { CURRICULA_FORM_OPTIONS } from '@/lib/constants'
 
 export default function ParentRegistrationForm() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -87,11 +88,7 @@ export default function ParentRegistrationForm() {
   const watchedSubjects = watch('preferredSubjects')
   const watchedMode = watch('teachingMode')
 
-  const curricula = [
-    { value: 'CBC', label: 'CBC', description: 'Competency Based Curriculum' },
-    { value: 'IGCSE', label: 'IGCSE', description: 'International General Certificate' },
-    { value: 'British Curriculum', label: 'British Curriculum', description: 'UK National Curriculum' }
-  ]
+  const curricula = CURRICULA_FORM_OPTIONS
 
   const subjects = [
     { value: 'Mathematics', icon: '🔢', category: 'Core' },

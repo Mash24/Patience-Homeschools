@@ -2,9 +2,9 @@
 
 import { useState, Suspense } from 'react'
 import { motion } from 'framer-motion'
-import { supabase } from '@/lib/supabase'
 import { ArrowRight, Mail, Shield, Users, CheckCircle, Sparkles } from 'lucide-react'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { sendMagicLink } from './actions'
 
 function LoginContent() {
   const [email, setEmail] = useState('')
@@ -13,7 +13,7 @@ function LoginContent() {
   const [error, setError] = useState('')
   const router = useRouter()
   const searchParams = useSearchParams()
-  const redirectTo = searchParams.get('redirectTo') || '/'
+  const redirectTo = searchParams.get('redirectTo') || '/admin'
 
   const handleEmailLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -21,20 +21,10 @@ function LoginContent() {
     setError('')
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
-        email,
-        options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?redirectTo=${encodeURIComponent(redirectTo)}`,
-        },
-      })
-
-      if (error) {
-        setError(error.message)
-      } else {
-        setIsEmailSent(true)
-      }
-    } catch (err) {
-      setError('An unexpected error occurred. Please try again.')
+      await sendMagicLink(email, redirectTo)
+      setIsEmailSent(true)
+    } catch (err: any) {
+      setError(err.message || 'An unexpected error occurred. Please try again.')
     } finally {
       setIsLoading(false)
     }

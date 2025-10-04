@@ -27,7 +27,7 @@ export default function FooterLuxury() {
         <div className="grid grid-cols-1 gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
           {/* About */}
           <div className="space-y-3">
-            <h4 className="text-base font-semibold text-white">Patience Education Collective</h4>
+            <h4 className="text-base font-semibold text-white">Nelimac Learning</h4>
             <p className="max-w-[36ch] text-sm leading-relaxed text-white/70">
               Nairobi&apos;s premier homeschool network. TSC-certified tutors, concierge
               matching, and exclusive community events.
@@ -88,7 +88,7 @@ export default function FooterLuxury() {
 
         {/* Legal bar */}
         <div className="flex flex-col items-start justify-between gap-3 py-6 text-xs text-white/60 sm:flex-row">
-          <p>© {new Date().getFullYear()} Patience Education Collective. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Nelimac Learning. All rights reserved.</p>
           <p className="max-w-[60ch]">
             Built with care for Nairobi&apos;s homeschooling community.
           </p>
