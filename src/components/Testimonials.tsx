@@ -160,19 +160,19 @@ export default function Testimonials() {
 
 
   return (
-    <section className="section-padding bg-white">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-12 sm:mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             What Parents Say
           </h2>
-          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Hear from families who have transformed their homeschooling experience 
             with Nelimac Learning.
           </p>
@@ -187,18 +187,18 @@ export default function Testimonials() {
           {/* Navigation Buttons */}
           <button
             onClick={prevSlide}
-            className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200 group"
+            className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 sm:-translate-x-4 z-10 bg-white shadow-lg rounded-full p-1.5 sm:p-2 hover:bg-gray-50 transition-colors duration-200 group"
             aria-label="Previous testimonials"
           >
-            <ChevronLeft className="h-5 w-5 text-gray-600 group-hover:text-gray-900" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 group-hover:text-gray-900" />
           </button>
           
           <button
             onClick={nextSlide}
-            className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200 group"
+            className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 sm:translate-x-4 z-10 bg-white shadow-lg rounded-full p-1.5 sm:p-2 hover:bg-gray-50 transition-colors duration-200 group"
             aria-label="Next testimonials"
           >
-            <ChevronRight className="h-5 w-5 text-gray-600 group-hover:text-gray-900" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 group-hover:text-gray-900" />
           </button>
 
           {/* Carousel Track */}
@@ -217,7 +217,7 @@ export default function Testimonials() {
               {infiniteTestimonials.map((testimonial, index) => (
                 <div
                   key={`${testimonial.name}-${index}`}
-                  className="flex-shrink-0 px-2 sm:px-3"
+                  className="flex-shrink-0 px-1 sm:px-2 md:px-3"
                   style={{ width: `${100 / itemsPerView}%` }}
                 >
                   <motion.div
@@ -227,27 +227,27 @@ export default function Testimonials() {
                     className="card hover:shadow-xl transition-all duration-300 relative h-full"
                   >
                     {/* Quote Icon */}
-                    <div className="absolute -top-3 sm:-top-4 left-4 sm:left-6">
-                      <div className="bg-blue-100 p-1.5 sm:p-2 rounded-full">
-                        <Quote className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
+                    <div className="absolute -top-2 sm:-top-3 md:-top-4 left-3 sm:left-4 md:left-6">
+                      <div className="bg-blue-100 p-1 sm:p-1.5 md:p-2 rounded-full">
+                        <Quote className="h-3 w-3 sm:h-4 sm:w-4 md:h-6 md:w-6 text-blue-600" />
                       </div>
                     </div>
 
                     {/* Rating */}
-                    <div className="flex items-center space-x-1 mb-3 sm:mb-4 pt-3 sm:pt-4">
+                    <div className="flex items-center space-x-1 mb-2 sm:mb-3 md:mb-4 pt-2 sm:pt-3 md:pt-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 fill-current" />
+                        <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
 
                     {/* Content */}
-                    <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 leading-relaxed">
+                    <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-3 sm:mb-4 md:mb-6 leading-relaxed">
                       &ldquo;{testimonial.content}&rdquo;
                     </p>
 
                     {/* Author */}
-                    <div className="border-t border-gray-100 pt-3 sm:pt-4 mt-auto">
-                      <div className="font-semibold text-sm sm:text-base text-gray-900">
+                    <div className="border-t border-gray-100 pt-2 sm:pt-3 md:pt-4 mt-auto">
+                      <div className="font-semibold text-xs sm:text-sm md:text-base text-gray-900">
                         {testimonial.name}
                       </div>
                       <div className="text-xs sm:text-sm text-gray-600">
@@ -264,7 +264,7 @@ export default function Testimonials() {
           </div>
 
           {/* Dots Indicator */}
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center mt-6 sm:mt-8 space-x-1 sm:space-x-2">
             {Array.from({ length: testimonials.length }).map((_, index) => {
               const isActive = (currentIndex - startIndex) === index || 
                               (currentIndex >= testimonials.length * 2 && index === 0) ||
@@ -273,10 +273,10 @@ export default function Testimonials() {
                 <button
                   key={index}
                   onClick={() => goToSlide(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  className={`h-1.5 sm:h-2 rounded-full transition-all duration-200 ${
                     isActive
-                      ? 'bg-blue-600 w-8'
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? 'bg-blue-600 w-6 sm:w-8'
+                      : 'bg-gray-300 hover:bg-gray-400 w-1.5 sm:w-2'
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -291,24 +291,24 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-8 sm:mt-12 lg:mt-16"
+          className="mt-6 sm:mt-8 md:mt-12 lg:mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-8 text-center">
+          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-center">
               <div>
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">98%</div>
+                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">98%</div>
                 <div className="text-xs sm:text-sm text-gray-600">Parent Satisfaction</div>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-green-600 mb-1 sm:mb-2">200+</div>
+                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-green-600 mb-1 sm:mb-2">200+</div>
                 <div className="text-xs sm:text-sm text-gray-600">Happy Families</div>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">50+</div>
+                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">50+</div>
                 <div className="text-xs sm:text-sm text-gray-600">Qualified Teachers</div>
               </div>
               <div>
-                <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 sm:mb-2">3</div>
+                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 sm:mb-2">3</div>
                 <div className="text-xs sm:text-sm text-gray-600">Years Experience</div>
               </div>
             </div>

@@ -25,7 +25,9 @@ import {
   Trash2,
   X,
   Plus,
-  Eye
+  Eye,
+  DollarSign,
+  Shield
 } from 'lucide-react'
 
 interface TeacherApplicationData {
@@ -394,17 +396,98 @@ export default function TeacherApplicationForm() {
 
         return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-6">
-          <div className="text-center">
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">Teacher Application</h1>
-            <p className="text-sm sm:text-base text-gray-600">Join Nairobi's Premier Education Network</p>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 py-6 sm:py-8 lg:py-12">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-6 sm:mb-8">
+            {/* Badge */}
+            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 sm:mb-6 shadow-sm">
+              <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+              <span className="text-xs sm:text-sm font-medium text-gray-700">TSC-Certified • Background-Checked</span>
+            </div>
+
+            {/* Main Heading */}
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
+              Trusted homeschool teachers<br className="hidden sm:block" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600">
+                for your child
+              </span>
+            </h1>
+            
+            {/* Subtitle */}
+            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
+              Handpicked tutors available for in-home or online learning across Nairobi. 
+              Get matched with the perfect teacher for your child's needs.
+            </p>
+
+            {/* Programmes */}
+            <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 mb-4 sm:mb-6">
+              <span className="text-xs font-medium text-gray-700">CBC</span>
+              <span className="text-gray-400">•</span>
+              <span className="text-xs font-medium text-gray-700">IGCSE</span>
+              <span className="text-gray-400">•</span>
+              <span className="text-xs font-medium text-gray-700">British Programmes</span>
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-row gap-2 sm:gap-3 justify-center items-center">
+              <button 
+                onClick={() => document.getElementById('teacher-matching-form')?.scrollIntoView({ behavior: 'smooth' })}
+                className="group bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-1 flex-1 sm:flex-none"
+              >
+                <span className="flex items-center justify-center space-x-1 sm:space-x-2">
+                  <Star className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm">Request a Private Tutor</span>
+                </span>
+              </button>
+              
+              <button 
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="group bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 flex-1 sm:flex-none"
+              >
+                <span className="flex items-center justify-center space-x-1 sm:space-x-2">
+                  <FileText className="h-3 w-3 sm:h-4 sm:w-4" />
+                  <span className="text-xs sm:text-sm">Apply as an Elite Teacher</span>
+                </span>
+              </button>
+            </div>
+
+            {/* TSC Note */}
+            <p className="text-xs text-gray-500 mt-2 sm:mt-3">
+              TSC-Verified applicants only
+            </p>
+          </div>
+
+          {/* Benefits Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+              </div>
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">Competitive Rates</h3>
+              <p className="text-xs text-gray-600">KSh 1,500 - 3,000 per hour</p>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+              </div>
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">Flexible Schedule</h3>
+              <p className="text-xs text-gray-600">Choose your own hours</p>
+            </div>
+
+            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
+                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
+              </div>
+              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">Secure Platform</h3>
+              <p className="text-xs text-gray-600">Guaranteed payments</p>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-4xl mx-auto px-3 sm:px-4 py-4 sm:py-8">
+      <div id="teacher-matching-form" className="max-w-4xl mx-auto px-4 py-6 sm:py-8">
         {/* Progress Steps */}
         <div className="mb-6 sm:mb-8">
           <div className="flex items-center justify-between overflow-x-auto pb-2">
@@ -419,7 +502,7 @@ export default function TeacherApplicationForm() {
                   <button
                     onClick={() => goToStep(step.id)}
                     disabled={!isAccessible}
-                    className={`w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                    className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isActive
                         ? 'bg-blue-600 text-white shadow-lg scale-110'
                         : isCompleted
@@ -429,10 +512,10 @@ export default function TeacherApplicationForm() {
                         : 'bg-gray-100 text-gray-400 cursor-not-allowed'
                     }`}
                   >
-                    <Icon className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6" />
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
-                  <div className="mt-1 sm:mt-2 text-center px-1">
-                    <p className={`text-xs sm:text-sm font-medium ${
+                  <div className="mt-2 text-center px-1">
+                    <p className={`text-sm font-medium ${
                       isActive ? 'text-blue-600' : isCompleted ? 'text-green-600' : 'text-gray-500'
                     }`}>
                       {step.title}
@@ -457,50 +540,50 @@ export default function TeacherApplicationForm() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.3 }}
-          className="bg-white rounded-lg sm:rounded-xl shadow-lg p-4 sm:p-6 md:p-8"
+          className="bg-white rounded-xl shadow-lg p-6 sm:p-8"
         >
           {renderStepContent()}
         </motion.div>
 
         {/* Navigation */}
-        <div className="flex flex-col sm:flex-row justify-between gap-3 sm:gap-0 mt-6 sm:mt-8">
+        <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8">
           <button
             onClick={prevStep}
             disabled={currentStep === 1}
-            className="flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base"
+            className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
           >
-            <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ArrowLeft className="w-5 h-5" />
             <span>Previous</span>
           </button>
 
           {currentStep < steps.length ? (
             <button
               onClick={nextStep}
-              className="flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base"
             >
               <span>Next</span>
-              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+              <ArrowRight className="w-5 h-5" />
             </button>
           ) : (
             <button
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-sm sm:text-base"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
             >
               {isSubmitting ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 sm:h-5 sm:w-5 border-b-2 border-white"></div>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   <span>Submitting...</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <CheckCircle className="w-5 h-5" />
                   <span>Submit Application</span>
                 </>
               )}
             </button>
           )}
-            </div>
+        </div>
 
         {/* Error Message */}
         {error && (
@@ -624,7 +707,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
             Full Name <span className="text-red-500">*</span>
@@ -633,7 +716,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                   type="text"
                   value={formData.fullName}
             onChange={(e) => handleInputChange('fullName', e.target.value)}
-            className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
               errors.fullName ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="Enter your full name"
@@ -645,12 +728,12 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                 <label className="block text-sm font-medium text-gray-700 mb-2">
             Email Address <span className="text-red-500">*</span>
                 </label>
-                <div className="flex space-x-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className={`flex-1 px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
+                    className={`flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     }`}
                     placeholder="your.email@example.com"
@@ -659,7 +742,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                     type="button"
                     onClick={() => checkEmailExists()}
                     disabled={!formData.email}
-                    className="px-3 sm:px-4 py-2 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-sm sm:text-base transition-colors"
+                    className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-base transition-colors whitespace-nowrap"
                   >
                     Check
                   </button>
@@ -676,7 +759,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                   type="tel"
                   value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
-            className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
               errors.phone ? 'border-red-500' : 'border-gray-300'
             }`}
             placeholder="+254 700 000 000"
@@ -692,7 +775,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                   type="text"
                   value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
-            className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
               errors.location ? 'border-red-500' : 'border-gray-300'
             }`}
                   placeholder="e.g., Westlands, Nairobi"
@@ -707,7 +790,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
           <select
             value={formData.gender}
             onChange={(e) => handleInputChange('gender', e.target.value)}
-            className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
               errors.gender ? 'border-red-500' : 'border-gray-300'
             }`}
           >
@@ -727,7 +810,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
             type="date"
             value={formData.dateOfBirth}
             onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
-            className={`w-full px-3 sm:px-4 py-2 sm:py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base ${
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
               errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
             }`}
           />

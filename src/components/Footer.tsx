@@ -19,17 +19,17 @@ export default function Footer() {
     <footer className="w-full bg-[#0b0b0f] text-gray-300 border-t border-white/5">
       {/* Newsletter */}
       <section aria-labelledby="newsletter" className="w-full border-b border-white/5 bg-gradient-to-r from-[#0b0b0f] via-[#0f0f15] to-[#0b0b0f]">
-        <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 md:py-12">
           <div className="mx-auto max-w-2xl text-center">
-            <h2 id="newsletter" className="text-xl md:text-2xl font-bold text-white mb-2">
+            <h2 id="newsletter" className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
               Stay Informed
             </h2>
-            <p className="text-base md:text-lg text-gray-300 mb-6">
+            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6">
               Insights on elite education in Nairobi.
             </p>
 
             {/* ✅ Server Action instead of onSubmit */}
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" action={subscribe}>
+            <form className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md mx-auto" action={subscribe}>
               <label className="sr-only" htmlFor="newsletter-email">Email address</label>
               <input
                 id="newsletter-email"
@@ -39,11 +39,11 @@ export default function Footer() {
                 autoComplete="email"
                 required
                 placeholder="Your email"
-                className="flex-1 px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
+                className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-semibold px-6 py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base"
               >
                 Subscribe →
               </button>
@@ -53,9 +53,9 @@ export default function Footer() {
       </section>
 
       {/* Main grid */}
-      <div className="mx-auto max-w-7xl px-4 py-8 md:py-12">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 md:py-12">
         {/* Desktop: Self-packing grid, Mobile: Accordion */}
-        <div className="hidden md:grid [grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))] gap-8">
+        <div className="hidden md:grid [grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))] gap-6 lg:gap-8">
           {/* Brand */}
           <section aria-labelledby="footer-brand" className="min-w-0">
             <div className="flex items-center space-x-2 mb-3">
@@ -133,7 +133,7 @@ export default function Footer() {
           </div>
 
         {/* Mobile Accordion */}
-        <div className="md:hidden space-y-4">
+        <div className="md:hidden space-y-3 sm:space-y-4">
           {/* Brand - Always visible on mobile */}
           <section aria-labelledby="footer-brand-mobile" className="min-w-0">
             <div className="flex items-center space-x-2 mb-3">
@@ -142,95 +142,95 @@ export default function Footer() {
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
               </div>
-              <h3 id="footer-brand-mobile" className="text-white font-bold text-lg">
+              <h3 id="footer-brand-mobile" className="text-white font-bold text-base sm:text-lg">
                 Nelimac Learning
               </h3>
             </div>
-            <p className="text-sm leading-relaxed text-gray-300 mb-4">
+            <p className="text-xs sm:text-sm leading-relaxed text-gray-300 mb-3 sm:mb-4">
               Nairobi's premier education network. TSC-certified tutors, concierge matching,
               and exclusive community events.
             </p>
-            <ul aria-label="Social links" className="flex items-center gap-3 mb-6">
+            <ul aria-label="Social links" className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
               <li>
-                <Link href="#" className="w-8 h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Facebook">
-                  <Facebook className="h-4 w-4 text-gray-300 group-hover:text-white" />
+                <Link href="#" className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Facebook">
+                  <Facebook className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300 group-hover:text-white" />
                 </Link>
               </li>
               <li>
-                <Link href="#" className="w-8 h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Twitter">
-                  <Twitter className="h-4 w-4 text-gray-300 group-hover:text-white" />
+                <Link href="#" className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Twitter">
+                  <Twitter className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300 group-hover:text-white" />
                 </Link>
               </li>
               <li>
-                <Link href="#" className="w-8 h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Instagram">
-                  <Instagram className="h-4 w-4 text-gray-300 group-hover:text-white" />
+                <Link href="#" className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Instagram">
+                  <Instagram className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300 group-hover:text-white" />
                 </Link>
               </li>
             </ul>
           </section>
 
           {/* Explore - Collapsible */}
-          <div className="border-t border-white/10 pt-4">
+          <div className="border-t border-white/10 pt-3 sm:pt-4">
             <button
               onClick={() => toggleSection('explore')}
               className="flex items-center justify-between w-full text-left"
               aria-expanded={expandedSections.explore}
             >
-              <h3 className="text-white font-bold text-lg">EXPLORE</h3>
-              <ChevronDown className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${expandedSections.explore ? 'rotate-180' : ''}`} />
+              <h3 className="text-white font-bold text-base sm:text-lg">EXPLORE</h3>
+              <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform duration-200 ${expandedSections.explore ? 'rotate-180' : ''}`} />
             </button>
             {expandedSections.explore && (
-              <nav className="mt-3 space-y-2">
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/curricula">Programmes</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/hire-teacher">Request a Private Tutor</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/resources">Resources</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/events">Events</Link>
+              <nav className="mt-2 sm:mt-3 space-y-1 sm:space-y-2">
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/curricula">Programmes</Link>
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/hire-teacher">Request a Private Tutor</Link>
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/resources">Resources</Link>
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/events">Events</Link>
               </nav>
             )}
           </div>
 
           {/* Trust & Policies - Collapsible */}
-          <div className="border-t border-white/10 pt-4">
+          <div className="border-t border-white/10 pt-3 sm:pt-4">
             <button
               onClick={() => toggleSection('trust')}
               className="flex items-center justify-between w-full text-left"
               aria-expanded={expandedSections.trust}
             >
-              <h3 className="text-white font-bold text-lg">TRUST & POLICIES</h3>
-              <ChevronDown className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${expandedSections.trust ? 'rotate-180' : ''}`} />
+              <h3 className="text-white font-bold text-base sm:text-lg">TRUST & POLICIES</h3>
+              <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform duration-200 ${expandedSections.trust ? 'rotate-180' : ''}`} />
             </button>
             {expandedSections.trust && (
-              <nav className="mt-3 space-y-2">
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/safeguarding">Safeguarding & Vetting</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/privacy">Privacy Policy</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-2 block" href="/terms">Terms of Service</Link>
+              <nav className="mt-2 sm:mt-3 space-y-1 sm:space-y-2">
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/safeguarding">Safeguarding & Vetting</Link>
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/privacy">Privacy Policy</Link>
+                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/terms">Terms of Service</Link>
               </nav>
             )}
           </div>
 
           {/* Contact - Collapsible */}
-          <div className="border-t border-white/10 pt-4">
+          <div className="border-t border-white/10 pt-3 sm:pt-4">
             <button
               onClick={() => toggleSection('contact')}
               className="flex items-center justify-between w-full text-left"
               aria-expanded={expandedSections.contact}
             >
-              <h3 className="text-white font-bold text-lg">CONTACT</h3>
-              <ChevronDown className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${expandedSections.contact ? 'rotate-180' : ''}`} />
+              <h3 className="text-white font-bold text-base sm:text-lg">CONTACT</h3>
+              <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform duration-200 ${expandedSections.contact ? 'rotate-180' : ''}`} />
             </button>
             {expandedSections.contact && (
-              <address className="mt-3 space-y-3 not-italic">
+              <address className="mt-2 sm:mt-3 space-y-2 sm:space-y-3 not-italic">
               <div className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                  <span className="text-gray-300">Nairobi, Kenya</span>
+                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex-shrink-0" />
+                  <span className="text-gray-300 text-sm sm:text-base">Nairobi, Kenya</span>
               </div>
               <div className="flex items-center space-x-2">
-                  <Phone className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="tel:+254700000000">+254 700 000 000</a>
+                  <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex-shrink-0" />
+                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm sm:text-base" href="tel:+254700000000">+254 700 000 000</a>
               </div>
               <div className="flex items-center space-x-2">
-                  <Mail className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@nelimaclearning.co.ke">info@nelimaclearning.co.ke</a>
+                  <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex-shrink-0" />
+                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm sm:text-base" href="mailto:info@nelimaclearning.co.ke">info@nelimaclearning.co.ke</a>
               </div>
               </address>
             )}
@@ -238,14 +238,14 @@ export default function Footer() {
       </div>
 
         {/* Bottom bar */}
-        <div className="mt-8 border-t border-white/5 pt-6 text-sm text-gray-400 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 sm:mt-8 border-t border-white/5 pt-4 sm:pt-6 text-xs sm:text-sm text-gray-400 flex flex-col sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} Nelimac Learning. All rights reserved.</span>
-          <span className="mt-2 sm:mt-0">Built with care for Nairobi's education community.</span>
+          <span className="mt-1 sm:mt-0">Built with care for Nairobi's education community.</span>
         </div>
       </div>
       
       {/* Bottom spacer for floating concierge button */}
-      <div className="h-20 sm:h-0" />
+      <div className="h-16 sm:h-20" />
     </footer>
   );
 }

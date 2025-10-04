@@ -6,27 +6,33 @@ import { uploadTeacherDocument } from '@/lib/storage'
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.json()
+    const formData = await request.formData()
     
     // Extract data from form
-    const {
-      fullName,
-      email,
-      phone,
-      location,
-      gender,
-      dateOfBirth,
-      subjects,
-      curricula,
-      gradeLevels,
-      experienceYears,
-      educationBackground,
-      teachingPhilosophy,
-      availability,
-      hourlyRateRange,
-      tscNumber,
-      documents
-    } = formData
+    const fullName = formData.get('fullName') as string
+    const email = formData.get('email') as string
+    const phone = formData.get('phone') as string
+    const location = formData.get('location') as string
+    const gender = formData.get('gender') as string
+    const dateOfBirth = formData.get('dateOfBirth') as string
+    const subjects = JSON.parse(formData.get('subjects') as string || '[]')
+    const curricula = JSON.parse(formData.get('curricula') as string || '[]')
+    const gradeLevels = JSON.parse(formData.get('gradeLevels') as string || '[]')
+    const experienceYears = parseInt(formData.get('experienceYears') as string || '0')
+    const educationBackground = formData.get('educationBackground') as string
+    const teachingPhilosophy = formData.get('teachingPhilosophy') as string
+    const availability = JSON.parse(formData.get('availability') as string || '[]')
+    const hourlyRateRange = formData.get('hourlyRateRange') as string
+    const tscNumber = formData.get('tscNumber') as string
+    
+    // Extract document files
+    const documents: Record<string, File> = {}
+    for (const [key, value] of formData.entries()) {
+      if (key.startsWith('documents.') && value instanceof File) {
+        const docType = key.replace('documents.', '')
+        documents[docType] = value
+      }
+    }
 
     // Check for duplicate applications by email in both auth.users and teachers table
     let existingApplications = null
@@ -312,7 +318,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: 'Application submitted successfully',
-      userId
+      userId,
+      email,
+      applicationId: userId
     })
 
   } catch (error) {

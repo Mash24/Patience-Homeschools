@@ -36,8 +36,8 @@ export async function middleware(req: NextRequest) {
     if (!isAdmin) return NextResponse.redirect(new URL('/unauthorized', req.url))
   }
 
-  // 3) Protect teacher routes
-  if (p.startsWith('/teacher')) {
+  // 3) Protect teacher routes (except public application pages)
+  if (p.startsWith('/teacher') && p !== '/teacher-apply' && !p.startsWith('/teacher-apply/')) {
     if (!session) return NextResponse.redirect(new URL('/login', req.url))
     if (role !== 'teacher') return NextResponse.redirect(new URL('/unauthorized', req.url))
   }

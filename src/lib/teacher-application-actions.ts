@@ -33,10 +33,7 @@ export async function submitProvisionalApplication(formData: FormData) {
     // Call the teacher application API
     const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/teacher-apply`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data)
+      body: formData
     })
 
     const result = await response.json()

@@ -159,7 +159,7 @@ export default function FAQSection() {
       icon: Phone,
       title: "Call Us",
       description: "Speak directly with our team",
-      action: "+254 700 000 000",
+      action: "+254 742 909 506",
       color: "text-green-600"
     },
     {
@@ -180,12 +180,12 @@ export default function FAQSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
             Find answers to common questions about our teacher matching service, 
             pricing, and how we ensure quality education for your child.
           </p>
@@ -284,6 +284,19 @@ export default function FAQSection() {
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
                   className="text-center p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors cursor-pointer group"
+                  onClick={() => {
+                    if (method.title === 'Live Chat') {
+                      // Trigger the WhatsApp chat widget
+                      const chatButton = document.querySelector('[data-whatsapp-chat]') as HTMLElement
+                      if (chatButton) {
+                        chatButton.click()
+                      }
+                    } else if (method.title === 'Call Us') {
+                      window.open(`tel:${method.action}`, '_self')
+                    } else if (method.title === 'Email Us') {
+                      window.open(`mailto:${method.action}`, '_self')
+                    }
+                  }}
                 >
                   <method.icon className={`h-8 w-8 ${method.color} mx-auto mb-4 group-hover:scale-110 transition-transform`} />
                   <h4 className="font-semibold text-gray-900 mb-2">{method.title}</h4>

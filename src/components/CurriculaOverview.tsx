@@ -35,25 +35,25 @@ const colorClasses = {
 
 export default function CurriculaOverview() {
   return (
-    <section className="section-padding bg-white">
+    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
             Supporting All Major Curricula
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Our qualified teachers are experts in Kenya's most popular curricula, 
             ensuring your child receives the best education tailored to their needs.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {curricula.map((curriculum, index) => (
             <motion.div
               key={curriculum.name}
@@ -65,7 +65,7 @@ export default function CurriculaOverview() {
             >
               <div className="text-center mb-4 sm:mb-6">
                 <div className={`inline-flex p-3 sm:p-4 rounded-full ${colorClasses[curriculum.color as keyof typeof colorClasses]} mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <curriculum.icon className="h-6 w-6 sm:h-8 sm:w-8" />
+                  <curriculum.icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8" />
                 </div>
                 <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 leading-tight">
                   {curriculum.name}
@@ -99,22 +99,22 @@ export default function CurriculaOverview() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mt-16"
+          className="text-center mt-8 sm:mt-12 md:mt-16"
         >
-          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-2xl p-8">
-            <Award className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
+            <Award className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
               Not Sure Which Curriculum is Right?
             </h3>
-            <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+            <p className="text-gray-600 mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
               Our education consultants can help you choose the best curriculum for your child's 
               learning style and future goals. Book a free consultation today.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="btn-primary">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <button className="btn-primary text-xs sm:text-sm">
                 Free Consultation
               </button>
-              <button className="btn-outline">
+              <button className="btn-outline text-xs sm:text-sm">
                 Compare Curricula
               </button>
             </div>

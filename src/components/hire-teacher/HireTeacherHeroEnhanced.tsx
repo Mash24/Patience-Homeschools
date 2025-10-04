@@ -191,14 +191,14 @@ export default function HireTeacherHeroEnhanced() {
       <div className="container-custom relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Main Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-screen py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 items-center py-8 sm:py-12 lg:py-16">
             
             {/* Left Column - Enhanced Main Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-3 sm:space-y-4 lg:space-y-6"
             >
               {/* Enhanced Badge */}
               <motion.div
@@ -208,7 +208,7 @@ export default function HireTeacherHeroEnhanced() {
                 className="inline-flex items-center space-x-2 bg-white/90 backdrop-blur-sm border border-blue-200 rounded-full px-4 py-2 shadow-lg"
               >
                 <Sparkles className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-gray-700">Nairobi's #1 Teacher Matching Platform</span>
+                <span className="text-xs sm:text-sm font-medium text-gray-700">Nairobi's #1 Teacher Matching Platform</span>
                 <CheckCircle2 className="h-4 w-4 text-green-500" />
               </motion.div>
 
@@ -218,10 +218,10 @@ export default function HireTeacherHeroEnhanced() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
               >
-                <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                  Nairobi's Premier
+                <h1 className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-tight">
+                  Trusted homeschool teachers<br className="hidden sm:block" />
                   <span className="block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    Teacher Platform
+                    for your child
                   </span>
                 </h1>
               </motion.div>
@@ -231,26 +231,39 @@ export default function HireTeacherHeroEnhanced() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl text-gray-600 leading-relaxed max-w-lg"
+                className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 leading-relaxed max-w-lg"
               >
-                Join our network of TSC-certified teachers or find the perfect educator for your child. 
-                <span className="font-semibold text-blue-600">Teachers:</span> Apply to join our platform. 
-                <span className="font-semibold text-purple-600">Parents:</span> Request a teacher - we'll call you!
+                Handpicked tutors available for in-home or online learning across Nairobi. 
+                Get matched with the perfect teacher for your child's needs.
               </motion.p>
+
+              {/* Programmes */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.45 }}
+                className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 mb-4 sm:mb-6"
+              >
+                <span className="text-xs font-medium text-gray-700">CBC</span>
+                <span className="text-gray-400">•</span>
+                <span className="text-xs font-medium text-gray-700">IGCSE</span>
+                <span className="text-gray-400">•</span>
+                <span className="text-xs font-medium text-gray-700">British Programmes</span>
+              </motion.div>
 
               {/* Enhanced Trust Indicators */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="grid grid-cols-2 gap-4"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3"
               >
                 {trustIndicators.map((indicator, index) => (
-                  <div key={index} className="flex items-center space-x-3 bg-white/80 backdrop-blur-sm rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
-                    <indicator.icon className={`h-5 w-5 ${indicator.color}`} />
+                  <div key={index} className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-lg p-2 sm:p-3 shadow-sm hover:shadow-md transition-shadow">
+                    <indicator.icon className={`h-3 w-3 sm:h-4 sm:w-4 ${indicator.color}`} />
                     <div>
-                      <span className="font-medium text-gray-900 text-sm">{indicator.text}</span>
-                      <p className="text-xs text-gray-600">{indicator.description}</p>
+                      <span className="font-medium text-gray-900 text-xs sm:text-sm">{indicator.text}</span>
+                      <p className="text-xs text-gray-600 hidden sm:block">{indicator.description}</p>
                     </div>
                   </div>
                 ))}
@@ -261,39 +274,53 @@ export default function HireTeacherHeroEnhanced() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.6 }}
-                className="flex flex-col sm:flex-row gap-4"
+                className="flex flex-row gap-2 sm:gap-3 justify-center items-center"
               >
                 <button
                   onClick={scrollToForm}
-                  className="btn-primary inline-flex items-center justify-center group text-lg px-8 py-4"
+                  className="group bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-1 flex-1 sm:flex-none"
                 >
-                  <Target className="mr-2 h-5 w-5" />
-                  Request a Teacher
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <span className="flex items-center justify-center space-x-1 sm:space-x-2">
+                    <Star className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="text-xs sm:text-sm">Request a Private Tutor</span>
+                  </span>
                 </button>
-                <a
-                  href="/teacher-apply"
-                  className="btn-outline inline-flex items-center justify-center group text-lg px-8 py-4"
+                
+                <button 
+                  onClick={() => window.location.href = '/teacher-apply'}
+                  className="group bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 flex-1 sm:flex-none"
                 >
-                  <GraduationCap className="mr-2 h-5 w-5" />
-                  Join as Teacher
-                </a>
+                  <span className="flex items-center justify-center space-x-1 sm:space-x-2">
+                    <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="text-xs sm:text-sm">Apply as an Elite Teacher</span>
+                  </span>
+                </button>
               </motion.div>
+
+              {/* TSC Note */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.65 }}
+                className="text-xs text-gray-500 mt-2 sm:mt-3 text-center"
+              >
+                TSC-Verified applicants only
+              </motion.p>
 
               {/* Enhanced Stats */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.7 }}
-                className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8"
+                className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 pt-4 sm:pt-6 lg:pt-8"
               >
                 {stats.map((stat, index) => (
-                  <div key={index} className="text-center bg-white/60 backdrop-blur-sm rounded-lg p-4 shadow-sm">
-                    <stat.icon className={`h-8 w-8 ${stat.color} mx-auto mb-2`} />
-                    <div className={`text-2xl lg:text-3xl font-bold ${stat.color} mb-1`}>
+                  <div key={index} className="text-center bg-white/60 backdrop-blur-sm rounded-lg p-2 sm:p-3 lg:p-4 shadow-sm">
+                    <stat.icon className={`h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 ${stat.color} mx-auto mb-1 sm:mb-2`} />
+                    <div className={`text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold ${stat.color} mb-1`}>
                       {stat.number}
                     </div>
-                    <div className="text-sm font-medium text-gray-900">{stat.label}</div>
+                    <div className="text-xs sm:text-sm font-medium text-gray-900">{stat.label}</div>
                     <div className="text-xs text-gray-600">{stat.description}</div>
                   </div>
                 ))}
@@ -305,30 +332,30 @@ export default function HireTeacherHeroEnhanced() {
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="space-y-8"
+              className="space-y-3 sm:space-y-4 lg:space-y-6"
             >
               {/* Enhanced Testimonial Card */}
               <motion.div
                 style={{ opacity }}
-                className="bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20"
+                className="bg-white/90 backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl border border-white/20"
               >
-                <div className="flex items-center space-x-1 mb-4">
+                <div className="flex items-center space-x-1 mb-3 sm:mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                    <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <blockquote className="text-lg text-gray-700 mb-6 leading-relaxed">
+                <blockquote className="text-sm sm:text-base lg:text-lg text-gray-700 mb-4 sm:mb-6 leading-relaxed">
                   "{testimonials[currentTestimonial].text}"
                 </blockquote>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="text-2xl">{testimonials[currentTestimonial].avatar}</div>
+                  <div className="flex items-center space-x-2 sm:space-x-3">
+                    <div className="text-xl sm:text-2xl">{testimonials[currentTestimonial].avatar}</div>
                     <div>
-                      <div className="font-semibold text-gray-900">{testimonials[currentTestimonial].name}</div>
-                      <div className="text-sm text-gray-600">{testimonials[currentTestimonial].location}</div>
-                      <div className="text-sm text-blue-600 font-medium">{testimonials[currentTestimonial].child}</div>
+                      <div className="font-semibold text-gray-900 text-sm sm:text-base">{testimonials[currentTestimonial].name}</div>
+                      <div className="text-xs sm:text-sm text-gray-600">{testimonials[currentTestimonial].location}</div>
+                      <div className="text-xs sm:text-sm text-blue-600 font-medium">{testimonials[currentTestimonial].child}</div>
                       <div className="text-xs text-green-600 font-medium">{testimonials[currentTestimonial].improvement}</div>
-                      <div className={`text-xs font-medium px-2 py-1 rounded-full inline-block mt-1 ${
+                      <div className={`text-xs font-medium px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full inline-block mt-1 ${
                         testimonials[currentTestimonial].type === 'teacher' 
                           ? 'bg-purple-100 text-purple-700' 
                           : 'bg-blue-100 text-blue-700'
@@ -352,18 +379,18 @@ export default function HireTeacherHeroEnhanced() {
               </motion.div>
 
               {/* Enhanced Feature Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {features.map((feature, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.6 + index * 0.1 }}
-                    className={`${feature.color} rounded-xl p-6 hover:shadow-lg transition-shadow`}
+                    className={`${feature.color} rounded-lg sm:rounded-xl p-3 sm:p-4 lg:p-6 hover:shadow-lg transition-shadow`}
                   >
-                    <feature.icon className="h-8 w-8 mb-3" />
-                    <h3 className="font-semibold mb-2">{feature.title}</h3>
-                    <p className="text-sm opacity-90">{feature.description}</p>
+                    <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8 mb-2 sm:mb-3" />
+                    <h3 className="font-semibold mb-1 sm:mb-2 text-sm sm:text-base">{feature.title}</h3>
+                    <p className="text-xs sm:text-sm opacity-90">{feature.description}</p>
                   </motion.div>
                 ))}
               </div>
@@ -376,13 +403,13 @@ export default function HireTeacherHeroEnhanced() {
                 className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl overflow-hidden cursor-pointer group"
               >
                 <div className="aspect-video flex items-center justify-center">
-                  <div className="bg-white/20 backdrop-blur-sm rounded-full p-4 group-hover:scale-110 transition-transform">
-                    <Play className="h-8 w-8 text-white" />
+                  <div className="bg-white/20 backdrop-blur-sm rounded-full p-2 sm:p-3 lg:p-4 group-hover:scale-110 transition-transform">
+                    <Play className="h-4 w-4 sm:h-6 sm:w-6 lg:h-8 lg:w-8 text-white" />
                   </div>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                <div className="absolute bottom-4 left-4 text-white">
-                  <div className="text-sm font-medium">See How It Works</div>
+                <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white">
+                  <div className="text-xs sm:text-sm font-medium">See How It Works</div>
                   <div className="text-xs opacity-75">2 min video</div>
                 </div>
               </motion.div>

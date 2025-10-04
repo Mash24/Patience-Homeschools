@@ -311,7 +311,7 @@ export default function TeacherMatchingFormEnhanced() {
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '+254XXXXXXXXX'}?text=Lead%20${leadId}%20submitted%20-%20Need%20teacher%20matching`}
+                  href={`https://wa.me/254742909506?text=Lead%20${leadId}%20submitted%20-%20Need%20teacher%20matching`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-primary inline-flex items-center justify-center"
@@ -349,15 +349,15 @@ export default function TeacherMatchingFormEnhanced() {
           className="max-w-4xl mx-auto"
         >
           {/* Header - Simple Lead Intake */}
-          <div className="text-center mb-6 sm:mb-8 lg:mb-12 px-2 sm:px-0">
+          <div className="text-center mb-4 sm:mb-6 lg:mb-8 px-2 sm:px-0">
             <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-green-50 border border-green-200 rounded-full px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 mb-3 sm:mb-4 lg:mb-6">
               <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
               <span className="text-xs sm:text-sm font-medium text-green-700">No Signup Required</span>
             </div>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
               Request a Teacher
             </h2>
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto px-2 sm:px-4 lg:px-0 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-2 sm:px-4 lg:px-0 leading-relaxed">
               Tell us about your child's learning needs and we'll connect you with the perfect teacher
             </p>
             <div className="flex items-center justify-center space-x-4 mt-4 text-sm text-gray-500">
@@ -377,7 +377,7 @@ export default function TeacherMatchingFormEnhanced() {
           </div>
 
           {/* Enhanced Progress Bar - Responsive */}
-          <div className="mb-6 lg:mb-8">
+          <div className="mb-4 lg:mb-6">
             {/* Desktop Progress Bar */}
             <div className="hidden sm:block">
               <div className="flex items-center justify-between mb-4">
@@ -467,11 +467,11 @@ export default function TeacherMatchingFormEnhanced() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="p-8"
+                    className="p-4 sm:p-6 lg:p-8"
                   >
-                    <div className="flex items-center mb-6">
-                      <User className="h-6 w-6 text-blue-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Parent Information</h3>
+                    <div className="flex items-center mb-4 sm:mb-6">
+                      <User className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 mr-2 sm:mr-3" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Parent Information</h3>
                     </div>
                     
                     {stepErrors[1] && stepErrors[1].length > 0 && (
@@ -559,11 +559,11 @@ export default function TeacherMatchingFormEnhanced() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="p-8"
+                    className="p-4 sm:p-6 lg:p-8"
                   >
-                    <div className="flex items-center mb-6">
-                      <BookOpen className="h-6 w-6 text-green-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Child Information</h3>
+                    <div className="flex items-center mb-4 sm:mb-6">
+                      <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 mr-2 sm:mr-3" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Child Information</h3>
                     </div>
                     
                     {stepErrors[2] && stepErrors[2].length > 0 && (
@@ -582,28 +582,28 @@ export default function TeacherMatchingFormEnhanced() {
                       </div>
                     )}
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                           Child's First Name
                         </label>
                         <input
                           type="text"
                           {...register('childFirstName')}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                           placeholder="Child's name"
                         />
                         {errors.childFirstName && (
-                          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.childFirstName.message}</p>
+                          <p className="text-red-500 text-xs mt-1">{errors.childFirstName.message}</p>
                         )}
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                           Grade Level *
                         </label>
                         <select
                           {...register('gradeLevel')}
-                          className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
                         >
                           <option value="">Select grade level</option>
                           {[...Array(12)].map((_, i) => (
@@ -613,7 +613,7 @@ export default function TeacherMatchingFormEnhanced() {
                           ))}
                         </select>
                         {errors.gradeLevel && (
-                          <p className="text-red-500 text-xs sm:text-sm mt-1">{errors.gradeLevel.message}</p>
+                          <p className="text-red-500 text-xs mt-1">{errors.gradeLevel.message}</p>
                         )}
                       </div>
                     </div>
@@ -628,11 +628,11 @@ export default function TeacherMatchingFormEnhanced() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="p-8"
+                    className="p-4 sm:p-6 lg:p-8"
                   >
-                    <div className="flex items-center mb-6">
-                      <GraduationCap className="h-6 w-6 text-purple-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Learning Needs</h3>
+                    <div className="flex items-center mb-4 sm:mb-6">
+                      <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 mr-2 sm:mr-3" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Learning Needs</h3>
                     </div>
                     
                     {stepErrors[3] && stepErrors[3].length > 0 && (
@@ -652,9 +652,9 @@ export default function TeacherMatchingFormEnhanced() {
                     )}
                     
                     {/* Curriculum Selection */}
-                    <div className="mb-8">
-                      <h4 className="text-lg font-medium text-gray-900 mb-4">Preferred Curriculum *</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div className="mb-6 sm:mb-8">
+                      <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Preferred Curriculum *</h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {curricula.map((curriculum) => (
                           <label key={curriculum.value} className="relative cursor-pointer">
                             <input
@@ -663,29 +663,29 @@ export default function TeacherMatchingFormEnhanced() {
                               onChange={() => handleCurriculumChange(curriculum.value)}
                               className="sr-only"
                             />
-                            <div className={`p-4 rounded-lg border-2 transition-all ${
+                            <div className={`p-3 sm:p-4 rounded-lg border-2 transition-all ${
                               watchedCurricula?.includes(curriculum.value)
                                 ? 'border-blue-500 bg-blue-50'
                                 : 'border-gray-200 hover:border-gray-300'
                             }`}>
-                              <div className="flex items-center mb-2">
-                                <span className="text-2xl mr-3">{curriculum.icon}</span>
-                                <div className="font-medium text-gray-900">{curriculum.label}</div>
+                              <div className="flex items-center mb-1 sm:mb-2">
+                                <span className="text-xl sm:text-2xl mr-2 sm:mr-3">{curriculum.icon}</span>
+                                <div className="font-medium text-gray-900 text-sm sm:text-base">{curriculum.label}</div>
                               </div>
-                              <div className="text-sm text-gray-600">{curriculum.description}</div>
+                              <div className="text-xs sm:text-sm text-gray-600">{curriculum.description}</div>
                             </div>
                           </label>
                         ))}
                       </div>
                       {errors.curricula && (
-                        <p className="text-red-500 text-sm mt-2">{errors.curricula.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-2">{errors.curricula.message}</p>
                       )}
                     </div>
 
                     {/* Subject Selection */}
-                    <div className="mb-8">
-                      <h4 className="text-lg font-medium text-gray-900 mb-4">Subjects Needed *</h4>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                    <div className="mb-6 sm:mb-8">
+                      <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Subjects Needed *</h4>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
                         {subjects.map((subject) => (
                           <label key={subject.value} className="relative cursor-pointer">
                             <input
@@ -694,29 +694,29 @@ export default function TeacherMatchingFormEnhanced() {
                               onChange={() => handleSubjectChange(subject.value)}
                               className="sr-only"
                             />
-                            <div className={`p-3 rounded-lg border-2 transition-all text-center ${
+                            <div className={`p-2 sm:p-3 rounded-lg border-2 transition-all text-center ${
                               watchedSubjects?.includes(subject.value)
                                 ? 'border-blue-500 bg-blue-50'
                                 : `${subject.color} hover:border-gray-400`
                             }`}>
-                              <div className="text-lg mb-1">{subject.icon}</div>
+                              <div className="text-lg sm:text-xl mb-1">{subject.icon}</div>
                               <div className="text-xs font-medium text-gray-900 leading-tight">{subject.value}</div>
                             </div>
                           </label>
                         ))}
                       </div>
                       {errors.subjects && (
-                        <p className="text-red-500 text-sm mt-2">{errors.subjects.message}</p>
+                        <p className="text-red-500 text-xs sm:text-sm mt-2">{errors.subjects.message}</p>
                       )}
                     </div>
 
                     {/* Additional Info */}
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                           <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">
                           Preferred Teaching Mode
                         </label>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
                       {teachingModes.map((mode) => (
                         <label key={mode.value} className="relative cursor-pointer">
                           <input
@@ -725,14 +725,14 @@ export default function TeacherMatchingFormEnhanced() {
                             {...register('mode')}
                             className="sr-only"
                           />
-                              <div className={`p-4 rounded-lg border-2 transition-all ${
+                              <div className={`p-3 sm:p-4 rounded-lg border-2 transition-all ${
                             watchedMode === mode.value
                               ? 'border-blue-500 bg-blue-50'
                               : `${mode.color} hover:border-gray-400`
                           }`}>
-                                <mode.icon className={`h-6 w-6 ${mode.iconColor} mb-2`} />
-                                <h4 className="font-semibold text-gray-900 mb-1">{mode.label}</h4>
-                                <p className="text-sm text-gray-600">{mode.description}</p>
+                                <mode.icon className={`h-5 w-5 sm:h-6 sm:w-6 ${mode.iconColor} mb-2`} />
+                                <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{mode.label}</h4>
+                                <p className="text-xs sm:text-sm text-gray-600">{mode.description}</p>
                           </div>
                         </label>
                       ))}
@@ -774,7 +774,7 @@ export default function TeacherMatchingFormEnhanced() {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.3 }}
-                    className="p-8"
+                    className="p-4 sm:p-6 lg:p-8"
                   >
                     <div className="flex items-center mb-6">
                       <Send className="h-6 w-6 text-green-600 mr-3" />

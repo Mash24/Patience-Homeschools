@@ -136,12 +136,12 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
             What Parents Say About Us
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
             Don't just take our word for it. Here's what real families are saying about their experience with Nelimac Learning.
           </p>
         </motion.div>
@@ -152,7 +152,7 @@ export default function TestimonialsSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
         >
           {stats.map((stat, index) => (
             <div key={index} className="text-center p-6 bg-white rounded-xl shadow-sm">
@@ -181,8 +181,8 @@ export default function TestimonialsSection() {
 
           {/* Mobile-First Carousel */}
           <div className="relative">
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex justify-between items-center mb-6">
+            {/* Mobile/Tablet Navigation */}
+            <div className="lg:hidden flex justify-between items-center mb-6">
               <button
                 onClick={prevTestimonial}
                 className="p-2 rounded-full bg-white shadow-md hover:shadow-lg transition-all border border-gray-200"
@@ -198,22 +198,11 @@ export default function TestimonialsSection() {
               </button>
             </div>
 
-            {/* Carousel Container */}
-            <div className="relative overflow-hidden">
-              <motion.div
-                className="flex transition-transform duration-500 ease-in-out"
-                animate={{
-                  x: `-${currentTestimonial * 100}%`
-                }}
-                style={{
-                  width: `${totalGroups * 100}%`
-                }}
-              >
-                {/* Mobile: 1 card, Tablet: 2 cards, Desktop: 3 cards */}
-                {Array.from({ length: totalGroups }, (_, groupIndex) => (
-                  <div key={groupIndex} className="w-full flex-shrink-0">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 px-1 sm:px-2 lg:px-0">
-                      {testimonials.slice(groupIndex * 3, (groupIndex + 1) * 3).map((testimonial, index) => (
+            {/* Responsive Grid Layout */}
+            <div className="relative">
+              {/* Desktop: Show 3 cards in a static grid */}
+              <div className="hidden lg:grid lg:grid-cols-3 gap-6">
+                {testimonials.slice(0, 3).map((testimonial, index) => (
                         <motion.div
                           key={testimonial.id}
                           initial={{ opacity: 0, y: 20 }}
@@ -267,15 +256,87 @@ export default function TestimonialsSection() {
                             </div>
                           </div>
                         </motion.div>
-                      ))}
-                    </div>
-                  </div>
                 ))}
-              </motion.div>
+              </div>
+
+              {/* Mobile/Tablet: Carousel for smaller devices */}
+              <div className="lg:hidden">
+                <div className="relative overflow-hidden">
+                  <motion.div
+                    className="flex transition-transform duration-500 ease-in-out"
+                    animate={{
+                      x: `-${currentTestimonial * 100}%`
+                    }}
+                    style={{
+                      width: `${totalGroups * 100}%`
+                    }}
+                  >
+                    {Array.from({ length: totalGroups }, (_, groupIndex) => (
+                      <div key={groupIndex} className="w-full flex-shrink-0">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 px-1 sm:px-2">
+                          {testimonials.slice(groupIndex * 2, (groupIndex + 1) * 2).map((testimonial, index) => (
+                            <motion.div
+                              key={testimonial.id}
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.4, delay: index * 0.1 }}
+                              className="bg-white rounded-lg sm:rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 overflow-hidden"
+                            >
+                              {/* Mobile/Tablet Card Content */}
+                              <div className="p-3 sm:p-4">
+                                {/* Quote & Rating Row */}
+                                <div className="flex items-start justify-between mb-3">
+                                  <Quote className="h-4 w-4 sm:h-5 sm:w-5 text-blue-200 flex-shrink-0" />
+                                  <div className="flex items-center space-x-0.5">
+                                    {[...Array(testimonial.rating)].map((_, i) => (
+                                      <Star key={i} className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-yellow-400 fill-current" />
+                                    ))}
+                                  </div>
+                                </div>
+
+                                {/* Testimonial Text */}
+                                <blockquote className="text-xs sm:text-sm text-gray-700 leading-relaxed mb-3 line-clamp-3 sm:line-clamp-4">
+                                  "{testimonial.text}"
+                                </blockquote>
+
+                                {/* Parent Info */}
+                                <div className="flex items-center space-x-2 sm:space-x-3 mb-3">
+                                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-xs sm:text-sm font-bold flex-shrink-0">
+                                    {testimonial.name.split(' ').map(n => n[0]).join('')}
+                                  </div>
+                                  <div className="flex-1 min-w-0">
+                                    <div className="font-semibold text-gray-900 text-xs sm:text-sm truncate">
+                                      {testimonial.name}
+                                    </div>
+                                    <div className="text-xs text-gray-600 truncate">
+                                      {testimonial.location} • {testimonial.child}
+                                    </div>
+                                    <div className="text-xs text-gray-500 truncate">
+                                      {testimonial.curriculum} • {testimonial.duration}
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Achievement Badge */}
+                                <div className="flex items-center space-x-2 px-2 py-1 bg-green-50 rounded-md border border-green-200">
+                                  <CheckCircle className="h-3 w-3 text-green-600 flex-shrink-0" />
+                                  <span className="text-xs text-green-700 font-medium truncate">
+                                    {testimonial.achievements[0]}
+                                  </span>
+                                </div>
+                              </div>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </motion.div>
+                </div>
+              </div>
             </div>
 
-            {/* Mobile Indicators - Ultra Compact */}
-            <div className="flex justify-center mt-4 sm:mt-6 space-x-1.5">
+            {/* Mobile/Tablet Indicators */}
+            <div className="lg:hidden flex justify-center mt-4 sm:mt-6 space-x-1.5">
               {Array.from({ length: totalGroups }, (_, index) => (
                 <button
                   key={index}
