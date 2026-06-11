@@ -158,11 +158,11 @@ export default function AdminChatInterface() {
       case 'pending':
         return 'bg-yellow-100 text-yellow-800'
       case 'active':
-        return 'bg-blue-100 text-blue-800'
+        return 'bg-gold-50 text-gold-800'
       case 'resolved':
         return 'bg-green-100 text-green-800'
       default:
-        return 'bg-gray-100 text-gray-800'
+        return 'bg-ivory-dark text-ink'
     }
   }
 
@@ -180,22 +180,22 @@ export default function AdminChatInterface() {
   }
 
   return (
-    <div className="h-screen bg-gray-50 flex">
+    <div className="h-screen bg-ivory flex">
       {/* Sidebar - Chat Sessions */}
-      <div className="w-1/3 bg-white border-r border-gray-200 flex flex-col">
+      <div className="w-1/3 bg-white border-r border-ink/10 flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Admin Chat</h2>
+        <div className="p-4 border-b border-ink/10">
+          <h2 className="text-xl font-bold text-ink mb-4">Admin Chat</h2>
           
           {/* Search */}
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-ink-muted/60" />
             <input
               type="text"
               placeholder="Search conversations..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full pl-10 pr-4 py-2 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
             />
           </div>
 
@@ -207,8 +207,8 @@ export default function AdminChatInterface() {
                 onClick={() => setFilter(status)}
                 className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
                   filter === status
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    ? 'bg-gold-500 text-white'
+                    : 'bg-ivory-dark text-ink-muted hover:bg-gray-200'
                 }`}
               >
                 {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -223,23 +223,23 @@ export default function AdminChatInterface() {
             <div
               key={session.id}
               onClick={() => setSelectedSession(session)}
-              className={`p-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors ${
-                selectedSession?.id === session.id ? 'bg-blue-50 border-blue-200' : ''
+              className={`p-4 border-b border-ink/5 cursor-pointer hover:bg-ivory transition-colors ${
+                selectedSession?.id === session.id ? 'bg-gold-50 border-gold-200' : ''
               }`}
             >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold text-gray-900">{session.userInfo.name}</h3>
+                <h3 className="font-semibold text-ink">{session.userInfo.name}</h3>
                 <span className={`px-2 py-1 rounded-full text-xs font-medium flex items-center space-x-1 ${getStatusColor(session.status)}`}>
                   {getStatusIcon(session.status)}
                   <span>{session.status}</span>
                 </span>
               </div>
               
-              <p className="text-sm text-gray-600 mb-2">{session.userInfo.email}</p>
-              <p className="text-xs text-gray-500">{session.userInfo.phone}</p>
+              <p className="text-sm text-ink-muted mb-2">{session.userInfo.email}</p>
+              <p className="text-xs text-ink-muted">{session.userInfo.phone}</p>
               
               <div className="mt-2">
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-ink-muted">
                   Last activity: {session.lastActivity.toLocaleTimeString()}
                 </p>
               </div>
@@ -253,11 +253,11 @@ export default function AdminChatInterface() {
         {selectedSession ? (
           <>
             {/* Chat Header */}
-            <div className="p-4 border-b border-gray-200 bg-white">
+            <div className="p-4 border-b border-ink/10 bg-white">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{selectedSession.userInfo.name}</h3>
-                  <p className="text-sm text-gray-600">{selectedSession.userInfo.email} • {selectedSession.userInfo.phone}</p>
+                  <h3 className="text-lg font-semibold text-ink">{selectedSession.userInfo.name}</h3>
+                  <p className="text-sm text-ink-muted">{selectedSession.userInfo.email} • {selectedSession.userInfo.phone}</p>
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-2 ${getStatusColor(selectedSession.status)}`}>
@@ -286,18 +286,18 @@ export default function AdminChatInterface() {
                   <div
                     className={`max-w-xs lg:max-w-md p-3 rounded-lg ${
                       message.sender === 'admin'
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                        ? 'bg-gold-500 text-white'
+                        : 'bg-ivory-dark text-ink'
                     }`}
                   >
                     <div className="flex items-center space-x-2 mb-1">
                       <div className={`w-4 h-4 rounded-full flex items-center justify-center ${
-                        message.sender === 'admin' ? 'bg-blue-600' : 'bg-gray-200'
+                        message.sender === 'admin' ? 'bg-gold-500' : 'bg-gray-200'
                       }`}>
                         {message.sender === 'admin' ? (
                           <User className="h-2 w-2 text-white" />
                         ) : (
-                          <User className="h-2 w-2 text-gray-600" />
+                          <User className="h-2 w-2 text-ink-muted" />
                         )}
                       </div>
                       <span className="text-xs opacity-70">
@@ -312,7 +312,7 @@ export default function AdminChatInterface() {
 
             {/* Message Input */}
             {selectedSession.status !== 'resolved' && (
-              <div className="p-4 border-t border-gray-200 bg-white">
+              <div className="p-4 border-t border-ink/10 bg-white">
                 <div className="flex space-x-2">
                   <input
                     type="text"
@@ -320,12 +320,12 @@ export default function AdminChatInterface() {
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                     placeholder="Type your response..."
-                    className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="flex-1 border border-ink/10 rounded-lg px-3 py-2 focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
                   />
                   <button
                     onClick={sendMessage}
                     disabled={!newMessage.trim()}
-                    className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="bg-gold-500 text-white p-2 rounded-lg hover:bg-gold-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     <Send className="h-4 w-4" />
                   </button>
@@ -337,8 +337,8 @@ export default function AdminChatInterface() {
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
               <MessageCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Select a conversation</h3>
-              <p className="text-gray-600">Choose a chat session from the sidebar to start responding</p>
+              <h3 className="text-lg font-semibold text-ink mb-2">Select a conversation</h3>
+              <p className="text-ink-muted">Choose a chat session from the sidebar to start responding</p>
             </div>
           </div>
         )}

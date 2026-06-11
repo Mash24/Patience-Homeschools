@@ -79,7 +79,7 @@ export default function TestimonialCarousel({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="bg-white p-6 md:p-8 shadow-lg border border-gray-100"
+            className="bg-white p-6 md:p-8 shadow-lg border border-ink/5"
           >
             {/* Rating Stars */}
             <div className="flex items-center space-x-1 mb-4">
@@ -96,20 +96,20 @@ export default function TestimonialCarousel({
             </div>
 
             {/* Testimonial Content */}
-            <blockquote className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+            <blockquote className="text-ink text-base md:text-lg leading-relaxed mb-6">
               "{testimonials[currentIndex].content}"
             </blockquote>
 
             {/* Author Info */}
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+              <div className="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                 {testimonials[currentIndex].name.charAt(0)}
               </div>
               <div>
-                <div className="font-semibold text-gray-900">
+                <div className="font-semibold text-ink">
                   {testimonials[currentIndex].name}
                 </div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-ink-muted">
                   {testimonials[currentIndex].role}
                 </div>
               </div>
@@ -123,17 +123,17 @@ export default function TestimonialCarousel({
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200 z-10"
+            className="absolute left-2 md:left-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-2 hover:bg-ivory transition-colors duration-200 z-10"
             aria-label="Previous testimonial"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-600" />
+            <ChevronLeft className="w-5 h-5 text-ink-muted" />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-2 hover:bg-gray-50 transition-colors duration-200 z-10"
+            className="absolute right-2 md:right-4 top-1/2 transform -translate-y-1/2 bg-white shadow-lg rounded-full p-2 hover:bg-ivory transition-colors duration-200 z-10"
             aria-label="Next testimonial"
           >
-            <ChevronRight className="w-5 h-5 text-gray-600" />
+            <ChevronRight className="w-5 h-5 text-ink-muted" />
           </button>
         </>
       )}
@@ -147,7 +147,7 @@ export default function TestimonialCarousel({
               onClick={() => goToSlide(index)}
               className={`w-2 h-2 rounded-full transition-all duration-200 ${
                 index === currentIndex
-                  ? 'bg-blue-600 w-8'
+                  ? 'bg-gold-500 w-8'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
               aria-label={`Go to testimonial ${index + 1}`}
@@ -160,7 +160,7 @@ export default function TestimonialCarousel({
       {autoSlide && (
         <div className="mt-4 w-full bg-gray-200 rounded-full h-1">
           <motion.div
-            className="bg-blue-600 h-1 rounded-full"
+            className="bg-gold-500 h-1 rounded-full"
             initial={{ width: "0%" }}
             animate={{ width: "100%" }}
             transition={{ duration: slideInterval / 1000, ease: "linear" }}

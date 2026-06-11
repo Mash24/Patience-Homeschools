@@ -7,7 +7,7 @@ import FAQSection from '@/components/hire-teacher/FAQSection'
 
 export default function HireTeacherPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-ivory">
       <HireTeacherHeroEnhanced />
       <TeacherMatchingFormEnhanced />
       <HowItWorksEnhanced />

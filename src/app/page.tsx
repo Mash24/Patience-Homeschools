@@ -9,7 +9,7 @@ import CTA from '@/components/CTA'
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-ivory">
       <HeroLuxury />
       <PartnerRow />
       <CurriculaOverview />

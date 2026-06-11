@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { ParentLeadSchema } from '@/lib/schemas'
 import { supabaseServer } from '@/lib/supabaseServer'
+import { createClient } from '@/lib/supabase-server'
 import { sendParentLeadNotification } from '@/lib/email'
 
 export async function POST(req: Request) {
@@ -95,15 +96,24 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
-    const supabase = supabaseServer
-    
-    const { data, error } = await supabase
+    const authClient = await createClient()
+    const { data: { user } } = await authClient.auth.getUser()
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const role = (user.app_metadata?.role ?? user.user_metadata?.role) as string | undefined
+    if (role !== 'admin') {
+      return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+    }
+
+    const { data, error } = await authClient
       .from('parent_leads')
       .select('*')
       .order('created_at', { ascending: false })
-      .limit(50)
+      .limit(100)
 
     if (error) {
       console.error('Database error:', error)

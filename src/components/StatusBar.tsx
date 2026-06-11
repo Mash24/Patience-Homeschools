@@ -69,12 +69,12 @@ export default function StatusBar({ version = 'v1.0.0', showSupport = true }: St
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 px-3 sm:px-4 py-2 text-xs text-gray-500 z-[60] shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-ink/10 px-3 sm:px-4 py-2 text-xs text-ink-muted z-[60] shadow-lg">
       <div className="flex items-center justify-between">
         {/* Left side - Version and Status */}
         <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
           {/* Version */}
-          <span className="font-medium text-gray-700 text-xs sm:text-sm">{version}</span>
+          <span className="font-medium text-ink text-xs sm:text-sm">{version}</span>
           
           {/* Separator */}
           <span className="text-gray-300 hidden sm:inline">•</span>
@@ -94,7 +94,7 @@ export default function StatusBar({ version = 'v1.0.0', showSupport = true }: St
         {/* Right side - Sync and Support */}
         <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
           {/* Last Sync */}
-          <span className="text-gray-500 text-xs sm:text-sm">
+          <span className="text-ink-muted text-xs sm:text-sm">
             <span className="hidden sm:inline">Last sync: </span>{formatLastSync()}
           </span>
           
@@ -102,7 +102,7 @@ export default function StatusBar({ version = 'v1.0.0', showSupport = true }: St
           {showSupport && (
             <>
               <span className="text-gray-300 hidden sm:inline">•</span>
-              <button className="hover:text-gray-700 transition-colors font-medium text-xs sm:text-sm touch-manipulation">
+              <button className="hover:text-ink transition-colors font-medium text-xs sm:text-sm touch-manipulation">
                 <span className="hidden sm:inline">💬 Support</span>
                 <span className="sm:hidden">💬</span>
               </button>

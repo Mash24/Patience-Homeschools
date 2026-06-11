@@ -1,125 +1,70 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { GraduationCap, Globe, BookOpen, Award } from 'lucide-react'
+import { GraduationCap, Globe, BookOpen, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import SectionHeading from '@/components/ui/SectionHeading'
 
 const curricula = [
   {
-    name: 'CBC (Competency Based Curriculum)',
-    description: 'Kenya\'s new education system focusing on competencies and skills development',
+    name: 'CBC',
+    fullName: 'Competency-Based Curriculum',
+    description: 'Kenya\'s modern education system focused on skills, competencies, and continuous assessment.',
     icon: GraduationCap,
-    features: ['Competency-based learning', 'Continuous assessment', 'Local context integration', 'Skills development'],
-    color: 'blue'
   },
   {
-    name: 'IGCSE (International General Certificate)',
-    description: 'Internationally recognized qualification for 14-16 year olds',
+    name: 'IGCSE',
+    fullName: 'Cambridge International',
+    description: 'Globally recognised qualifications with flexible subject choices and university preparation.',
     icon: Globe,
-    features: ['International recognition', 'Flexible subject choices', 'Practical assessments', 'University preparation'],
-    color: 'green'
   },
   {
-    name: 'British Curriculum',
-    description: 'Traditional British education system with structured progression',
+    name: 'British',
+    fullName: 'British National Curriculum',
+    description: 'Structured progression through GCSE and A-Level pathways to UK universities.',
     icon: BookOpen,
-    features: ['Structured progression', 'GCSE preparation', 'A-Level foundation', 'UK university pathway'],
-    color: 'purple'
-  }
+  },
 ]
-
-const colorClasses = {
-  blue: 'bg-blue-100 text-blue-600',
-  green: 'bg-green-100 text-green-600',
-  purple: 'bg-purple-100 text-purple-600'
-}
 
 export default function CurriculaOverview() {
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
+    <section className="section-padding bg-ivory">
       <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
-        >
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Supporting All Major Curricula
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Our qualified teachers are experts in Kenya's most popular curricula, 
-            ensuring your child receives the best education tailored to their needs.
-          </p>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Programmes"
+          title="Expert educators across every major curriculum"
+          description="Our teachers are specialists — not generalists. Each is vetted for deep subject knowledge within their curriculum."
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-          {curricula.map((curriculum, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {curricula.map((item, index) => (
             <motion.div
-              key={curriculum.name}
-              initial={{ opacity: 0, y: 50 }}
+              key={item.name}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="card hover:shadow-xl transition-all duration-300 group"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="card-elevated p-8 group hover:border-gold-200/60"
             >
-              <div className="text-center mb-4 sm:mb-6">
-                <div className={`inline-flex p-3 sm:p-4 rounded-full ${colorClasses[curriculum.color as keyof typeof colorClasses]} mb-3 sm:mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                  <curriculum.icon className="h-5 w-5 sm:h-6 sm:w-6 md:h-8 md:w-8" />
-                </div>
-                <h3 className="text-sm sm:text-base font-semibold text-gray-900 mb-2 leading-tight">
-                  {curriculum.name}
-                </h3>
-                <p className="text-gray-600 text-xs sm:text-sm leading-relaxed">
-                  {curriculum.description}
-                </p>
+              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center mb-6 group-hover:bg-gold-100 transition-colors">
+                <item.icon className="h-6 w-6 text-gold-600" />
               </div>
-
-              <ul className="space-y-1 sm:space-y-2">
-                {curriculum.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center space-x-2">
-                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
-                    <span className="text-gray-600 text-xs sm:text-sm leading-relaxed">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-gray-100">
-                <button className="w-full btn-outline text-xs sm:text-sm whitespace-nowrap">
-                  Learn More
-                </button>
-              </div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-gold-600 mb-2">{item.name}</p>
+              <h3 className="font-serif text-2xl font-semibold text-ink mb-3">{item.fullName}</h3>
+              <p className="text-sm text-ink-muted leading-relaxed">{item.description}</p>
             </motion.div>
           ))}
         </div>
 
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-8 sm:mt-12 md:mt-16"
-        >
-          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-xl sm:rounded-2xl p-6 sm:p-8">
-            <Award className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Not Sure Which Curriculum is Right?
-            </h3>
-            <p className="text-gray-600 mb-4 sm:mb-6 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-              Our education consultants can help you choose the best curriculum for your child's 
-              learning style and future goals. Book a free consultation today.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-              <button className="btn-primary text-xs sm:text-sm">
-                Free Consultation
-              </button>
-              <button className="btn-outline text-xs sm:text-sm">
-                Compare Curricula
-              </button>
-            </div>
-          </div>
-        </motion.div>
+        <div className="text-center mt-12">
+          <Link
+            href="/curricula"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-gold-600 hover:text-gold-700 transition-colors"
+          >
+            View all programmes
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
       </div>
     </section>
   )

@@ -1,319 +1,63 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
-import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { Star, Quote } from 'lucide-react'
+import SectionHeading from '@/components/ui/SectionHeading'
 
 const testimonials = [
   {
     name: 'Sarah Mwangi',
-    role: 'Parent of Grade 6 Student',
-    content: 'Nelimac Learning connected us with an amazing CBC teacher who understood my daughter\'s learning style. The resources and support have been invaluable.',
-    rating: 5,
-    location: 'Westlands, Nairobi'
+    role: 'Parent — CBC, Westlands',
+    content: 'Nelimac connected us with an amazing teacher who understood my daughter\'s learning style. The support has been invaluable.',
   },
   {
     name: 'David Kimani',
-    role: 'Parent of IGCSE Student',
-    content: 'The lab sessions and community events have made homeschooling feel less isolating. My son has made friends and gained practical experience.',
-    rating: 5,
-    location: 'Karen, Nairobi'
+    role: 'Parent — IGCSE, Karen',
+    content: 'The lab sessions and community events have made homeschooling feel less isolating. My son has gained real practical experience.',
   },
   {
     name: 'Grace Wanjiku',
-    role: 'Parent of British Curriculum Student',
-    content: 'The teacher matching process was so thorough. We found the perfect match for our son\'s needs, and the results speak for themselves.',
-    rating: 5,
-    location: 'Runda, Nairobi'
+    role: 'Parent — British Curriculum, Runda',
+    content: 'The matching process was thorough. We found the perfect educator for our son, and the results speak for themselves.',
   },
-  {
-    name: 'James Otieno',
-    role: 'Parent of Multiple Students',
-    content: 'Having access to qualified teachers for different subjects and curricula under one platform has simplified our homeschooling journey significantly.',
-    rating: 5,
-    location: 'Kilimani, Nairobi'
-  },
-  {
-    name: 'Mary Njoki',
-    role: 'Parent of Grade 8 Student',
-    content: 'The free resources and regular events have enriched our homeschooling experience. Highly recommend to any parent considering homeschooling.',
-    rating: 5,
-    location: 'Lavington, Nairobi'
-  },
-  {
-    name: 'Peter Mwangi',
-    role: 'Parent of IGCSE Student',
-    content: 'The platform made it easy to find teachers who specialize in the subjects my daughter needed. The quality of education has exceeded our expectations.',
-    rating: 5,
-    location: 'Kileleshwa, Nairobi'
-  }
 ]
 
 export default function Testimonials() {
-  const [itemsPerView, setItemsPerView] = useState(1)
-  const [touchStart, setTouchStart] = useState<number | null>(null)
-  const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  const [isHovered, setIsHovered] = useState(false)
-  const [isTransitioning, setIsTransitioning] = useState(false)
-
-  // Create infinite testimonials array for seamless looping
-  const infiniteTestimonials = [...testimonials, ...testimonials, ...testimonials]
-  const startIndex = testimonials.length // Start from the middle set
-  const [currentIndex, setCurrentIndex] = useState(startIndex)
-
-  // Update items per view based on screen size
-  useEffect(() => {
-    const updateItemsPerView = () => {
-      if (window.innerWidth >= 1024) {
-        setItemsPerView(3)
-      } else if (window.innerWidth >= 640) {
-        setItemsPerView(2)
-      } else {
-        setItemsPerView(1)
-      }
-    }
-
-    updateItemsPerView()
-    window.addEventListener('resize', updateItemsPerView)
-    return () => window.removeEventListener('resize', updateItemsPerView)
-  }, [])
-
-  const maxIndex = testimonials.length - 1
-
-  const nextSlide = () => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    
-    setCurrentIndex((prev) => {
-      const newIndex = prev + 1
-      if (newIndex >= testimonials.length * 2) {
-        // Reset to beginning without animation
-        setTimeout(() => {
-          setCurrentIndex(startIndex)
-          setIsTransitioning(false)
-        }, 500)
-        return newIndex
-      }
-      setTimeout(() => setIsTransitioning(false), 500)
-      return newIndex
-    })
-  }
-
-  const prevSlide = () => {
-    if (isTransitioning) return
-    setIsTransitioning(true)
-    
-    setCurrentIndex((prev) => {
-      const newIndex = prev - 1
-      if (newIndex < startIndex) {
-        // Jump to end without animation
-        setTimeout(() => {
-          setCurrentIndex(startIndex + maxIndex)
-          setIsTransitioning(false)
-        }, 500)
-        return newIndex
-      }
-      setTimeout(() => setIsTransitioning(false), 500)
-      return newIndex
-    })
-  }
-
-  const goToSlide = (index: number) => {
-    if (isTransitioning) return
-    setCurrentIndex(startIndex + index)
-  }
-
-  // Touch handlers for mobile swipe
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null)
-    setTouchStart(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
-
-  const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return
-    
-    const distance = touchStart - touchEnd
-    const isLeftSwipe = distance > 50
-    const isRightSwipe = distance < -50
-
-    if (isLeftSwipe) {
-      nextSlide()
-    } else if (isRightSwipe) {
-      prevSlide()
-    }
-  }
-
-  // Auto-play functionality
-  useEffect(() => {
-    if (isHovered || isTransitioning) return // Pause when hovered or transitioning
-    
-    const interval = setInterval(() => {
-      nextSlide()
-    }, 5000)
-
-    return () => clearInterval(interval)
-  }, [isHovered, isTransitioning])
-
-
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-white">
-      <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
-        >
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-            What Parents Say
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Hear from families who have transformed their homeschooling experience 
-            with Nelimac Learning.
-          </p>
-        </motion.div>
+    <section className="section-padding bg-ink text-white relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_100%,rgba(201,162,39,0.12),transparent)]" />
+      <div className="container-custom relative">
+        <SectionHeading
+          eyebrow="Testimonials"
+          title="Trusted by Nairobi families"
+          description="Hear from parents who've found their perfect educator through Nelimac."
+          light
+        />
 
-        {/* Carousel Container */}
-        <div 
-          className="relative"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {/* Navigation Buttons */}
-          <button
-            onClick={prevSlide}
-            className="hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 sm:-translate-x-4 z-10 bg-white shadow-lg rounded-full p-1.5 sm:p-2 hover:bg-gray-50 transition-colors duration-200 group"
-            aria-label="Previous testimonials"
-          >
-            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 group-hover:text-gray-900" />
-          </button>
-          
-          <button
-            onClick={nextSlide}
-            className="hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 sm:translate-x-4 z-10 bg-white shadow-lg rounded-full p-1.5 sm:p-2 hover:bg-gray-50 transition-colors duration-200 group"
-            aria-label="Next testimonials"
-          >
-            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600 group-hover:text-gray-900" />
-          </button>
-
-          {/* Carousel Track */}
-          <div 
-            className="overflow-hidden"
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <div
-              className="flex transition-transform duration-500 ease-in-out"
-              style={{
-                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`
-              }}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+          {testimonials.map((item, index) => (
+            <motion.blockquote
+              key={item.name}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="bg-white/5 border border-white/10 rounded-2xl p-8 backdrop-blur-sm"
             >
-              {infiniteTestimonials.map((testimonial, index) => (
-                <div
-                  key={`${testimonial.name}-${index}`}
-                  className="flex-shrink-0 px-1 sm:px-2 md:px-3"
-                  style={{ width: `${100 / itemsPerView}%` }}
-                >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    className="card hover:shadow-xl transition-all duration-300 relative h-full"
-                  >
-                    {/* Quote Icon */}
-                    <div className="absolute -top-2 sm:-top-3 md:-top-4 left-3 sm:left-4 md:left-6">
-                      <div className="bg-blue-100 p-1 sm:p-1.5 md:p-2 rounded-full">
-                        <Quote className="h-3 w-3 sm:h-4 sm:w-4 md:h-6 md:w-6 text-blue-600" />
-                      </div>
-                    </div>
-
-                    {/* Rating */}
-                    <div className="flex items-center space-x-1 mb-2 sm:mb-3 md:mb-4 pt-2 sm:pt-3 md:pt-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-yellow-400 fill-current" />
-                      ))}
-                    </div>
-
-                    {/* Content */}
-                    <p className="text-xs sm:text-sm md:text-base text-gray-600 mb-3 sm:mb-4 md:mb-6 leading-relaxed">
-                      &ldquo;{testimonial.content}&rdquo;
-                    </p>
-
-                    {/* Author */}
-                    <div className="border-t border-gray-100 pt-2 sm:pt-3 md:pt-4 mt-auto">
-                      <div className="font-semibold text-xs sm:text-sm md:text-base text-gray-900">
-                        {testimonial.name}
-                      </div>
-                      <div className="text-xs sm:text-sm text-gray-600">
-                        {testimonial.role}
-                      </div>
-                      <div className="text-xs sm:text-sm text-blue-600">
-                        {testimonial.location}
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center mt-6 sm:mt-8 space-x-1 sm:space-x-2">
-            {Array.from({ length: testimonials.length }).map((_, index) => {
-              const isActive = (currentIndex - startIndex) === index || 
-                              (currentIndex >= testimonials.length * 2 && index === 0) ||
-                              (currentIndex < startIndex && index === testimonials.length - 1)
-              return (
-                <button
-                  key={index}
-                  onClick={() => goToSlide(index)}
-                  className={`h-1.5 sm:h-2 rounded-full transition-all duration-200 ${
-                    isActive
-                      ? 'bg-blue-600 w-6 sm:w-8'
-                      : 'bg-gray-300 hover:bg-gray-400 w-1.5 sm:w-2'
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              )
-            })}
-          </div>
+              <Quote className="h-8 w-8 text-gold-400/40 mb-4" />
+              <div className="flex gap-0.5 mb-4">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-gold-400 text-gold-400" />
+                ))}
+              </div>
+              <p className="text-white/80 leading-relaxed text-sm mb-6">&ldquo;{item.content}&rdquo;</p>
+              <footer>
+                <p className="font-semibold text-white">{item.name}</p>
+                <p className="text-xs text-white/50 mt-1">{item.role}</p>
+              </footer>
+            </motion.blockquote>
+          ))}
         </div>
-
-        {/* Stats Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-6 sm:mt-8 md:mt-12 lg:mt-16"
-        >
-          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-lg sm:rounded-xl md:rounded-2xl p-4 sm:p-6 md:p-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8 text-center">
-              <div>
-                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-blue-600 mb-1 sm:mb-2">98%</div>
-                <div className="text-xs sm:text-sm text-gray-600">Parent Satisfaction</div>
-              </div>
-              <div>
-                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-green-600 mb-1 sm:mb-2">200+</div>
-                <div className="text-xs sm:text-sm text-gray-600">Happy Families</div>
-              </div>
-              <div>
-                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-purple-600 mb-1 sm:mb-2">50+</div>
-                <div className="text-xs sm:text-sm text-gray-600">Qualified Teachers</div>
-              </div>
-              <div>
-                <div className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-orange-600 mb-1 sm:mb-2">3</div>
-                <div className="text-xs sm:text-sm text-gray-600">Years Experience</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

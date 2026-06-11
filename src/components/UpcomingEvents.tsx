@@ -2,191 +2,89 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Calendar, MapPin, Users, Clock, Microscope, Trophy, BookOpen } from 'lucide-react'
+import { Calendar, MapPin, Users, ArrowRight } from 'lucide-react'
+import SectionHeading from '@/components/ui/SectionHeading'
+import Button from '@/components/ui/Button'
 
 const events = [
   {
     title: 'CBC Science Lab Session',
-    description: 'Hands-on practical experiments for CBC Grade 6-8 students at Nairobi School Lab.',
-    date: '2024-02-15',
-    time: '10:00 AM - 2:00 PM',
+    description: 'Hands-on practical experiments for CBC Grade 6–8 students.',
+    date: '15 Feb 2025',
     location: 'Nairobi School, Westlands',
-    attendees: 25,
-    maxAttendees: 30,
+    spots: '25 / 30',
     type: 'Lab Session',
-    icon: Microscope,
-    color: 'blue'
   },
   {
     title: 'IGCSE Mathematics Workshop',
-    description: 'Advanced problem-solving techniques and exam preparation strategies.',
-    date: '2024-02-20',
-    time: '9:00 AM - 12:00 PM',
+    description: 'Advanced problem-solving and exam preparation strategies.',
+    date: '20 Feb 2025',
     location: 'Online via Zoom',
-    attendees: 18,
-    maxAttendees: 25,
+    spots: '18 / 25',
     type: 'Workshop',
-    icon: BookOpen,
-    color: 'green'
   },
   {
     title: 'Homeschool Sports Day',
-    description: 'Annual sports day bringing together all homeschooling families for fun activities.',
-    date: '2024-02-25',
-    time: '8:00 AM - 4:00 PM',
+    description: 'Annual sports day bringing together homeschooling families.',
+    date: '25 Feb 2025',
     location: 'Kasarani Sports Complex',
-    attendees: 45,
-    maxAttendees: 60,
-    type: 'Sports Day',
-    icon: Trophy,
-    color: 'orange'
-  }
+    spots: '45 / 60',
+    type: 'Community',
+  },
 ]
-
-const colorClasses = {
-  blue: 'bg-blue-100 text-blue-600',
-  green: 'bg-green-100 text-green-600',
-  orange: 'bg-orange-100 text-orange-600'
-}
 
 export default function UpcomingEvents() {
   return (
-    <section className="py-8 sm:py-12 md:py-16 lg:py-20 bg-gray-50">
+    <section className="section-padding bg-ivory">
       <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12 md:mb-16"
-        >
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-            Upcoming Events
-          </h2>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            Join our community events designed to enhance learning, build connections, 
-            and create memorable experiences for homeschooling families.
-          </p>
-        </motion.div>
+        <SectionHeading
+          eyebrow="Community"
+          title="Events that bring learning to life"
+          description="Lab sessions, workshops, and community gatherings designed for Nairobi's homeschooling families."
+        />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {events.map((event, index) => (
-            <motion.div
+            <motion.article
               key={event.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
-              className="card hover:shadow-xl transition-all duration-300 group"
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className="card-elevated overflow-hidden group"
             >
-              {/* Event Header */}
-              <div className="flex items-start justify-between mb-3 sm:mb-4">
-                <div className={`p-2 sm:p-3 rounded-lg ${colorClasses[event.color as keyof typeof colorClasses]} group-hover:scale-110 transition-transform duration-300`}>
-                  <event.icon className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6" />
-                </div>
-                <span className="text-xs bg-gray-100 text-gray-600 px-2 sm:px-3 py-1 rounded-full">
+              <div className="h-2 bg-gradient-to-r from-gold-400 to-gold-600" />
+              <div className="p-8">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-gold-600">
                   {event.type}
                 </span>
-              </div>
-
-              {/* Event Content */}
-              <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base leading-tight">
-                {event.title}
-              </h3>
-              <p className="text-gray-600 text-xs sm:text-sm mb-3 sm:mb-4 leading-relaxed">
-                {event.description}
-              </p>
-
-              {/* Event Details */}
-              <div className="space-y-1.5 sm:space-y-2 md:space-y-3 mb-3 sm:mb-4 md:mb-6">
-                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
-                  <Calendar className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="truncate">{new Date(event.date).toLocaleDateString('en-US', { 
-                    weekday: 'short', 
-                    month: 'short', 
-                    day: 'numeric' 
-                  })}</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
-                  <Clock className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="truncate">{event.time}</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
-                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="truncate">{event.location}</span>
-                </div>
-                <div className="flex items-center space-x-2 text-xs sm:text-sm text-gray-600">
-                  <Users className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="truncate">{event.attendees}/{event.maxAttendees} registered</span>
+                <h3 className="font-serif text-xl font-semibold text-ink mt-2 mb-3">{event.title}</h3>
+                <p className="text-sm text-ink-muted leading-relaxed mb-6">{event.description}</p>
+                <div className="space-y-2 text-sm text-ink-muted">
+                  <div className="flex items-center gap-2">
+                    <Calendar className="h-4 w-4 text-gold-500 shrink-0" />
+                    {event.date}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <MapPin className="h-4 w-4 text-gold-500 shrink-0" />
+                    {event.location}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Users className="h-4 w-4 text-gold-500 shrink-0" />
+                    {event.spots} spots
+                  </div>
                 </div>
               </div>
-
-              {/* Progress Bar */}
-              <div className="mb-3 sm:mb-4">
-                <div className="flex justify-between text-xs sm:text-sm text-gray-600 mb-1">
-                  <span>Registration</span>
-                  <span>{Math.round((event.attendees / event.maxAttendees) * 100)}%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-1.5 sm:h-2">
-                  <div 
-                    className="bg-blue-600 h-1.5 sm:h-2 rounded-full transition-all duration-300"
-                    style={{ width: `${(event.attendees / event.maxAttendees) * 100}%` }}
-                  ></div>
-                </div>
-              </div>
-
-              {/* RSVP Button */}
-              <button className="w-full btn-primary group-hover:bg-blue-700 transition-colors duration-300 text-xs sm:text-sm">
-                RSVP Now
-              </button>
-            </motion.div>
+            </motion.article>
           ))}
         </div>
 
-        {/* View All Events CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mt-8 sm:mt-12"
-        >
-          <Link href="/events" className="btn-outline text-xs sm:text-sm">
+        <div className="text-center mt-12">
+          <Button href="/events" variant="outline">
             View All Events
-          </Link>
-        </motion.div>
-
-        {/* Event Types Info */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-8 sm:mt-12 md:mt-16"
-        >
-          <div className="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg">
-            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 text-center">
-              Event Types
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-              <div className="text-center p-4 sm:p-6 border border-gray-100 rounded-lg">
-                <Microscope className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-blue-600 mx-auto mb-2 sm:mb-3" />
-                <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Lab Sessions</h4>
-                <p className="text-gray-600 text-xs sm:text-sm">Hands-on practical experiments at partner schools</p>
-              </div>
-              <div className="text-center p-4 sm:p-6 border border-gray-100 rounded-lg">
-                <BookOpen className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-green-600 mx-auto mb-2 sm:mb-3" />
-                <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Workshops</h4>
-                <p className="text-gray-600 text-xs sm:text-sm">Subject-specific learning sessions and exam prep</p>
-              </div>
-              <div className="text-center p-4 sm:p-6 border border-gray-100 rounded-lg">
-                <Trophy className="h-6 w-6 sm:h-7 sm:w-7 md:h-8 md:w-8 text-orange-600 mx-auto mb-2 sm:mb-3" />
-                <h4 className="font-semibold text-gray-900 mb-1 sm:mb-2 text-sm sm:text-base">Community Events</h4>
-                <p className="text-gray-600 text-xs sm:text-sm">Sports days, meetups, and social activities</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </section>
   )

@@ -1,128 +1,64 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Mail, Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock } from 'lucide-react'
 
 const contactMethods = [
-  {
-    icon: Mail,
-    title: 'Email Us',
-    details: 'info@patiencehomeschools.co.ke',
-    description: 'Send us an email and we\'ll respond within 24 hours',
-    color: 'blue'
-  },
-  {
-    icon: Phone,
-    title: 'Call Us',
-    details: '+254 XXX XXX XXX',
-    description: 'Speak directly with our team during business hours',
-    color: 'green'
-  },
-  {
-    icon: MapPin,
-    title: 'Visit Us',
-    details: 'Nairobi, Kenya',
-    description: 'Located in the heart of Nairobi',
-    color: 'orange'
-  },
-  {
-    icon: MessageCircle,
-    title: 'WhatsApp',
-    details: '+254 XXX XXX XXX',
-    description: 'Quick responses via WhatsApp',
-    color: 'green'
-  }
+  { icon: Mail, title: 'Email', details: 'info@nelimaclearning.co.ke', href: 'mailto:info@nelimaclearning.co.ke' },
+  { icon: Phone, title: 'Phone', details: '+254 700 000 000', href: 'tel:+254700000000' },
+  { icon: MapPin, title: 'Location', details: 'Nairobi, Kenya' },
 ]
 
 const businessHours = [
-  { day: 'Monday - Friday', hours: '8:00 AM - 6:00 PM' },
-  { day: 'Saturday', hours: '9:00 AM - 2:00 PM' },
-  { day: 'Sunday', hours: 'Closed' }
+  { day: 'Mon – Fri', hours: '8:00 AM – 6:00 PM' },
+  { day: 'Saturday', hours: '9:00 AM – 2:00 PM' },
+  { day: 'Sunday', hours: 'Closed' },
 ]
-
-const colorClasses = {
-  blue: 'bg-blue-100 text-blue-600',
-  green: 'bg-green-100 text-green-600',
-  orange: 'bg-orange-100 text-orange-600'
-}
 
 export default function ContactInfo() {
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-            Contact Information
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choose the most convenient way to reach us. We're here to help with 
-            any questions about our services or support.
-          </p>
-        </motion.div>
-
-        {/* Contact Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           {contactMethods.map((method, index) => (
             <motion.div
               key={method.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="card text-center hover:shadow-xl transition-all duration-300 group"
+              transition={{ delay: index * 0.1 }}
+              className="card-elevated p-8 text-center"
             >
-              <div className={`inline-flex p-4 rounded-full ${colorClasses[method.color as keyof typeof colorClasses]} mb-4 group-hover:scale-110 transition-transform duration-300`}>
-                <method.icon className="h-8 w-8" />
+              <div className="w-12 h-12 rounded-xl bg-gold-50 flex items-center justify-center mx-auto mb-4">
+                <method.icon className="h-6 w-6 text-gold-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                {method.title}
-              </h3>
-              <p className="text-blue-600 font-medium mb-3">
-                {method.details}
-              </p>
-              <p className="text-gray-600 text-sm">
-                {method.description}
-              </p>
+              <h3 className="font-semibold text-ink mb-1">{method.title}</h3>
+              {method.href ? (
+                <a href={method.href} className="text-sm text-ink-muted hover:text-gold-600 transition-colors">
+                  {method.details}
+                </a>
+              ) : (
+                <p className="text-sm text-ink-muted">{method.details}</p>
+              )}
             </motion.div>
           ))}
         </div>
 
-        {/* Business Hours */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
-        >
-          <div className="bg-gradient-to-r from-blue-50 to-orange-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-              Business Hours
-            </h3>
-            <div className="space-y-4">
-              {businessHours.map((schedule, index) => (
-                <div key={index} className="flex justify-between items-center py-3 px-4 bg-white rounded-lg">
-                  <span className="font-medium text-gray-900">{schedule.day}</span>
-                  <span className="text-gray-600">{schedule.hours}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 text-center">
-              <p className="text-gray-600 text-sm">
-                For urgent matters outside business hours, please send us an email 
-                and we'll respond as soon as possible.
-              </p>
-            </div>
+        <div className="card-elevated p-8 max-w-md mx-auto">
+          <div className="flex items-center gap-3 mb-6">
+            <Clock className="h-5 w-5 text-gold-600" />
+            <h3 className="font-semibold text-ink">Business Hours</h3>
           </div>
-        </motion.div>
+          <ul className="space-y-3">
+            {businessHours.map((item) => (
+              <li key={item.day} className="flex justify-between text-sm">
+                <span className="text-ink-muted">{item.day}</span>
+                <span className="font-medium text-ink">{item.hours}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )
 }
-

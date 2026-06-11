@@ -16,6 +16,7 @@ import { createClient } from '@/lib/supabase-client'
 interface DashboardStats {
   pendingTeachers: number
   approvedTeachers: number
+  newLeads: number
   newParents: number
   activeAssignments: number
   openMessages: number
@@ -25,6 +26,7 @@ export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats>({
     pendingTeachers: 0,
     approvedTeachers: 0,
+    newLeads: 0,
     newParents: 0,
     activeAssignments: 0,
     openMessages: 0
@@ -40,12 +42,14 @@ export default function AdminDashboard() {
         const [
           pendingTeachersResult,
           approvedTeachersResult,
+          newLeadsResult,
           newParentsResult,
           activeAssignmentsResult,
           openMessagesResult
         ] = await Promise.all([
           supabase.from('teachers').select('id', { count: 'exact' }).eq('status', 'submitted'),
           supabase.from('teachers').select('id', { count: 'exact' }).eq('status', 'approved'),
+          supabase.from('parent_leads').select('id', { count: 'exact' }).eq('status', 'new'),
           supabase.from('parents').select('id', { count: 'exact' }).eq('status', 'pending'),
           supabase.from('assignments').select('id', { count: 'exact' }).eq('status', 'active'),
           supabase.from('message_threads').select('id', { count: 'exact' }).eq('status', 'open')
@@ -54,6 +58,7 @@ export default function AdminDashboard() {
         setStats({
           pendingTeachers: pendingTeachersResult.count || 0,
           approvedTeachers: approvedTeachersResult.count || 0,
+          newLeads: newLeadsResult.count || 0,
           newParents: newParentsResult.count || 0,
           activeAssignments: activeAssignmentsResult.count || 0,
           openMessages: openMessagesResult.count || 0
@@ -88,13 +93,22 @@ export default function AdminDashboard() {
       href: '/admin/teachers?status=approved'
     },
     {
-      title: 'New Parent Requests',
+      title: 'New Leads',
+      value: stats.newLeads,
+      icon: UserCheck,
+      color: 'bg-gold-500',
+      bgColor: 'bg-gold-50',
+      textColor: 'text-gold-700',
+      href: '/admin/leads?status=new'
+    },
+    {
+      title: 'Parent Accounts',
       value: stats.newParents,
       icon: UserCheck,
-      color: 'bg-blue-500',
-      bgColor: 'bg-blue-50',
-      textColor: 'text-blue-700',
-      href: '/admin/parents?status=new'
+      color: 'bg-amber-500',
+      bgColor: 'bg-amber-50',
+      textColor: 'text-amber-700',
+      href: '/admin/parents?status=pending'
     },
     {
       title: 'Active Assignments',
@@ -140,7 +154,7 @@ export default function AdminDashboard() {
       message: 'New parent request from Sarah Johnson',
       timestamp: '15 minutes ago',
       icon: UserCheck,
-      color: 'text-blue-600'
+      color: 'text-gold-600'
     },
     {
       id: 3,
@@ -171,9 +185,9 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-4 sm:space-y-6">
       {/* Welcome Section */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
-        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">Welcome to Admin Dashboard</h1>
-        <p className="text-sm sm:text-base text-gray-600">Manage teachers, parents, and assignments for Nelimac Learning</p>
+      <div className="bg-white rounded-lg shadow-sm border border-ink/10 p-4 sm:p-6">
+        <h1 className="text-xl sm:text-2xl font-bold text-ink mb-2">Welcome to Admin Dashboard</h1>
+        <p className="text-sm sm:text-base text-ink-muted">Manage teachers, parents, and assignments for Nelimac Learning</p>
       </div>
 
       {/* Stats Grid */}
@@ -181,7 +195,7 @@ export default function AdminDashboard() {
         {statCards.map((card) => (
           <div
             key={card.title}
-            className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6 hover:shadow-md transition-shadow cursor-pointer"
+            className="bg-white rounded-lg shadow-sm border border-ink/10 p-4 sm:p-6 hover:shadow-md transition-shadow cursor-pointer"
             onClick={() => window.location.href = card.href}
           >
             <div className="flex flex-col sm:flex-row items-center sm:items-start">
@@ -189,8 +203,8 @@ export default function AdminDashboard() {
                 <card.icon className={`h-5 w-5 sm:h-6 sm:w-6 ${card.textColor}`} />
               </div>
               <div className="sm:ml-4 text-center sm:text-left">
-                <p className="text-xs sm:text-sm font-medium text-gray-600 mb-1">{card.title}</p>
-                <p className="text-lg sm:text-xl xl:text-2xl font-bold text-gray-900">{card.value}</p>
+                <p className="text-xs sm:text-sm font-medium text-ink-muted mb-1">{card.title}</p>
+                <p className="text-lg sm:text-xl xl:text-2xl font-bold text-ink">{card.value}</p>
               </div>
             </div>
           </div>
@@ -201,20 +215,20 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Activity */}
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+          <h3 className="text-lg font-semibold text-ink mb-4">Recent Activity</h3>
           <div className="space-y-4">
             {recentActivities.map((activity) => (
               <div key={activity.id} className="flex items-center space-x-3">
                 <activity.icon className={`h-5 w-5 ${activity.color}`} />
                 <div className="flex-1">
-                  <p className="text-sm text-gray-900">{activity.message}</p>
-                  <p className="text-xs text-gray-500">{activity.timestamp}</p>
+                  <p className="text-sm text-ink">{activity.message}</p>
+                  <p className="text-xs text-ink-muted">{activity.timestamp}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="mt-4 pt-4 border-t border-gray-200">
-            <button className="text-blue-600 hover:text-blue-700 text-sm font-medium">
+          <div className="mt-4 pt-4 border-t border-ink/10">
+            <button className="text-gold-600 hover:text-gold-700 text-sm font-medium">
               View all activity →
             </button>
           </div>
@@ -222,44 +236,44 @@ export default function AdminDashboard() {
 
         {/* Quick Actions */}
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <h3 className="text-lg font-semibold text-ink mb-4">Quick Actions</h3>
           <div className="space-y-3">
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
-                <Users className="h-5 w-5 text-blue-600" />
+                <Users className="h-5 w-5 text-gold-600" />
                 <div>
-                  <p className="font-medium text-gray-900">Review Teacher Applications</p>
-                  <p className="text-sm text-gray-500">12 pending applications</p>
+                  <p className="font-medium text-ink">Review Teacher Applications</p>
+                  <p className="text-sm text-ink-muted">12 pending applications</p>
                 </div>
               </div>
             </button>
             
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <UserCheck className="h-5 w-5 text-green-600" />
                 <div>
-                  <p className="font-medium text-gray-900">Process Parent Requests</p>
-                  <p className="text-sm text-gray-500">8 new requests</p>
+                  <p className="font-medium text-ink">Process Parent Requests</p>
+                  <p className="text-sm text-ink-muted">8 new requests</p>
                 </div>
               </div>
             </button>
             
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <MessageSquare className="h-5 w-5 text-red-600" />
                 <div>
-                  <p className="font-medium text-gray-900">Respond to Messages</p>
-                  <p className="text-sm text-gray-500">5 unread messages</p>
+                  <p className="font-medium text-ink">Respond to Messages</p>
+                  <p className="text-sm text-ink-muted">5 unread messages</p>
                 </div>
               </div>
             </button>
             
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
                 <div>
-                  <p className="font-medium text-gray-900 text-sm sm:text-base">Create New Assignment</p>
-                  <p className="text-xs sm:text-sm text-gray-500">Match teacher with parent</p>
+                  <p className="font-medium text-ink text-sm sm:text-base">Create New Assignment</p>
+                  <p className="text-xs sm:text-sm text-ink-muted">Match teacher with parent</p>
                 </div>
               </div>
             </button>
@@ -268,10 +282,10 @@ export default function AdminDashboard() {
       </div>
 
       {/* Charts Section (Placeholder) */}
-      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 sm:p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Analytics Overview</h3>
-        <div className="h-48 sm:h-64 bg-gray-100 rounded-lg flex items-center justify-center">
-          <p className="text-gray-500 text-sm sm:text-base">Charts and analytics will be implemented here</p>
+      <div className="bg-white rounded-lg shadow-sm border border-ink/10 p-4 sm:p-6">
+        <h3 className="text-lg font-semibold text-ink mb-4">Analytics Overview</h3>
+        <div className="h-48 sm:h-64 bg-ivory-dark rounded-lg flex items-center justify-center">
+          <p className="text-ink-muted text-sm sm:text-base">Charts and analytics will be implemented here</p>
         </div>
       </div>
     </div>

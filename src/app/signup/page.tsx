@@ -4,7 +4,8 @@ import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@supabase/supabase-js'
 import { motion } from 'framer-motion'
-import { Eye, EyeOff, Lock, User, CheckCircle, AlertCircle, Mail } from 'lucide-react'
+import { Eye, EyeOff, Lock, User, CheckCircle, AlertCircle, Mail, Loader2 } from 'lucide-react'
+import AuthLayout from '@/components/ui/AuthLayout'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -183,7 +184,7 @@ function SignupContent() {
         router.push('/teacher/dashboard')
       } else {
         // General signup - redirect to main dashboard
-        router.push('/dashboard')
+        router.push('/teacher/dashboard')
       }
       
     } catch (err) {
@@ -195,62 +196,47 @@ function SignupContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white rounded-xl shadow-xl p-8 w-full max-w-md"
-      >
-        <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-            <User className="w-8 h-8 text-blue-600" />
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Complete Your Registration
-          </h1>
-          <p className="text-gray-600">
-            Set up your password to access your teacher dashboard
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
+    <AuthLayout
+      title="Complete your registration"
+      subtitle="Set a password to access your teacher dashboard"
+    >
+        <form onSubmit={handleSubmit} className="space-y-5">
           {/* Email Field (Non-editable) */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-ink mb-2">
               Email Address
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Mail className="h-5 w-5 text-gray-400" />
+                <Mail className="h-5 w-5 text-ink-muted/60" />
               </div>
               <input
                 id="email"
                 type="email"
                 value={userEmail}
                 readOnly
-                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md bg-gray-50 text-gray-600 cursor-not-allowed"
+                className="w-full pl-10 pr-3 py-2 border border-ink/10 rounded-md bg-ivory text-ink-muted cursor-not-allowed"
                 placeholder="your-email@example.com"
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">This email is from your application and cannot be changed</p>
+            <p className="text-xs text-ink-muted mt-1">This email is from your application and cannot be changed</p>
           </div>
 
           {/* Password Field */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="password" className="block text-sm font-medium text-ink mb-2">
               Password
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-400" />
+                <Lock className="h-5 w-5 text-ink-muted/60" />
               </div>
               <input
                 id="password"
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-10 py-2 border border-ink/10 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-500/30"
                 placeholder="Enter your password"
                 required
               />
@@ -260,9 +246,9 @@ function SignupContent() {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400" />
+                  <EyeOff className="h-5 w-5 text-ink-muted/60" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400" />
+                  <Eye className="h-5 w-5 text-ink-muted/60" />
                 )}
               </button>
             </div>
@@ -271,25 +257,25 @@ function SignupContent() {
           {/* Password Requirements */}
           {password && (
             <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-700">Password Requirements:</p>
+              <p className="text-sm font-medium text-ink">Password Requirements:</p>
               <div className="space-y-1 text-sm">
-                <div className={`flex items-center space-x-2 ${passwordValidation.minLength ? 'text-green-600' : 'text-gray-500'}`}>
+                <div className={`flex items-center space-x-2 ${passwordValidation.minLength ? 'text-green-600' : 'text-ink-muted'}`}>
                   <CheckCircle className="h-4 w-4" />
                   <span>At least 8 characters</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${passwordValidation.hasUpperCase ? 'text-green-600' : 'text-gray-500'}`}>
+                <div className={`flex items-center space-x-2 ${passwordValidation.hasUpperCase ? 'text-green-600' : 'text-ink-muted'}`}>
                   <CheckCircle className="h-4 w-4" />
                   <span>One uppercase letter</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${passwordValidation.hasLowerCase ? 'text-green-600' : 'text-gray-500'}`}>
+                <div className={`flex items-center space-x-2 ${passwordValidation.hasLowerCase ? 'text-green-600' : 'text-ink-muted'}`}>
                   <CheckCircle className="h-4 w-4" />
                   <span>One lowercase letter</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${passwordValidation.hasNumbers ? 'text-green-600' : 'text-gray-500'}`}>
+                <div className={`flex items-center space-x-2 ${passwordValidation.hasNumbers ? 'text-green-600' : 'text-ink-muted'}`}>
                   <CheckCircle className="h-4 w-4" />
                   <span>One number</span>
                 </div>
-                <div className={`flex items-center space-x-2 ${passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-gray-500'}`}>
+                <div className={`flex items-center space-x-2 ${passwordValidation.hasSpecialChar ? 'text-green-600' : 'text-ink-muted'}`}>
                   <CheckCircle className="h-4 w-4" />
                   <span>One special character</span>
                 </div>
@@ -299,19 +285,19 @@ function SignupContent() {
 
           {/* Confirm Password Field */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-ink mb-2">
               Confirm Password
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-400" />
+                <Lock className="h-5 w-5 text-ink-muted/60" />
               </div>
               <input
                 id="confirmPassword"
                 type={showConfirmPassword ? 'text' : 'password'}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full pl-10 pr-10 py-2 border border-ink/10 rounded-md focus:outline-none focus:ring-2 focus:ring-gold-500/30"
                 placeholder="Confirm your password"
                 required
               />
@@ -321,9 +307,9 @@ function SignupContent() {
                 className="absolute inset-y-0 right-0 pr-3 flex items-center"
               >
                 {showConfirmPassword ? (
-                  <EyeOff className="h-5 w-5 text-gray-400" />
+                  <EyeOff className="h-5 w-5 text-ink-muted/60" />
                 ) : (
-                  <Eye className="h-5 w-5 text-gray-400" />
+                  <Eye className="h-5 w-5 text-ink-muted/60" />
                 )}
               </button>
             </div>
@@ -341,33 +327,40 @@ function SignupContent() {
           <button
             type="submit"
             disabled={loading || !passwordValidation.isValid || password !== confirmPassword}
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="btn-primary w-full"
           >
-            {loading ? 'Creating Account...' : 'Complete Registration'}
+            {loading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                Creating account...
+              </>
+            ) : (
+              'Complete Registration'
+            )}
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-xs text-gray-500">
-            By completing registration, you agree to our Terms of Service and Privacy Policy
-          </p>
-        </div>
-      </motion.div>
-    </div>
+        <p className="mt-6 text-center text-xs text-ink-muted">
+          By registering, you agree to our{' '}
+          <a href="/terms" className="text-gold-600 hover:text-gold-700">Terms</a>
+          {' '}and{' '}
+          <a href="/privacy" className="text-gold-600 hover:text-gold-700">Privacy Policy</a>.
+        </p>
+    </AuthLayout>
   )
 }
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center"
       >
         <div className="flex items-center justify-center space-x-3">
-          <User className="h-6 w-6 animate-pulse text-blue-600" />
-          <span className="text-lg font-medium text-gray-900">Loading signup...</span>
+          <User className="h-6 w-6 animate-pulse text-gold-600" />
+          <span className="text-lg font-medium text-ink">Loading signup...</span>
         </div>
       </motion.div>
     </div>

@@ -21,12 +21,17 @@ export async function middleware(req: NextRequest) {
 
   const { data: { session } } = await supabase.auth.getSession()
   const p = req.nextUrl.pathname
-  
+
+  // Legacy route redirects
+  if (p === '/simple-login') {
+    return NextResponse.redirect(new URL('/signin', req.url))
+  }
+
   const role = (session?.user?.app_metadata?.role ?? session?.user?.user_metadata?.role) as string | undefined
   const isAdmin = role === 'admin'
 
   // 1) If logged in and hitting login pages, redirect to proper home
-  if ((p === '/login' || p === '/admin-login') && session) {
+  if ((p === '/login' || p === '/admin-login' || p === '/signin') && session) {
     return NextResponse.redirect(new URL(isAdmin ? '/admin' : '/', req.url))
   }
 

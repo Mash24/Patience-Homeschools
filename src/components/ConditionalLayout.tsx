@@ -19,27 +19,27 @@ const MARKETING_PAGES = [
   '/teacher-apply',
   '/resources',
   '/events',
-  '/pricing',
-  '/testimonials'
+  '/parent-register',
+  '/application-status',
+  '/privacy',
+  '/terms',
+  '/safeguarding',
 ]
 
 // Pages that should have clean app layout (no marketing navbar/footer)
 const APP_PAGES = [
-  '/dashboard',
   '/admin',
   '/teacher',
   '/parent',
-  '/students',
-  '/schedule',
-  '/documents',
-  '/earnings',
-  '/messages',
-  '/settings',
   '/signup',
   '/login',
+  '/signin',
+  '/admin-login',
+  '/reset-password',
+  '/unauthorized',
   '/email-verified',
   '/setup-password',
-  '/auth'
+  '/auth',
 ]
 
 export default function ConditionalLayout({ children }: ConditionalLayoutProps) {
@@ -63,7 +63,7 @@ export default function ConditionalLayout({ children }: ConditionalLayoutProps) 
     return (
       <>
         <Navbar />
-        <main className="min-h-screen pt-20">
+        <main className="min-h-screen">
           {children}
         </main>
         <Footer />

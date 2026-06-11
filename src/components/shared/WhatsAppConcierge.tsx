@@ -209,13 +209,13 @@ export default function WhatsAppConcierge() {
   const getSenderColor = (sender: string) => {
     switch (sender) {
       case 'user':
-        return 'bg-blue-500'
+        return 'bg-gold-500'
       case 'bot':
         return 'bg-green-500'
       case 'admin':
         return 'bg-purple-500'
       default:
-        return 'bg-gray-500'
+        return 'bg-ivory0'
     }
   }
   
@@ -243,7 +243,7 @@ export default function WhatsAppConcierge() {
                   setIsChatOpen(true)
                   setIsExpanded(false)
                 }}
-                className="flex items-center gap-2 bg-white text-gray-700 px-4 py-2 rounded-full shadow-lg border border-gray-200 hover:bg-gray-50 transition-colors text-sm"
+                className="flex items-center gap-2 bg-white text-ink px-4 py-2 rounded-full shadow-lg border border-ink/10 hover:bg-ivory transition-colors text-sm"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -293,7 +293,7 @@ export default function WhatsAppConcierge() {
             initial={{ opacity: 0, scale: 0.8, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
-            className="fixed bottom-24 right-4 sm:bottom-32 sm:right-6 z-50 w-80 h-96 bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
+            className="fixed bottom-24 right-4 sm:bottom-32 sm:right-6 z-50 w-80 h-96 bg-white rounded-2xl shadow-2xl border border-ink/10 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 flex items-center justify-between">
@@ -329,7 +329,7 @@ export default function WhatsAppConcierge() {
                         ? 'bg-green-500 text-white'
                         : message.sender === 'admin'
                         ? 'bg-purple-100 text-purple-900 border border-purple-200'
-                        : 'bg-gray-100 text-gray-900'
+                        : 'bg-ivory-dark text-ink'
                     }`}
                   >
                     <div className="flex items-center space-x-2 mb-1">
@@ -347,7 +347,7 @@ export default function WhatsAppConcierge() {
               
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="bg-gray-100 p-3 rounded-lg">
+                  <div className="bg-ivory-dark p-3 rounded-lg">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -364,9 +364,9 @@ export default function WhatsAppConcierge() {
                 <div className="bg-white rounded-lg p-6 max-w-sm">
                   <div className="flex items-center space-x-3 mb-4">
                     <HeadphonesIcon className="h-6 w-6 text-purple-500" />
-                    <h3 className="font-semibold text-gray-900">Connect to Admin?</h3>
+                    <h3 className="font-semibold text-ink">Connect to Admin?</h3>
                   </div>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-ink-muted mb-4">
                     Our admin team can provide personalized assistance for your specific needs.
                   </p>
                   <div className="flex space-x-3">
@@ -378,7 +378,7 @@ export default function WhatsAppConcierge() {
                     </button>
                     <button
                       onClick={() => setShowEscalation(false)}
-                      className="flex-1 bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors text-sm"
+                      className="flex-1 bg-gray-200 text-ink py-2 px-4 rounded-lg hover:bg-gray-300 transition-colors text-sm"
                     >
                       Cancel
                     </button>
@@ -388,7 +388,7 @@ export default function WhatsAppConcierge() {
             )}
 
             {/* Input */}
-            <div className="p-4 border-t border-gray-200">
+            <div className="p-4 border-t border-ink/10">
               {chatSession.isEscalated ? (
                 <div className="text-center">
                   <button
@@ -398,7 +398,7 @@ export default function WhatsAppConcierge() {
                     <Phone className="h-4 w-4" />
                     <span>Continue on WhatsApp</span>
                   </button>
-                  <p className="text-xs text-gray-500 mt-2">
+                  <p className="text-xs text-ink-muted mt-2">
                     Admin will respond via WhatsApp
                   </p>
                 </div>
@@ -410,7 +410,7 @@ export default function WhatsAppConcierge() {
                     onChange={(e) => setCurrentMessage(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                     placeholder="Type your message..."
-                    className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    className="flex-1 border border-ink/10 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
                   />
                   <button
                     onClick={sendMessage}

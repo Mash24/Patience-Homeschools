@@ -37,7 +37,7 @@ export default function DuplicateApplicationModal({
       case 'rejected':
         return 'bg-red-100 text-red-800 border-red-200'
       default:
-        return 'bg-blue-100 text-blue-800 border-blue-200'
+        return 'bg-gold-50 text-gold-800 border-gold-200'
     }
   }
 
@@ -104,16 +104,16 @@ export default function DuplicateApplicationModal({
             {/* Content */}
             <div className="p-6 space-y-6">
               {/* Account Info Card */}
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-4">
+              <div className="bg-gold-50/50 border border-gold-200 rounded-2xl p-4">
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-blue-600" />
-                    <span className="text-gray-900 font-medium">{existingApplication.email}</span>
+                    <Mail className="h-5 w-5 text-gold-600" />
+                    <span className="text-ink font-medium">{existingApplication.email}</span>
                   </div>
                   
                   <div className="flex items-center space-x-3">
-                    <Calendar className="h-5 w-5 text-blue-600" />
-                    <span className="text-gray-700">Applied on {formatDate(existingApplication.applicationDate)}</span>
+                    <Calendar className="h-5 w-5 text-gold-600" />
+                    <span className="text-ink">Applied on {formatDate(existingApplication.applicationDate)}</span>
                   </div>
                   
                   <div className="flex items-center space-x-3">
@@ -127,7 +127,7 @@ export default function DuplicateApplicationModal({
 
               {/* Friendly Message */}
               <div className="text-center">
-                <p className="text-gray-700 text-lg leading-relaxed">
+                <p className="text-ink text-lg leading-relaxed">
                   Looks like you've applied before! Please proceed to login to view your profile.
                 </p>
               </div>
@@ -139,7 +139,7 @@ export default function DuplicateApplicationModal({
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={onSignInAction}
-                  className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-2xl font-semibold text-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center space-x-3 shadow-lg"
+                  className="btn-primary w-full py-4 text-lg"
                 >
                   <User className="h-6 w-6" />
                   <span>Log In Now</span>
@@ -148,13 +148,13 @@ export default function DuplicateApplicationModal({
               </div>
 
               {/* Help Section */}
-              <div className="border-t border-gray-200 pt-4">
+              <div className="border-t border-ink/10 pt-4">
                 <div className="text-center">
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-ink-muted text-sm">
                     If you think this is a mistake, try again.
                   </p>
                   <div className="mt-2">
-                    <button className="text-gray-600 hover:text-gray-700 text-sm font-medium flex items-center justify-center space-x-1 mx-auto">
+                    <button className="text-ink-muted hover:text-ink text-sm font-medium flex items-center justify-center space-x-1 mx-auto">
                       <HelpCircle className="h-4 w-4" />
                       <span>Need help? Contact support</span>
                     </button>

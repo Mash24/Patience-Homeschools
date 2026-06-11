@@ -34,7 +34,7 @@ export default function AuthCodeErrorPage() {
           window.location.href = `/signup?email=${user.email}`
         } else {
           console.log('User has password, redirecting to dashboard')
-          window.location.href = '/dashboard'
+          window.location.href = '/teacher/dashboard'
         }
       } catch (err) {
         console.error('Error in redirect logic:', err)
@@ -46,24 +46,24 @@ export default function AuthCodeErrorPage() {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
         <div className="mb-6">
-          <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <div className="mx-auto w-16 h-16 bg-gold-50 rounded-full flex items-center justify-center mb-4">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-ink mb-2">
             Processing Authentication...
           </h1>
-          <p className="text-gray-600">
+          <p className="text-ink-muted">
             Please wait while we redirect you to the correct page.
           </p>
         </div>
 
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-ink-muted">
           <p>If you're not redirected automatically, please:</p>
           <p className="mt-2">
-            <a href="/signup" className="text-blue-600 hover:underline">
+            <a href="/signup" className="text-gold-600 hover:underline">
               Click here to continue
             </a>
           </p>

@@ -108,28 +108,28 @@ export default function MessagesManagement() {
       case 'open': return 'bg-red-100 text-red-800'
       case 'in_progress': return 'bg-yellow-100 text-yellow-800'
       case 'closed': return 'bg-green-100 text-green-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-ivory-dark text-ink'
     }
   }
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'low': return 'bg-gray-100 text-gray-800'
-      case 'medium': return 'bg-blue-100 text-blue-800'
+      case 'low': return 'bg-ivory-dark text-ink'
+      case 'medium': return 'bg-gold-50 text-gold-800'
       case 'high': return 'bg-orange-100 text-orange-800'
       case 'urgent': return 'bg-red-100 text-red-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-ivory-dark text-ink'
     }
   }
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'general': return 'bg-gray-100 text-gray-800'
-      case 'technical': return 'bg-blue-100 text-blue-800'
+      case 'general': return 'bg-ivory-dark text-ink'
+      case 'technical': return 'bg-gold-50 text-gold-800'
       case 'billing': return 'bg-green-100 text-green-800'
       case 'complaint': return 'bg-red-100 text-red-800'
       case 'feedback': return 'bg-purple-100 text-purple-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-ivory-dark text-ink'
     }
   }
 
@@ -167,24 +167,24 @@ export default function MessagesManagement() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Messages & Support</h1>
-          <p className="text-gray-600">Manage support requests and communications</p>
+          <h1 className="text-2xl font-bold text-ink">Messages & Support</h1>
+          <p className="text-ink-muted">Manage support requests and communications</p>
         </div>
         <div className="flex items-center space-x-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-muted/60" />
             <input
               type="text"
               placeholder="Search messages..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="pl-10 pr-4 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
             />
           </div>
           <select
             value={selectedStatus}
             onChange={(e) => setSelectedStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
           >
             <option value="all">All Status</option>
             <option value="open">Open</option>
@@ -194,7 +194,7 @@ export default function MessagesManagement() {
           <select
             value={selectedPriority}
             onChange={(e) => setSelectedPriority(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
           >
             <option value="all">All Priority</option>
             <option value="urgent">Urgent</option>
@@ -208,7 +208,7 @@ export default function MessagesManagement() {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         {[
-          { label: 'Total', count: messages.length, color: 'bg-gray-500' },
+          { label: 'Total', count: messages.length, color: 'bg-ivory0' },
           { label: 'Open', count: messages.filter(m => m.status === 'open').length, color: 'bg-red-500' },
           { label: 'In Progress', count: messages.filter(m => m.status === 'in_progress').length, color: 'bg-yellow-500' },
           { label: 'Closed', count: messages.filter(m => m.status === 'closed').length, color: 'bg-green-500' }
@@ -219,8 +219,8 @@ export default function MessagesManagement() {
                 <MessageSquare className="h-5 w-5 text-white" />
               </div>
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                <p className="text-xl font-bold text-gray-900">{stat.count}</p>
+                <p className="text-sm font-medium text-ink-muted">{stat.label}</p>
+                <p className="text-xl font-bold text-ink">{stat.count}</p>
               </div>
             </div>
           </div>
@@ -231,54 +231,54 @@ export default function MessagesManagement() {
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+            <thead className="bg-ivory">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Sender
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Subject
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Category
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Priority
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredMessages.map((message) => (
-                <tr key={message.id} className="hover:bg-gray-50">
+                <tr key={message.id} className="hover:bg-ivory">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
                       <div className={`h-8 w-8 rounded-full flex items-center justify-center ${
                         message.sender_role === 'parent' ? 'bg-green-600' : 
-                        message.sender_role === 'teacher' ? 'bg-blue-600' : 'bg-purple-600'
+                        message.sender_role === 'teacher' ? 'bg-gold-500' : 'bg-purple-600'
                       }`}>
                         <span className="text-white text-xs font-medium">
                           {message.sender_name.split(' ').map(n => n[0]).join('')}
                         </span>
                       </div>
                       <div className="ml-3">
-                        <div className="text-sm font-medium text-gray-900">{message.sender_name}</div>
-                        <div className="text-sm text-gray-500">{message.sender_email}</div>
-                        <div className="text-xs text-gray-400 capitalize">{message.sender_role}</div>
+                        <div className="text-sm font-medium text-ink">{message.sender_name}</div>
+                        <div className="text-sm text-ink-muted">{message.sender_email}</div>
+                        <div className="text-xs text-ink-muted/60 capitalize">{message.sender_role}</div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{message.subject}</div>
-                    <div className="text-sm text-gray-500 truncate max-w-xs">{message.message}</div>
+                    <div className="text-sm font-medium text-ink">{message.subject}</div>
+                    <div className="text-sm text-ink-muted truncate max-w-xs">{message.message}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${getCategoryColor(message.category)}`}>
@@ -299,14 +299,14 @@ export default function MessagesManagement() {
                       {message.status.replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-ink-muted">
                     {new Date(message.created_at).toLocaleDateString()}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <div className="flex items-center space-x-2">
                       <button
                         onClick={() => setSelectedMessage(message)}
-                        className="text-blue-600 hover:text-blue-900"
+                        className="text-gold-600 hover:text-blue-900"
                       >
                         <Eye className="h-4 w-4" />
                       </button>
@@ -332,10 +332,10 @@ export default function MessagesManagement() {
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
           <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-2/3 shadow-lg rounded-md bg-white">
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold text-gray-900">Message Details</h3>
+              <h3 className="text-lg font-bold text-ink">Message Details</h3>
               <button
                 onClick={() => setSelectedMessage(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-ink-muted/60 hover:text-ink-muted"
               >
                 <XCircle className="h-6 w-6" />
               </button>
@@ -343,21 +343,21 @@ export default function MessagesManagement() {
             
             <div className="space-y-4">
               {/* Message Header */}
-              <div className="bg-gray-50 p-4 rounded-lg">
+              <div className="bg-ivory p-4 rounded-lg">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center space-x-3">
                     <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
                       selectedMessage.sender_role === 'parent' ? 'bg-green-600' : 
-                      selectedMessage.sender_role === 'teacher' ? 'bg-blue-600' : 'bg-purple-600'
+                      selectedMessage.sender_role === 'teacher' ? 'bg-gold-500' : 'bg-purple-600'
                     }`}>
                       <span className="text-white font-medium">
                         {selectedMessage.sender_name.split(' ').map(n => n[0]).join('')}
                       </span>
                     </div>
                     <div>
-                      <div className="font-medium text-gray-900">{selectedMessage.sender_name}</div>
-                      <div className="text-sm text-gray-500">{selectedMessage.sender_email}</div>
-                      <div className="text-xs text-gray-400 capitalize">{selectedMessage.sender_role}</div>
+                      <div className="font-medium text-ink">{selectedMessage.sender_name}</div>
+                      <div className="text-sm text-ink-muted">{selectedMessage.sender_email}</div>
+                      <div className="text-xs text-ink-muted/60 capitalize">{selectedMessage.sender_role}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
@@ -370,24 +370,24 @@ export default function MessagesManagement() {
                     </span>
                   </div>
                 </div>
-                <h4 className="font-semibold text-gray-900">{selectedMessage.subject}</h4>
-                <p className="text-sm text-gray-500 mt-1">
+                <h4 className="font-semibold text-ink">{selectedMessage.subject}</h4>
+                <p className="text-sm text-ink-muted mt-1">
                   {new Date(selectedMessage.created_at).toLocaleString()}
                 </p>
               </div>
 
               {/* Message Content */}
-              <div className="bg-white border border-gray-200 rounded-lg p-4">
-                <h5 className="font-medium text-gray-900 mb-2">Message:</h5>
-                <p className="text-gray-700 whitespace-pre-wrap">{selectedMessage.message}</p>
+              <div className="bg-white border border-ink/10 rounded-lg p-4">
+                <h5 className="font-medium text-ink mb-2">Message:</h5>
+                <p className="text-ink whitespace-pre-wrap">{selectedMessage.message}</p>
               </div>
 
               {/* Admin Reply */}
               {selectedMessage.admin_reply && (
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="bg-gold-50 border border-gold-200 rounded-lg p-4">
                   <h5 className="font-medium text-blue-900 mb-2">Admin Reply:</h5>
-                  <p className="text-blue-800 whitespace-pre-wrap">{selectedMessage.admin_reply}</p>
-                  <p className="text-xs text-blue-600 mt-2">
+                  <p className="text-gold-800 whitespace-pre-wrap">{selectedMessage.admin_reply}</p>
+                  <p className="text-xs text-gold-600 mt-2">
                     Replied on {new Date(selectedMessage.updated_at).toLocaleString()}
                   </p>
                 </div>
@@ -395,13 +395,13 @@ export default function MessagesManagement() {
 
               {/* Reply Form */}
               {selectedMessage.status !== 'closed' && (
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                  <h5 className="font-medium text-gray-900 mb-2">Reply:</h5>
+                <div className="bg-ivory border border-ink/10 rounded-lg p-4">
+                  <h5 className="font-medium text-ink mb-2">Reply:</h5>
                   <textarea
                     rows={4}
                     value={replyText}
                     onChange={(e) => setReplyText(e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
                     placeholder="Type your reply here..."
                   />
                 </div>
@@ -411,7 +411,7 @@ export default function MessagesManagement() {
             <div className="mt-6 flex justify-end space-x-3">
               <button
                 onClick={() => setSelectedMessage(null)}
-                className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                className="px-4 py-2 border border-ink/10 rounded-md text-sm font-medium text-ink hover:bg-ivory"
               >
                 Close
               </button>
@@ -426,7 +426,7 @@ export default function MessagesManagement() {
                   {replyText.trim() && (
                     <button
                       onClick={() => handleReply(selectedMessage.id)}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700"
+                      className="px-4 py-2 bg-gold-500 text-white rounded-md text-sm font-medium hover:bg-gold-400"
                     >
                       Send Reply
                     </button>

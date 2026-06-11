@@ -1,251 +1,125 @@
 'use client'
 
-import Link from "next/link";
-import { Facebook, Twitter, Instagram, Phone, Mail, MapPin, ChevronDown } from "lucide-react";
-import { useState } from "react";
-import { subscribe } from "@/lib/newsletter";
+import Link from 'next/link'
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react'
+import { subscribe } from '@/lib/newsletter'
+
+const explore = [
+  { name: 'Programmes', href: '/curricula' },
+  { name: 'Find a Tutor', href: '/hire-teacher' },
+  { name: 'Resources', href: '/resources' },
+  { name: 'Events', href: '/events' },
+  { name: 'Apply as Teacher', href: '/teacher-apply' },
+]
+
+const company = [
+  { name: 'About Us', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+  { name: 'Application Status', href: '/application-status' },
+]
 
 export default function Footer() {
-  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({});
-
-  const toggleSection = (section: string) => {
-    setExpandedSections(prev => ({
-      ...prev,
-      [section]: !prev[section]
-    }));
-  };
-
   return (
-    <footer className="w-full bg-[#0b0b0f] text-gray-300 border-t border-white/5">
-      {/* Newsletter */}
-      <section aria-labelledby="newsletter" className="w-full border-b border-white/5 bg-gradient-to-r from-[#0b0b0f] via-[#0f0f15] to-[#0b0b0f]">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 md:py-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <h2 id="newsletter" className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2">
-              Stay Informed
-            </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-300 mb-4 sm:mb-6">
-              Insights on elite education in Nairobi.
+    <footer className="bg-ink text-white">
+      <div className="container-custom py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
+          <div className="lg:col-span-5">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 rounded-full bg-gold-500 flex items-center justify-center">
+                <span className="font-serif text-lg font-semibold text-ink">N</span>
+              </div>
+              <div>
+                <span className="block font-serif text-xl font-semibold leading-none">Nelimac Learning</span>
+                <span className="block text-xs text-white/50 mt-0.5">Nairobi&apos;s Premier Education Network</span>
+              </div>
+            </div>
+            <p className="text-white/60 leading-relaxed max-w-sm mb-8">
+              Curated TSC-certified educators, concierge tutor matching, and exclusive learning experiences for discerning families.
             </p>
-
-            {/* ✅ Server Action instead of onSubmit */}
-            <form className="flex flex-col sm:flex-row gap-2 sm:gap-3 max-w-md mx-auto" action={subscribe}>
-              <label className="sr-only" htmlFor="newsletter-email">Email address</label>
+            <form action={subscribe} className="flex flex-col sm:flex-row gap-2 max-w-md">
               <input
-                id="newsletter-email"
                 name="email"
                 type="email"
-                inputMode="email"
-                autoComplete="email"
                 required
-                placeholder="Your email"
-                className="flex-1 px-3 sm:px-4 py-2 sm:py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200 text-sm sm:text-base"
+                placeholder="Your email address"
+                className="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-full text-white placeholder-white/40 text-sm focus:outline-none focus:border-gold-500/50 transition-colors"
               />
               <button
                 type="submit"
-                className="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black font-semibold px-4 sm:px-6 py-2 sm:py-3 rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                className="px-6 py-3 bg-gold-500 text-ink font-semibold rounded-full text-sm hover:bg-gold-400 transition-colors whitespace-nowrap"
               >
-                Subscribe →
+                Subscribe
               </button>
             </form>
-            </div>
           </div>
-      </section>
 
-      {/* Main grid */}
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:py-8 md:py-12">
-        {/* Desktop: Self-packing grid, Mobile: Accordion */}
-        <div className="hidden md:grid [grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))] gap-6 lg:gap-8">
-          {/* Brand */}
-          <section aria-labelledby="footer-brand" className="min-w-0">
-            <div className="flex items-center space-x-2 mb-3">
-              <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 p-1.5 rounded-lg">
-                <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <h3 id="footer-brand" className="text-white font-bold text-lg">
-                Nelimac Learning
-              </h3>
-              </div>
-            <p className="text-sm leading-relaxed text-gray-300 mb-4">
-              Nairobi's premier education network. TSC-certified tutors, concierge matching,
-              and exclusive community events.
-            </p>
-            <ul aria-label="Social links" className="flex items-center gap-3">
-              <li>
-                <Link href="#" className="w-8 h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Facebook">
-                  <Facebook className="h-4 w-4 text-gray-300 group-hover:text-white" />
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="w-8 h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Twitter">
-                  <Twitter className="h-4 w-4 text-gray-300 group-hover:text-white" />
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="w-8 h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Instagram">
-                  <Instagram className="h-4 w-4 text-gray-300 group-hover:text-white" />
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          {/* Explore */}
-          <nav aria-labelledby="footer-explore" className="min-w-0">
-            <h3 id="footer-explore" className="text-white font-bold text-lg mb-3">EXPLORE</h3>
-            <ul className="space-y-2">
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/curricula">Programmes</Link></li>
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/hire-teacher">Request a Private Tutor</Link></li>
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/resources">Resources</Link></li>
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/events">Events</Link></li>
-            </ul>
-          </nav>
-
-          {/* Trust & Policies */}
-          <nav aria-labelledby="footer-trust" className="min-w-0">
-            <h3 id="footer-trust" className="text-white font-bold text-lg mb-3">TRUST & POLICIES</h3>
-            <ul className="space-y-2">
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/safeguarding">Safeguarding & Vetting</Link></li>
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/privacy">Privacy Policy</Link></li>
-              <li><Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1 block" href="/terms">Terms of Service</Link></li>
-            </ul>
-          </nav>
-
-          {/* Contact */}
-          <address aria-labelledby="footer-contact" className="not-italic min-w-0">
-            <h3 id="footer-contact" className="text-white font-bold text-lg mb-3">CONTACT</h3>
+          <div className="lg:col-span-2">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400 mb-5">Explore</h3>
             <ul className="space-y-3">
-              <li className="flex items-center space-x-2">
-                <MapPin className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                <span className="text-gray-300">Nairobi, Kenya</span>
-              </li>
-              <li className="flex items-center space-x-2">
-                <Phone className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="tel:+254700000000">+254 700 000 000</a>
-              </li>
-              <li className="flex items-center space-x-2">
-                <Mail className="h-4 w-4 text-yellow-400 flex-shrink-0" />
-                <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200" href="mailto:info@nelimaclearning.co.ke">info@nelimaclearning.co.ke</a>
-              </li>
+              {explore.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-sm text-white/60 hover:text-gold-400 transition-colors">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
-          </address>
           </div>
 
-        {/* Mobile Accordion */}
-        <div className="md:hidden space-y-3 sm:space-y-4">
-          {/* Brand - Always visible on mobile */}
-          <section aria-labelledby="footer-brand-mobile" className="min-w-0">
-            <div className="flex items-center space-x-2 mb-3">
-              <div className="bg-gradient-to-br from-yellow-500 to-yellow-600 p-1.5 rounded-lg">
-                <svg className="h-4 w-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <h3 id="footer-brand-mobile" className="text-white font-bold text-base sm:text-lg">
-                Nelimac Learning
-              </h3>
+          <div className="lg:col-span-2">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400 mb-5">Company</h3>
+            <ul className="space-y-3">
+              {company.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="text-sm text-white/60 hover:text-gold-400 transition-colors">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.15em] text-gold-400 mb-5">Contact</h3>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-sm text-white/60">
+                <MapPin className="h-4 w-4 text-gold-400 mt-0.5 shrink-0" />
+                Nairobi, Kenya
+              </li>
+              <li>
+                <a href="tel:+254700000000" className="flex items-center gap-3 text-sm text-white/60 hover:text-gold-400 transition-colors">
+                  <Phone className="h-4 w-4 text-gold-400 shrink-0" />
+                  +254 700 000 000
+                </a>
+              </li>
+              <li>
+                <a href="mailto:info@nelimaclearning.co.ke" className="flex items-center gap-3 text-sm text-white/60 hover:text-gold-400 transition-colors">
+                  <Mail className="h-4 w-4 text-gold-400 shrink-0" />
+                  info@nelimaclearning.co.ke
+                </a>
+              </li>
+            </ul>
+            <div className="flex gap-3 mt-6">
+              {[Facebook, Instagram, Linkedin].map((Icon, i) => (
+                <a
+                  key={i}
+                  href="#"
+                  className="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center text-white/50 hover:bg-gold-500 hover:text-ink transition-all"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
-            <p className="text-xs sm:text-sm leading-relaxed text-gray-300 mb-3 sm:mb-4">
-              Nairobi's premier education network. TSC-certified tutors, concierge matching,
-              and exclusive community events.
-            </p>
-            <ul aria-label="Social links" className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
-              <li>
-                <Link href="#" className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Facebook">
-                  <Facebook className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300 group-hover:text-white" />
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Twitter">
-                  <Twitter className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300 group-hover:text-white" />
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="w-7 h-7 sm:w-8 sm:h-8 bg-gray-700 hover:bg-yellow-500 rounded-full flex items-center justify-center transition-all duration-200 group" aria-label="Instagram">
-                  <Instagram className="h-3 w-3 sm:h-4 sm:w-4 text-gray-300 group-hover:text-white" />
-                </Link>
-              </li>
-            </ul>
-          </section>
-
-          {/* Explore - Collapsible */}
-          <div className="border-t border-white/10 pt-3 sm:pt-4">
-            <button
-              onClick={() => toggleSection('explore')}
-              className="flex items-center justify-between w-full text-left"
-              aria-expanded={expandedSections.explore}
-            >
-              <h3 className="text-white font-bold text-base sm:text-lg">EXPLORE</h3>
-              <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform duration-200 ${expandedSections.explore ? 'rotate-180' : ''}`} />
-            </button>
-            {expandedSections.explore && (
-              <nav className="mt-2 sm:mt-3 space-y-1 sm:space-y-2">
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/curricula">Programmes</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/hire-teacher">Request a Private Tutor</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/resources">Resources</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/events">Events</Link>
-              </nav>
-            )}
           </div>
+        </div>
 
-          {/* Trust & Policies - Collapsible */}
-          <div className="border-t border-white/10 pt-3 sm:pt-4">
-            <button
-              onClick={() => toggleSection('trust')}
-              className="flex items-center justify-between w-full text-left"
-              aria-expanded={expandedSections.trust}
-            >
-              <h3 className="text-white font-bold text-base sm:text-lg">TRUST & POLICIES</h3>
-              <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform duration-200 ${expandedSections.trust ? 'rotate-180' : ''}`} />
-            </button>
-            {expandedSections.trust && (
-              <nav className="mt-2 sm:mt-3 space-y-1 sm:space-y-2">
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/safeguarding">Safeguarding & Vetting</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/privacy">Privacy Policy</Link>
-                <Link className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 py-1.5 sm:py-2 block text-sm sm:text-base" href="/terms">Terms of Service</Link>
-              </nav>
-            )}
-          </div>
+        <div className="divider-gold mt-12 mb-8" />
 
-          {/* Contact - Collapsible */}
-          <div className="border-t border-white/10 pt-3 sm:pt-4">
-            <button
-              onClick={() => toggleSection('contact')}
-              className="flex items-center justify-between w-full text-left"
-              aria-expanded={expandedSections.contact}
-            >
-              <h3 className="text-white font-bold text-base sm:text-lg">CONTACT</h3>
-              <ChevronDown className={`h-4 w-4 sm:h-5 sm:w-5 text-gray-400 transition-transform duration-200 ${expandedSections.contact ? 'rotate-180' : ''}`} />
-            </button>
-            {expandedSections.contact && (
-              <address className="mt-2 sm:mt-3 space-y-2 sm:space-y-3 not-italic">
-              <div className="flex items-center space-x-2">
-                  <MapPin className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex-shrink-0" />
-                  <span className="text-gray-300 text-sm sm:text-base">Nairobi, Kenya</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                  <Phone className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex-shrink-0" />
-                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm sm:text-base" href="tel:+254700000000">+254 700 000 000</a>
-              </div>
-              <div className="flex items-center space-x-2">
-                  <Mail className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-400 flex-shrink-0" />
-                  <a className="text-gray-300 hover:text-yellow-400 transition-colors duration-200 text-sm sm:text-base" href="mailto:info@nelimaclearning.co.ke">info@nelimaclearning.co.ke</a>
-              </div>
-              </address>
-            )}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/40">
+          <p>&copy; {new Date().getFullYear()} Nelimac Learning. All rights reserved.</p>
+          <p>Built with care for Nairobi&apos;s education community.</p>
         </div>
       </div>
-
-        {/* Bottom bar */}
-        <div className="mt-6 sm:mt-8 border-t border-white/5 pt-4 sm:pt-6 text-xs sm:text-sm text-gray-400 flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <span>© {new Date().getFullYear()} Nelimac Learning. All rights reserved.</span>
-          <span className="mt-1 sm:mt-0">Built with care for Nairobi's education community.</span>
-        </div>
-      </div>
-      
-      {/* Bottom spacer for floating concierge button */}
-      <div className="h-16 sm:h-20" />
     </footer>
-  );
+  )
 }

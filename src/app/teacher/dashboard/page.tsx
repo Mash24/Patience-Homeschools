@@ -120,8 +120,8 @@ interface ClassSession {
 }
 
 const statusConfig = {
-  draft: { color: 'bg-gray-100 text-gray-800', icon: FileText, label: 'Draft' },
-  submitted: { color: 'bg-blue-100 text-blue-800', icon: Clock, label: 'Under Review' },
+  draft: { color: 'bg-ivory-dark text-ink', icon: FileText, label: 'Draft' },
+  submitted: { color: 'bg-gold-50 text-gold-800', icon: Clock, label: 'Under Review' },
   under_review: { color: 'bg-yellow-100 text-yellow-800', icon: AlertCircle, label: 'Under Review' },
   approved: { color: 'bg-green-100 text-green-800', icon: CheckCircle, label: 'Approved' },
   rejected: { color: 'bg-red-100 text-red-800', icon: XCircle, label: 'Rejected' },
@@ -284,10 +284,10 @@ export default function TeacherDashboard() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-ivory flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading your dashboard...</p>
+          <p className="text-ink-muted">Loading your dashboard...</p>
         </div>
       </div>
     )
@@ -295,14 +295,14 @@ export default function TeacherDashboard() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-ivory flex items-center justify-center">
         <div className="text-center">
           <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Profile Not Found</h2>
-          <p className="text-gray-600 mb-4">We couldn't find your teacher profile.</p>
+          <h2 className="text-xl font-semibold text-ink mb-2">Profile Not Found</h2>
+          <p className="text-ink-muted mb-4">We couldn't find your teacher profile.</p>
           <button
             onClick={() => router.push('/teacher-apply')}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            className="bg-gold-500 text-white px-6 py-2 rounded-lg hover:bg-gold-400 transition-colors"
           >
             Complete Application
           </button>
@@ -314,20 +314,20 @@ export default function TeacherDashboard() {
   const statusInfo = getStatusConfig(profile.status)
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-ivory">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <div className="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center">
                 <span className="text-white font-bold text-xl">
                   {profile.full_name.split(' ').map(n => n[0]).join('')}
                 </span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Welcome, {profile.full_name}</h1>
-                <p className="text-gray-600">Teacher Dashboard</p>
+                <h1 className="text-2xl font-bold text-ink">Welcome, {profile.full_name}</h1>
+                <p className="text-ink-muted">Teacher Dashboard</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
@@ -337,7 +337,7 @@ export default function TeacherDashboard() {
               </div>
               <button
                 onClick={handleSignOut}
-                className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
+                className="flex items-center space-x-2 text-ink-muted hover:text-ink transition-colors"
               >
                 <LogOut className="h-5 w-5" />
                 <span>Sign Out</span>
@@ -350,7 +350,7 @@ export default function TeacherDashboard() {
       {/* Navigation Tabs */}
       <div className="container mx-auto px-4 py-6">
         <div className="bg-white rounded-xl shadow-sm border">
-          <div className="border-b border-gray-200">
+          <div className="border-b border-ink/10">
             <nav className="flex space-x-8 px-6">
               {[
                 { id: 'overview', label: 'Overview', icon: User },
@@ -367,8 +367,8 @@ export default function TeacherDashboard() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`flex items-center space-x-2 py-4 border-b-2 transition-colors ${
                       activeTab === tab.id
-                        ? 'border-blue-500 text-blue-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                        ? 'border-gold-500 text-gold-600'
+                        : 'border-transparent text-ink-muted hover:text-ink'
                     }`}
                   >
                     <Icon className="h-5 w-5" />
@@ -388,11 +388,11 @@ export default function TeacherDashboard() {
                 className="space-y-6"
               >
                 {/* Status Card */}
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6">
+                <div className="bg-gold-50 rounded-xl p-6">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h2 className="text-xl font-semibold text-gray-900 mb-2">Application Status</h2>
-                      <p className="text-gray-600">
+                      <h2 className="text-xl font-semibold text-ink mb-2">Application Status</h2>
+                      <p className="text-ink-muted">
                         {profile.status === 'approved' 
                           ? 'Congratulations! Your application has been approved. You can now start teaching.'
                           : profile.status === 'rejected'
@@ -419,65 +419,65 @@ export default function TeacherDashboard() {
 
                 {/* Quick Stats */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <div className="bg-white border border-ink/10 rounded-xl p-6">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                        <BookOpen className="h-6 w-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-gold-50 rounded-xl flex items-center justify-center">
+                        <BookOpen className="h-6 w-6 text-gold-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Subjects</p>
-                        <p className="text-2xl font-bold text-gray-900">{profile.subjects.length}</p>
+                        <p className="text-sm text-ink-muted">Subjects</p>
+                        <p className="text-2xl font-bold text-ink">{profile.subjects.length}</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <div className="bg-white border border-ink/10 rounded-xl p-6">
                     <div className="flex items-center space-x-3">
                       <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                         <Award className="h-6 w-6 text-green-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Experience</p>
-                        <p className="text-2xl font-bold text-gray-900">{profile.experience_years} years</p>
+                        <p className="text-sm text-ink-muted">Experience</p>
+                        <p className="text-2xl font-bold text-ink">{profile.experience_years} years</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="bg-white border border-gray-200 rounded-xl p-6">
+                  <div className="bg-white border border-ink/10 rounded-xl p-6">
                     <div className="flex items-center space-x-3">
                       <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
                         <FileText className="h-6 w-6 text-purple-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">Documents</p>
-                        <p className="text-2xl font-bold text-gray-900">{documents.length}</p>
+                        <p className="text-sm text-ink-muted">Documents</p>
+                        <p className="text-2xl font-bold text-ink">{documents.length}</p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Application Timeline */}
-                <div className="bg-white border border-gray-200 rounded-xl p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Timeline</h3>
+                <div className="bg-white border border-ink/10 rounded-xl p-6">
+                  <h3 className="text-lg font-semibold text-ink mb-4">Application Timeline</h3>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                         <CheckCircle className="h-4 w-4 text-green-600" />
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">Application Submitted</p>
-                        <p className="text-sm text-gray-600">{formatDate(profile.application_date)}</p>
+                        <p className="font-medium text-ink">Application Submitted</p>
+                        <p className="text-sm text-ink-muted">{formatDate(profile.application_date)}</p>
                       </div>
                     </div>
 
                     {profile.review_date && (
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                          <Eye className="h-4 w-4 text-blue-600" />
+                        <div className="w-8 h-8 bg-gold-50 rounded-full flex items-center justify-center">
+                          <Eye className="h-4 w-4 text-gold-600" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">Under Review</p>
-                          <p className="text-sm text-gray-600">{formatDate(profile.review_date)}</p>
+                          <p className="font-medium text-ink">Under Review</p>
+                          <p className="text-sm text-ink-muted">{formatDate(profile.review_date)}</p>
                         </div>
                       </div>
                     )}
@@ -488,8 +488,8 @@ export default function TeacherDashboard() {
                           <CheckCircle className="h-4 w-4 text-green-600" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">Application Approved</p>
-                          <p className="text-sm text-gray-600">{formatDate(profile.approved_date)}</p>
+                          <p className="font-medium text-ink">Application Approved</p>
+                          <p className="text-sm text-ink-muted">{formatDate(profile.approved_date)}</p>
                         </div>
                       </div>
                     )}
@@ -504,49 +504,49 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-gray-900">Application Status</h2>
+                <h2 className="text-xl font-semibold text-ink">Application Status</h2>
                 
                 {provisionalApplication ? (
                   <div className="space-y-6">
                     {/* Application Status Card */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div className="bg-white border border-ink/10 rounded-xl p-6">
                       <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-lg font-medium text-gray-900">Application Details</h3>
-                        <div className={`px-3 py-1 rounded-full text-sm font-medium ${statusConfig[provisionalApplication.status as keyof typeof statusConfig]?.color || 'bg-gray-100 text-gray-800'}`}>
+                        <h3 className="text-lg font-medium text-ink">Application Details</h3>
+                        <div className={`px-3 py-1 rounded-full text-sm font-medium ${statusConfig[provisionalApplication.status as keyof typeof statusConfig]?.color || 'bg-ivory-dark text-ink'}`}>
                           {statusConfig[provisionalApplication.status as keyof typeof statusConfig]?.label || provisionalApplication.status}
                         </div>
                       </div>
                       
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                          <p className="text-sm text-gray-600">Application Date</p>
+                          <p className="text-sm text-ink-muted">Application Date</p>
                           <p className="font-medium">{new Date(provisionalApplication.application_date).toLocaleDateString()}</p>
                         </div>
                         <div>
-                          <p className="text-sm text-gray-600">Experience</p>
+                          <p className="text-sm text-ink-muted">Experience</p>
                           <p className="font-medium">{provisionalApplication.experience_years} years</p>
                         </div>
                         <div>
-                          <p className="text-sm text-gray-600">Location</p>
+                          <p className="text-sm text-ink-muted">Location</p>
                           <p className="font-medium">{provisionalApplication.location_area}</p>
                         </div>
                         <div>
-                          <p className="text-sm text-gray-600">Rate Range</p>
+                          <p className="text-sm text-ink-muted">Rate Range</p>
                           <p className="font-medium">{provisionalApplication.hourly_rate_range}</p>
                         </div>
                       </div>
                     </div>
 
                     {/* Application Information */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
-                      <h3 className="text-lg font-medium text-gray-900 mb-4">Application Information</h3>
+                    <div className="bg-white border border-ink/10 rounded-xl p-6">
+                      <h3 className="text-lg font-medium text-ink mb-4">Application Information</h3>
                       
                       <div className="space-y-4">
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Subjects</p>
+                          <p className="text-sm text-ink-muted mb-1">Subjects</p>
                           <div className="flex flex-wrap gap-2">
                             {provisionalApplication.subjects.map((subject, index) => (
-                              <span key={index} className="px-2 py-1 bg-blue-100 text-blue-800 rounded-md text-sm">
+                              <span key={index} className="px-2 py-1 bg-gold-50 text-gold-800 rounded-md text-sm">
                                 {subject}
                               </span>
                             ))}
@@ -554,7 +554,7 @@ export default function TeacherDashboard() {
                         </div>
                         
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Curricula</p>
+                          <p className="text-sm text-ink-muted mb-1">Curricula</p>
                           <div className="flex flex-wrap gap-2">
                             {provisionalApplication.curricula.map((curriculum, index) => (
                               <span key={index} className="px-2 py-1 bg-green-100 text-green-800 rounded-md text-sm">
@@ -565,7 +565,7 @@ export default function TeacherDashboard() {
                         </div>
                         
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Grade Levels</p>
+                          <p className="text-sm text-ink-muted mb-1">Grade Levels</p>
                           <div className="flex flex-wrap gap-2">
                             {provisionalApplication.grade_levels.map((level, index) => (
                               <span key={index} className="px-2 py-1 bg-purple-100 text-purple-800 rounded-md text-sm">
@@ -576,7 +576,7 @@ export default function TeacherDashboard() {
                         </div>
                         
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Availability</p>
+                          <p className="text-sm text-ink-muted mb-1">Availability</p>
                           <div className="flex flex-wrap gap-2">
                             {provisionalApplication.availability.map((time, index) => (
                               <span key={index} className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-md text-sm">
@@ -589,24 +589,24 @@ export default function TeacherDashboard() {
                     </div>
 
                     {/* Education & Philosophy */}
-                    <div className="bg-white border border-gray-200 rounded-xl p-6">
-                      <h3 className="text-lg font-medium text-gray-900 mb-4">Education & Philosophy</h3>
+                    <div className="bg-white border border-ink/10 rounded-xl p-6">
+                      <h3 className="text-lg font-medium text-ink mb-4">Education & Philosophy</h3>
                       
                       <div className="space-y-4">
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Education Background</p>
-                          <p className="text-gray-900">{provisionalApplication.education_background}</p>
+                          <p className="text-sm text-ink-muted mb-1">Education Background</p>
+                          <p className="text-ink">{provisionalApplication.education_background}</p>
                         </div>
                         
                         <div>
-                          <p className="text-sm text-gray-600 mb-1">Teaching Philosophy</p>
-                          <p className="text-gray-900">{provisionalApplication.teaching_philosophy}</p>
+                          <p className="text-sm text-ink-muted mb-1">Teaching Philosophy</p>
+                          <p className="text-ink">{provisionalApplication.teaching_philosophy}</p>
                         </div>
                         
                         {provisionalApplication.tsc_number && (
                           <div>
-                            <p className="text-sm text-gray-600 mb-1">TSC Number</p>
-                            <p className="text-gray-900">{provisionalApplication.tsc_number}</p>
+                            <p className="text-sm text-ink-muted mb-1">TSC Number</p>
+                            <p className="text-ink">{provisionalApplication.tsc_number}</p>
                           </div>
                         )}
                       </div>
@@ -614,12 +614,12 @@ export default function TeacherDashboard() {
 
                     {/* Status Messages */}
                     {provisionalApplication.status === 'submitted' && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                      <div className="bg-gold-50 border border-gold-200 rounded-xl p-6">
                         <div className="flex items-center space-x-2 mb-2">
-                          <Clock className="h-5 w-5 text-blue-600" />
+                          <Clock className="h-5 w-5 text-gold-600" />
                           <h3 className="text-lg font-medium text-blue-900">Under Review</h3>
                         </div>
-                        <p className="text-blue-800">
+                        <p className="text-gold-800">
                           Your application is currently being reviewed by our team. We'll notify you once the review is complete.
                         </p>
                       </div>
@@ -638,9 +638,9 @@ export default function TeacherDashboard() {
                   </div>
                 ) : (
                   <div className="text-center py-12">
-                    <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 mb-2">No application found</p>
-                    <p className="text-sm text-gray-500">If you've submitted an application, it may still be processing</p>
+                    <FileText className="h-12 w-12 text-ink-muted/60 mx-auto mb-4" />
+                    <p className="text-ink-muted mb-2">No application found</p>
+                    <p className="text-sm text-ink-muted">If you've submitted an application, it may still be processing</p>
                   </div>
                 )}
               </motion.div>
@@ -652,41 +652,41 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-gray-900">My Students</h2>
+                <h2 className="text-xl font-semibold text-ink">My Students</h2>
                 
                 {assignments.length === 0 ? (
                   <div className="text-center py-12">
-                    <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 mb-2">No students assigned yet</p>
-                    <p className="text-sm text-gray-500">Students will appear here once admin assigns them to you</p>
+                    <Users className="h-12 w-12 text-ink-muted/60 mx-auto mb-4" />
+                    <p className="text-ink-muted mb-2">No students assigned yet</p>
+                    <p className="text-sm text-ink-muted">Students will appear here once admin assigns them to you</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {assignments.map((assignment) => (
-                      <div key={assignment.id} className="bg-white border border-gray-200 rounded-xl p-6">
+                      <div key={assignment.id} className="bg-white border border-ink/10 rounded-xl p-6">
                         <div className="flex items-start justify-between mb-4">
                           <div>
-                            <h3 className="text-lg font-medium text-gray-900">
+                            <h3 className="text-lg font-medium text-ink">
                               {assignment.child.full_name}
                             </h3>
-                            <p className="text-sm text-gray-600">{assignment.subject} • {assignment.student_level}</p>
+                            <p className="text-sm text-ink-muted">{assignment.subject} • {assignment.student_level}</p>
                           </div>
                           <span className={`px-3 py-1 rounded-full text-sm font-medium ${
                             assignment.status === 'active' 
                               ? 'bg-green-100 text-green-800'
-                              : 'bg-gray-100 text-gray-800'
+                              : 'bg-ivory-dark text-ink'
                           }`}>
                             {assignment.status}
                           </span>
                         </div>
                         
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
+                          <div className="flex items-center gap-2 text-sm text-ink-muted">
                             <MapPin className="h-4 w-4" />
                             {assignment.location}
                           </div>
                           {assignment.hourly_rate && (
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
+                            <div className="flex items-center gap-2 text-sm text-ink-muted">
                               <Clock className="h-4 w-4" />
                               KES {assignment.hourly_rate}/hour
                             </div>
@@ -694,8 +694,8 @@ export default function TeacherDashboard() {
                         </div>
 
                         <div className="border-t pt-4">
-                          <h4 className="text-sm font-medium text-gray-900 mb-2">Parent Contact</h4>
-                          <div className="flex items-center gap-4 text-sm text-gray-600">
+                          <h4 className="text-sm font-medium text-ink mb-2">Parent Contact</h4>
+                          <div className="flex items-center gap-4 text-sm text-ink-muted">
                             <div className="flex items-center gap-2">
                               <Mail className="h-4 w-4" />
                               {assignment.parent.email}
@@ -719,28 +719,28 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-gray-900">Weekly Schedule</h2>
+                <h2 className="text-xl font-semibold text-ink">Weekly Schedule</h2>
                 
                 {sessions.length === 0 ? (
                   <div className="text-center py-12">
-                    <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-600 mb-2">No sessions scheduled</p>
-                    <p className="text-sm text-gray-500">Sessions will appear here once assigned</p>
+                    <Calendar className="h-12 w-12 text-ink-muted/60 mx-auto mb-4" />
+                    <p className="text-ink-muted mb-2">No sessions scheduled</p>
+                    <p className="text-sm text-ink-muted">Sessions will appear here once assigned</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {sessions.map((session) => (
-                      <div key={session.id} className="bg-white border border-gray-200 rounded-xl p-6">
+                      <div key={session.id} className="bg-white border border-ink/10 rounded-xl p-6">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-lg font-medium text-gray-900">
+                          <h3 className="text-lg font-medium text-ink">
                             {session.assignment.subject}
                           </h3>
-                          <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                          <span className="px-3 py-1 bg-gold-50 text-gold-800 rounded-full text-sm font-medium">
                             {session.day_of_week}
                           </span>
                         </div>
                         
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-ink-muted">
                           <div className="flex items-center gap-2">
                             <Clock className="h-4 w-4" />
                             {session.start_time} - {session.end_time}
@@ -756,7 +756,7 @@ export default function TeacherDashboard() {
                         </div>
                         
                         {session.notes && (
-                          <p className="text-sm text-gray-600 mt-3 p-3 bg-gray-50 rounded-lg">
+                          <p className="text-sm text-ink-muted mt-3 p-3 bg-ivory rounded-lg">
                             {session.notes}
                           </p>
                         )}
@@ -774,9 +774,9 @@ export default function TeacherDashboard() {
                 className="space-y-6"
               >
                 <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-gray-900">Your Documents</h2>
+                  <h2 className="text-xl font-semibold text-ink">Your Documents</h2>
                   {profile.status === 'draft' || profile.status === 'rejected' ? (
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2">
+                    <button className="bg-gold-500 text-white px-4 py-2 rounded-lg hover:bg-gold-400 transition-colors flex items-center space-x-2">
                       <Upload className="h-4 w-4" />
                       <span>Upload New</span>
                     </button>
@@ -785,17 +785,17 @@ export default function TeacherDashboard() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {documents.map(doc => (
-                    <div key={doc.id} className="bg-white border border-gray-200 rounded-xl p-6">
+                    <div key={doc.id} className="bg-white border border-ink/10 rounded-xl p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
-                            <FileText className="h-5 w-5 text-gray-600" />
+                          <div className="w-10 h-10 bg-ivory-dark rounded-lg flex items-center justify-center">
+                            <FileText className="h-5 w-5 text-ink-muted" />
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900 capitalize">
+                            <h3 className="font-semibold text-ink capitalize">
                               {doc.kind.replace('_', ' ')}
                             </h3>
-                            <p className="text-sm text-gray-600">{doc.file_name}</p>
+                            <p className="text-sm text-ink-muted">{doc.file_name}</p>
                           </div>
                         </div>
                         <div className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -816,11 +816,11 @@ export default function TeacherDashboard() {
                       )}
 
                       <div className="flex items-center space-x-2">
-                        <button className="flex items-center space-x-2 text-blue-600 hover:text-blue-700 transition-colors">
+                        <button className="flex items-center space-x-2 text-gold-600 hover:text-gold-700 transition-colors">
                           <Eye className="h-4 w-4" />
                           <span className="text-sm">View</span>
                         </button>
-                        <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-700 transition-colors">
+                        <button className="flex items-center space-x-2 text-ink-muted hover:text-ink transition-colors">
                           <Download className="h-4 w-4" />
                           <span className="text-sm">Download</span>
                         </button>
@@ -837,43 +837,43 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-gray-900">Profile Information</h2>
+                <h2 className="text-xl font-semibold text-ink">Profile Information</h2>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                      <label className="block text-sm font-medium text-ink mb-2">Full Name</label>
                       <input
                         type="text"
                         value={profile.full_name}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
                         disabled
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                      <label className="block text-sm font-medium text-ink mb-2">Email</label>
                       <input
                         type="email"
                         value={profile.email}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
                         disabled
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                      <label className="block text-sm font-medium text-ink mb-2">Phone</label>
                       <input
                         type="tel"
                         value={profile.phone}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
                         disabled
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                      <label className="block text-sm font-medium text-ink mb-2">Location</label>
                       <input
                         type="text"
                         value={profile.location_area}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
                         disabled
                       />
                     </div>
@@ -881,17 +881,17 @@ export default function TeacherDashboard() {
 
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Subjects</label>
+                      <label className="block text-sm font-medium text-ink mb-2">Subjects</label>
                       <div className="flex flex-wrap gap-2">
                         {profile.subjects.map(subject => (
-                          <span key={subject} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                          <span key={subject} className="px-3 py-1 bg-gold-50 text-gold-800 rounded-full text-sm">
                             {subject}
                           </span>
                         ))}
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Curricula</label>
+                      <label className="block text-sm font-medium text-ink mb-2">Curricula</label>
                       <div className="flex flex-wrap gap-2">
                         {profile.curricula.map(curriculum => (
                           <span key={curriculum} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
@@ -901,32 +901,32 @@ export default function TeacherDashboard() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Experience</label>
-                      <p className="text-gray-900">{profile.experience_years} years</p>
+                      <label className="block text-sm font-medium text-ink mb-2">Experience</label>
+                      <p className="text-ink">{profile.experience_years} years</p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Hourly Rate</label>
-                      <p className="text-gray-900">{profile.hourly_rate_range}</p>
+                      <label className="block text-sm font-medium text-ink mb-2">Hourly Rate</label>
+                      <p className="text-ink">{profile.hourly_rate_range}</p>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Education Background</label>
+                  <label className="block text-sm font-medium text-ink mb-2">Education Background</label>
                   <textarea
                     value={profile.education_background}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                    className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
                     disabled
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Teaching Philosophy</label>
+                  <label className="block text-sm font-medium text-ink mb-2">Teaching Philosophy</label>
                   <textarea
                     value={profile.teaching_philosophy}
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
+                    className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
                     disabled
                   />
                 </div>

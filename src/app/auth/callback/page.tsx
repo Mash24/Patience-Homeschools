@@ -72,13 +72,13 @@ function AuthCallbackContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
         <div className="flex items-center justify-center space-x-3 mb-4">
           <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-          <span className="text-lg font-medium text-gray-900">Signing you in...</span>
+          <span className="text-lg font-medium text-ink">Signing you in...</span>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-ink-muted">
           Please wait while we complete your authentication.
         </p>
       </div>
@@ -88,13 +88,13 @@ function AuthCallbackContent() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
         <div className="flex items-center justify-center space-x-3 mb-4">
           <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-          <span className="text-lg font-medium text-gray-900">Loading...</span>
+          <span className="text-lg font-medium text-ink">Loading...</span>
         </div>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-ink-muted">
           Please wait while we load your authentication.
         </p>
       </div>

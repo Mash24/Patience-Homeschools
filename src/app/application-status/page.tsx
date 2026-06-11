@@ -93,9 +93,9 @@ function ApplicationStatusContent() {
       case 'rejected':
         return 'text-red-600 bg-red-50 border-red-200'
       case 'submitted':
-        return 'text-blue-600 bg-blue-50 border-blue-200'
+        return 'text-gold-600 bg-gold-50 border-gold-200'
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200'
+        return 'text-ink-muted bg-ivory border-ink/10'
     }
   }
 
@@ -126,15 +126,15 @@ function ApplicationStatusContent() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center"
         >
           <div className="flex items-center justify-center space-x-3">
-            <RefreshCw className="h-6 w-6 animate-spin text-blue-600" />
-            <span className="text-lg font-medium text-gray-900">Loading application status...</span>
+            <RefreshCw className="h-6 w-6 animate-spin text-gold-600" />
+            <span className="text-lg font-medium text-ink">Loading application status...</span>
           </div>
         </motion.div>
       </div>
@@ -143,7 +143,7 @@ function ApplicationStatusContent() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -152,11 +152,11 @@ function ApplicationStatusContent() {
           <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
             <AlertCircle className="h-8 w-8 text-red-600" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Error</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <h1 className="text-2xl font-bold text-ink mb-2">Error</h1>
+          <p className="text-ink-muted mb-6">{error}</p>
           <button
             onClick={() => window.history.back()}
-            className="flex items-center justify-center space-x-2 mx-auto px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
+            className="btn-primary mx-auto"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>Go Back</span>
@@ -167,27 +167,26 @@ function ApplicationStatusContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
-      <div className="max-w-4xl mx-auto py-8">
-        {/* Header */}
+    <div className="min-h-screen bg-ivory">
+      <div className="container-custom section-padding max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white rounded-2xl shadow-xl p-6 mb-6"
+          className="card-elevated p-6 mb-6"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <div className="p-3 bg-blue-100 rounded-xl">
-                <FileText className="h-6 w-6 text-blue-600" />
+              <div className="p-3 bg-gold-50 rounded-xl">
+                <FileText className="h-6 w-6 text-gold-600" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">Application Status</h1>
-                <p className="text-gray-600">Track your teacher application progress</p>
+                <h1 className="text-2xl font-bold text-ink">Application Status</h1>
+                <p className="text-ink-muted">Track your teacher application progress</p>
               </div>
             </div>
             <button
               onClick={() => window.history.back()}
-              className="flex items-center space-x-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+              className="btn-outline"
             >
               <ArrowLeft className="h-4 w-4" />
               <span>Back</span>
@@ -196,7 +195,7 @@ function ApplicationStatusContent() {
 
           {/* Status Badge */}
           <div className="flex items-center space-x-3">
-            <span className="text-sm font-medium text-gray-600">Current Status:</span>
+            <span className="text-sm font-medium text-ink-muted">Current Status:</span>
             <div className={`inline-flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium border ${getStatusColor(application?.status || '')}`}>
               {getStatusIcon(application?.status || '')}
               <span className="capitalize">{application?.status}</span>
@@ -211,7 +210,7 @@ function ApplicationStatusContent() {
           transition={{ delay: 0.1 }}
           className="bg-white rounded-2xl shadow-xl p-6 mb-6"
         >
-          <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center space-x-2">
+          <h2 className="text-xl font-bold text-ink mb-6 flex items-center space-x-2">
             <User className="h-5 w-5" />
             <span>Personal Information</span>
           </h2>
@@ -219,44 +218,44 @@ function ApplicationStatusContent() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <Mail className="h-4 w-4 text-gray-400" />
+                <Mail className="h-4 w-4 text-ink-muted/60" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Email</p>
-                  <p className="text-gray-900">{application?.email}</p>
+                  <p className="text-sm font-medium text-ink-muted">Email</p>
+                  <p className="text-ink">{application?.email}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <User className="h-4 w-4 text-gray-400" />
+                <User className="h-4 w-4 text-ink-muted/60" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Full Name</p>
-                  <p className="text-gray-900">{application?.fullName}</p>
+                  <p className="text-sm font-medium text-ink-muted">Full Name</p>
+                  <p className="text-ink">{application?.fullName}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <Phone className="h-4 w-4 text-gray-400" />
+                <Phone className="h-4 w-4 text-ink-muted/60" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Phone</p>
-                  <p className="text-gray-900">{application?.phone}</p>
+                  <p className="text-sm font-medium text-ink-muted">Phone</p>
+                  <p className="text-ink">{application?.phone}</p>
                 </div>
               </div>
             </div>
             
             <div className="space-y-4">
               <div className="flex items-center space-x-3">
-                <MapPin className="h-4 w-4 text-gray-400" />
+                <MapPin className="h-4 w-4 text-ink-muted/60" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Location</p>
-                  <p className="text-gray-900">{application?.location}</p>
+                  <p className="text-sm font-medium text-ink-muted">Location</p>
+                  <p className="text-ink">{application?.location}</p>
                 </div>
               </div>
               
               <div className="flex items-center space-x-3">
-                <Calendar className="h-4 w-4 text-gray-400" />
+                <Calendar className="h-4 w-4 text-ink-muted/60" />
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Application Date</p>
-                  <p className="text-gray-900">{formatDate(application?.applicationDate || '')}</p>
+                  <p className="text-sm font-medium text-ink-muted">Application Date</p>
+                  <p className="text-ink">{formatDate(application?.applicationDate || '')}</p>
                 </div>
               </div>
             </div>
@@ -270,7 +269,7 @@ function ApplicationStatusContent() {
           transition={{ delay: 0.2 }}
           className="bg-white rounded-2xl shadow-xl p-6"
         >
-          <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center space-x-2">
+          <h2 className="text-xl font-bold text-ink mb-6 flex items-center space-x-2">
             <FileText className="h-5 w-5" />
             <span>Professional Information</span>
           </h2>
@@ -278,73 +277,73 @@ function ApplicationStatusContent() {
           <div className="space-y-6">
             {/* Subjects */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Subjects</h3>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Subjects</h3>
               <div className="flex flex-wrap gap-2">
                 {application?.subjects?.map((subject, index) => (
-                  <span key={index} className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">
+                  <span key={index} className="px-3 py-1 bg-gold-50 text-gold-800 rounded-full text-sm">
                     {subject}
                   </span>
-                )) || <span className="text-gray-500 text-sm">No subjects specified</span>}
+                )) || <span className="text-ink-muted text-sm">No subjects specified</span>}
               </div>
             </div>
 
             {/* Curricula */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Curricula</h3>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Curricula</h3>
               <div className="flex flex-wrap gap-2">
                 {application?.curricula?.map((curriculum, index) => (
                   <span key={index} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
                     {curriculum}
                   </span>
-                )) || <span className="text-gray-500 text-sm">No curricula specified</span>}
+                )) || <span className="text-ink-muted text-sm">No curricula specified</span>}
               </div>
             </div>
 
             {/* Grade Levels */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Grade Levels</h3>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Grade Levels</h3>
               <div className="flex flex-wrap gap-2">
                 {application?.gradeLevels?.map((level, index) => (
                   <span key={index} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">
                     {level}
                   </span>
-                )) || <span className="text-gray-500 text-sm">No grade levels specified</span>}
+                )) || <span className="text-ink-muted text-sm">No grade levels specified</span>}
               </div>
             </div>
 
             {/* Experience */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Experience</h3>
-              <p className="text-gray-900">{application?.experienceYears} years of teaching experience</p>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Experience</h3>
+              <p className="text-ink">{application?.experienceYears} years of teaching experience</p>
             </div>
 
             {/* Hourly Rate */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Hourly Rate Range</h3>
-              <p className="text-gray-900">{application?.hourlyRateRange}</p>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Hourly Rate Range</h3>
+              <p className="text-ink">{application?.hourlyRateRange}</p>
             </div>
 
             {/* Education Background */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Education Background</h3>
-              <p className="text-gray-900">{application?.educationBackground}</p>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Education Background</h3>
+              <p className="text-ink">{application?.educationBackground}</p>
             </div>
 
             {/* Teaching Philosophy */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Teaching Philosophy</h3>
-              <p className="text-gray-900">{application?.teachingPhilosophy}</p>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Teaching Philosophy</h3>
+              <p className="text-ink">{application?.teachingPhilosophy}</p>
             </div>
 
             {/* Availability */}
             <div>
-              <h3 className="text-sm font-medium text-gray-600 mb-2">Availability</h3>
+              <h3 className="text-sm font-medium text-ink-muted mb-2">Availability</h3>
               <div className="flex flex-wrap gap-2">
                 {application?.availability?.map((time, index) => (
                   <span key={index} className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
                     {time}
                   </span>
-                )) || <span className="text-gray-500 text-sm">No availability specified</span>}
+                )) || <span className="text-ink-muted text-sm">No availability specified</span>}
               </div>
             </div>
           </div>
@@ -356,15 +355,15 @@ function ApplicationStatusContent() {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center"
       >
         <div className="flex items-center justify-center space-x-3">
-          <RefreshCw className="h-6 w-6 animate-spin text-blue-600" />
-          <span className="text-lg font-medium text-gray-900">Loading application status...</span>
+          <RefreshCw className="h-6 w-6 animate-spin text-gold-600" />
+          <span className="text-lg font-medium text-ink">Loading application status...</span>
         </div>
       </motion.div>
     </div>

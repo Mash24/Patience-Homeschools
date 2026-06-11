@@ -198,7 +198,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
     switch (role) {
       case 'teacher':
         return [
-          { id: 'overview', label: 'Overview', icon: Home, href: '/dashboard' },
+          { id: 'overview', label: 'Overview', icon: Home, href: '/teacher/dashboard' },
           { id: 'students', label: 'My Students', icon: Users, href: '/students' },
           { id: 'assignments', label: 'Assignments', icon: BookOpen, href: '/assignments' },
           { id: 'schedule', label: 'Schedule', icon: Calendar, href: '/schedule' },
@@ -235,8 +235,8 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
             value: 4,
             change: '+2 this week',
             icon: Users,
-            color: 'text-blue-600',
-            bgColor: 'bg-blue-50',
+            color: 'text-gold-600',
+            bgColor: 'bg-gold-50',
             action: 'View Students',
             href: '/students'
           },
@@ -282,8 +282,8 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
             value: 43,
             change: '+8 this month',
             icon: UserCheck,
-            color: 'text-blue-600',
-            bgColor: 'bg-blue-50',
+            color: 'text-gold-600',
+            bgColor: 'bg-gold-50',
             action: 'Manage Teachers',
             href: '/admin/teachers'
           },
@@ -363,38 +363,38 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-ivory flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading dashboard...</p>
+          <p className="text-ink-muted">Loading dashboard...</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-gray-50'} transition-colors duration-300`}>
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900' : 'bg-ivory'} transition-colors duration-300`}>
       {/* Modern Header with Glassmorphism */}
-      <header className={`fixed top-0 left-0 right-0 ${darkMode ? 'bg-gray-900/80' : 'bg-white/80'} backdrop-blur-xl shadow-lg border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'} z-50 transition-all duration-300`}>
+      <header className={`fixed top-0 left-0 right-0 ${darkMode ? 'bg-gray-900/80' : 'bg-white/80'} backdrop-blur-xl shadow-lg border-b ${darkMode ? 'border-gray-700' : 'border-ink/10'} z-50 transition-all duration-300`}>
         <div className="px-3 sm:px-4 lg:px-6">
           <div className="flex justify-between items-center h-14 sm:h-16">
             {/* Left side - Modern Logo & Menu */}
             <div className="flex items-center min-w-0 flex-1">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="lg:hidden p-1.5 sm:p-2 rounded-lg text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 touch-manipulation transition-all duration-200"
+                className="lg:hidden p-1.5 sm:p-2 rounded-lg text-ink-muted/60 hover:text-ink-muted hover:bg-ivory-dark dark:hover:bg-gray-800 touch-manipulation transition-all duration-200"
               >
                 <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
               </button>
               
               {/* Modern Logo with Gradient */}
               <div className="flex items-center space-x-2 sm:space-x-3 ml-2 sm:ml-4 lg:ml-0 min-w-0 flex-1">
-                <div className="bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 p-1.5 sm:p-2 rounded-xl flex-shrink-0 shadow-lg">
+                <div className="bg-gradient-to-br from-ink via-ink-light to-ink p-1.5 sm:p-2 rounded-xl flex-shrink-0 shadow-lg">
                   <LogoIcon className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <h1 className={`text-sm sm:text-base lg:text-xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'} truncate`}>Nelimac Learning</h1>
-                  <p className={`text-xs sm:text-sm ${darkMode ? 'text-gray-300' : 'text-gray-500'} truncate`}>{getRoleTitle()}</p>
+                  <h1 className={`text-sm sm:text-base lg:text-xl font-bold ${darkMode ? 'text-white' : 'text-ink'} truncate`}>Nelimac Learning</h1>
+                  <p className={`text-xs sm:text-sm ${darkMode ? 'text-gray-300' : 'text-ink-muted'} truncate`}>{getRoleTitle()}</p>
                 </div>
               </div>
             </div>
@@ -409,10 +409,10 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                     placeholder={`Search ${role === 'teacher' ? 'students, assignments' : role === 'admin' ? 'teachers, applications' : 'content'}...`}
                     value={searchQuery}
                     onChange={(e) => handleSearch(e.target.value)}
-                    className={`w-32 sm:w-48 lg:w-64 pl-8 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2 border ${darkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-gray-300 bg-white text-gray-900'} rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-xs sm:text-sm transition-all duration-200`}
+                    className={`w-32 sm:w-48 lg:w-64 pl-8 sm:pl-10 pr-3 sm:pr-4 py-1.5 sm:py-2 border ${darkMode ? 'border-gray-600 bg-gray-800 text-white' : 'border-ink/10 bg-white text-ink'} rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-xs sm:text-sm transition-all duration-200`}
                   />
                   <div className="absolute inset-y-0 left-0 pl-2 sm:pl-3 flex items-center pointer-events-none">
-                    <Search className="h-3 w-3 sm:h-4 sm:w-4 text-gray-400" />
+                    <Search className="h-3 w-3 sm:h-4 sm:w-4 text-ink-muted/60" />
                   </div>
                 </div>
               </div>
@@ -420,7 +420,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleDarkMode}
-                className={`p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-yellow-400 hover:bg-gray-800' : 'text-gray-400 hover:bg-gray-100'} transition-all duration-200 touch-manipulation`}
+                className={`p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-yellow-400 hover:bg-gray-800' : 'text-ink-muted/60 hover:bg-ivory-dark'} transition-all duration-200 touch-manipulation`}
               >
                 {darkMode ? <Sun className="h-4 w-4 sm:h-5 sm:w-5" /> : <Moon className="h-4 w-4 sm:h-5 sm:w-5" />}
               </button>
@@ -428,7 +428,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               {/* Fullscreen Toggle */}
               <button
                 onClick={toggleFullscreen}
-                className={`p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-400 hover:bg-gray-100'} transition-all duration-200 touch-manipulation`}
+                className={`p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-ink-muted/60 hover:bg-gray-800' : 'text-ink-muted/60 hover:bg-ivory-dark'} transition-all duration-200 touch-manipulation`}
               >
                 {isFullscreen ? <Minimize2 className="h-4 w-4 sm:h-5 sm:w-5" /> : <Maximize2 className="h-4 w-4 sm:h-5 sm:w-5" />}
               </button>
@@ -437,7 +437,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               <div className="relative">
                 <button 
                   onClick={() => setShowNotifications(!showNotifications)}
-                  className={`relative p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-400 hover:bg-gray-100'} transition-all duration-200 touch-manipulation`}
+                  className={`relative p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-ink-muted/60 hover:bg-gray-800' : 'text-ink-muted/60 hover:bg-ivory-dark'} transition-all duration-200 touch-manipulation`}
                 >
                   <Bell className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
                   {notifications.filter(n => n.unread).length > 0 && (
@@ -455,18 +455,18 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className={`absolute right-0 top-full mt-2 w-80 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-xl shadow-xl z-50`}
+                      className={`absolute right-0 top-full mt-2 w-80 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-ink/10'} border rounded-xl shadow-xl z-50`}
                     >
                       <div className="p-4">
                         <div className="flex items-center justify-between mb-3">
-                          <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>Notifications</h3>
-                          <button className="text-xs text-blue-600 hover:text-blue-700">Mark all read</button>
+                          <h3 className={`font-semibold ${darkMode ? 'text-white' : 'text-ink'}`}>Notifications</h3>
+                          <button className="text-xs text-gold-600 hover:text-gold-700">Mark all read</button>
                         </div>
                         <div className="space-y-2 max-h-64 overflow-y-auto">
                           {notifications.slice(0, 5).map((notification) => (
-                            <div key={notification.id} className={`p-3 rounded-lg ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-50 hover:bg-gray-100'} transition-colors cursor-pointer`}>
-                              <p className={`text-sm ${darkMode ? 'text-gray-200' : 'text-gray-800'}`}>{notification.message}</p>
-                              <p className="text-xs text-gray-500 mt-1">{notification.time}</p>
+                            <div key={notification.id} className={`p-3 rounded-lg ${darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-ivory hover:bg-ivory-dark'} transition-colors cursor-pointer`}>
+                              <p className={`text-sm ${darkMode ? 'text-gray-200' : 'text-ink'}`}>{notification.message}</p>
+                              <p className="text-xs text-ink-muted mt-1">{notification.time}</p>
                             </div>
                           ))}
                         </div>
@@ -477,18 +477,18 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               </div>
 
               {/* Messages */}
-              <button className={`relative p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-gray-400 hover:bg-gray-800' : 'text-gray-400 hover:bg-gray-100'} transition-all duration-200 touch-manipulation`}>
+              <button className={`relative p-1.5 sm:p-2 rounded-lg ${darkMode ? 'text-ink-muted/60 hover:bg-gray-800' : 'text-ink-muted/60 hover:bg-ivory-dark'} transition-all duration-200 touch-manipulation`}>
                 <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6" />
-                <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 sm:h-2 sm:w-2 bg-blue-500 rounded-full animate-pulse"></span>
+                <span className="absolute top-0.5 right-0.5 h-1.5 w-1.5 sm:h-2 sm:w-2 bg-gold-500 rounded-full animate-pulse"></span>
               </button>
 
               {/* Modern Profile Section */}
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3 p-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-200 touch-manipulation"
+                  className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3 p-1 rounded-lg hover:bg-ivory-dark dark:hover:bg-gray-800 transition-all duration-200 touch-manipulation"
                 >
-                  <div className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 shadow-lg">
+                  <div className="h-6 w-6 sm:h-7 sm:w-7 lg:h-8 lg:w-8 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 shadow-lg">
                     {user?.user_metadata?.profile_photo_url ? (
                       <img
                         src={user.user_metadata.profile_photo_url}
@@ -500,10 +500,10 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                     )}
                   </div>
                   <div className="hidden lg:block">
-                    <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-gray-900'} truncate max-w-24`}>Welcome back, {user?.email?.split('@')[0]}</p>
-                    <p className={`text-xs ${darkMode ? 'text-gray-300' : 'text-gray-500'} capitalize`}>{role}</p>
+                    <p className={`text-sm font-medium ${darkMode ? 'text-white' : 'text-ink'} truncate max-w-24`}>Welcome back, {user?.email?.split('@')[0]}</p>
+                    <p className={`text-xs ${darkMode ? 'text-gray-300' : 'text-ink-muted'} capitalize`}>{role}</p>
                   </div>
-                  <MoreVertical className="h-4 w-4 text-gray-400" />
+                  <MoreVertical className="h-4 w-4 text-ink-muted/60" />
                 </button>
 
                 {/* Modern Profile Dropdown */}
@@ -514,11 +514,11 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: -10, scale: 0.95 }}
                       transition={{ duration: 0.2 }}
-                      className={`absolute right-0 top-full mt-2 w-64 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border rounded-xl shadow-xl z-50`}
+                      className={`absolute right-0 top-full mt-2 w-64 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-ink/10'} border rounded-xl shadow-xl z-50`}
                     >
                       <div className="p-4">
                         <div className="flex items-center space-x-3 mb-4">
-                          <div className="h-10 w-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                          <div className="h-10 w-10 bg-gradient-to-br from-gold-500 to-gold-600 rounded-full flex items-center justify-center">
                             {user?.user_metadata?.profile_photo_url ? (
                               <img
                                 src={user.user_metadata.profile_photo_url}
@@ -530,23 +530,23 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                             )}
                           </div>
                           <div>
-                            <p className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>{user?.email?.split('@')[0]}</p>
-                            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-500'} capitalize`}>{role}</p>
+                            <p className={`font-semibold ${darkMode ? 'text-white' : 'text-ink'}`}>{user?.email?.split('@')[0]}</p>
+                            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-ink-muted'} capitalize`}>{role}</p>
                           </div>
                         </div>
                         <div className="space-y-1">
-                          <button className={`w-full text-left px-3 py-2 rounded-lg ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} transition-colors`}>
+                          <button className={`w-full text-left px-3 py-2 rounded-lg ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-ivory-dark'} transition-colors`}>
                             <Settings className="h-4 w-4 inline mr-2" />
                             Settings
                           </button>
-                          <button className={`w-full text-left px-3 py-2 rounded-lg ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100'} transition-colors`}>
+                          <button className={`w-full text-left px-3 py-2 rounded-lg ${darkMode ? 'hover:bg-gray-700' : 'hover:bg-ivory-dark'} transition-colors`}>
                             <User className="h-4 w-4 inline mr-2" />
                             Profile
                           </button>
-                          <hr className={`${darkMode ? 'border-gray-700' : 'border-gray-200'}`} />
+                          <hr className={`${darkMode ? 'border-gray-700' : 'border-ink/10'}`} />
                           <button
                             onClick={handleLogout}
-                            className={`w-full text-left px-3 py-2 rounded-lg ${darkMode ? 'hover:bg-gray-700 text-red-400' : 'hover:bg-gray-100 text-red-600'} transition-colors`}
+                            className={`w-full text-left px-3 py-2 rounded-lg ${darkMode ? 'hover:bg-gray-700 text-red-400' : 'hover:bg-ivory-dark text-red-600'} transition-colors`}
                           >
                             <LogOut className="h-4 w-4 inline mr-2" />
                             Sign out
@@ -574,10 +574,10 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               className="fixed inset-y-0 left-0 z-50 w-72 sm:w-80 bg-white shadow-lg lg:hidden pt-14 sm:pt-16"
             >
               <div className="flex items-center justify-between h-12 sm:h-14 px-3 sm:px-4 border-b">
-                <h2 className="text-base sm:text-lg font-semibold text-gray-900">Navigation</h2>
+                <h2 className="text-base sm:text-lg font-semibold text-ink">Navigation</h2>
                 <button
                   onClick={() => setSidebarOpen(false)}
-                  className="p-1.5 sm:p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 touch-manipulation"
+                  className="p-1.5 sm:p-2 rounded-md text-ink-muted/60 hover:text-ink-muted hover:bg-ivory-dark touch-manipulation"
                 >
                   <X className="h-5 w-5 sm:h-6 sm:w-6" />
                 </button>
@@ -592,8 +592,8 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                       href={item.href}
                       className={`flex items-center space-x-3 px-3 py-3 sm:py-2 rounded-lg text-sm sm:text-base font-medium transition-colors touch-manipulation ${
                         isActive
-                          ? 'bg-blue-600 text-white shadow-md'
-                          : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                          ? 'bg-gold-500 text-white shadow-md'
+                          : 'text-ink hover:bg-ivory-dark hover:text-ink'
                       }`}
                       onClick={() => setSidebarOpen(false)}
                     >
@@ -618,8 +618,8 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                   href={item.href}
                   className={`flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     activeTab === item.id
-                      ? 'bg-blue-50 text-blue-700 border-r-2 border-blue-700'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'bg-gold-50 text-gold-700 border-r-2 border-gold-600'
+                      : 'text-ink hover:bg-ivory'
                   }`}
                 >
                   <Icon className="h-5 w-5" />
@@ -647,7 +647,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               {/* Modern Status Banner with Glassmorphism */}
               <div className={`relative overflow-hidden rounded-2xl ${darkMode ? 'bg-gray-800/50' : 'bg-white/70'} backdrop-blur-xl border ${darkMode ? 'border-gray-700/50' : 'border-white/20'} shadow-xl p-6 sm:p-8`}>
                 {/* Gradient Background */}
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 opacity-90"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-ink via-ink-light to-ink opacity-90"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
                 
                 <div className="relative text-white">
@@ -695,7 +695,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                       className={`relative overflow-hidden rounded-2xl ${darkMode ? 'bg-gray-800/50' : 'bg-white/70'} backdrop-blur-xl border ${darkMode ? 'border-gray-700/50' : 'border-white/20'} shadow-xl hover:shadow-2xl transition-all duration-300 cursor-pointer group`}
                     >
                       {/* Gradient Background */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 bg-ivory0/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                       
                       <div className="relative p-6">
                         <div className="flex items-start justify-between mb-4">
@@ -705,11 +705,11 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                                 <Icon className={`h-6 w-6 ${card.color}`} />
                               </div>
                               <div className="min-w-0 flex-1">
-                                <h3 className={`text-sm font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-600'} leading-tight`}>{card.title}</h3>
+                                <h3 className={`text-sm font-semibold ${darkMode ? 'text-gray-200' : 'text-ink-muted'} leading-tight`}>{card.title}</h3>
                               </div>
                             </div>
                             <div className="ml-0 sm:ml-16">
-                              <p className={`text-2xl sm:text-3xl font-bold ${darkMode ? 'text-white' : 'text-gray-900'} mb-2`}>{card.value}</p>
+                              <p className={`text-2xl sm:text-3xl font-bold ${darkMode ? 'text-white' : 'text-ink'} mb-2`}>{card.value}</p>
                               {card.change && (
                                 <div className="flex items-center space-x-2">
                                   <div className={`flex items-center px-2 py-1 rounded-full text-xs font-medium ${
@@ -729,15 +729,15 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                             </div>
                           </div>
                           <div className="flex-shrink-0 ml-2">
-                            <div className={`p-2 rounded-lg ${darkMode ? 'bg-gray-700/50' : 'bg-gray-100/50'} group-hover:bg-blue-500/20 transition-colors duration-300`}>
-                              <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-blue-500 transition-colors duration-300" />
+                            <div className={`p-2 rounded-lg ${darkMode ? 'bg-gray-700/50' : 'bg-ivory-dark/50'} group-hover:bg-gold-500/20 transition-colors duration-300`}>
+                              <ChevronRight className="h-4 w-4 text-ink-muted/60 group-hover:text-gold-600 transition-colors duration-300" />
                             </div>
                           </div>
                         </div>
                         
                         {card.action && (
-                          <div className="mt-4 pt-4 border-t border-gray-200/50 dark:border-gray-700/50">
-                            <button className={`text-sm font-medium ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'} transition-colors duration-200 flex items-center group-hover:translate-x-1 transform transition-transform`}>
+                          <div className="mt-4 pt-4 border-t border-ink/10/50 dark:border-gray-700/50">
+                            <button className={`text-sm font-medium ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-gold-600 hover:text-gold-700'} transition-colors duration-200 flex items-center group-hover:translate-x-1 transform transition-transform`}>
                               {card.action}
                               <ArrowUpRight className="h-3 w-3 ml-1" />
                             </button>
@@ -746,7 +746,7 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                       </div>
                       
                       {/* Animated Border */}
-                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm"></div>
+                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-gold-400 via-gold-500 to-gold-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm"></div>
                     </motion.div>
                   )
                 })}
@@ -756,81 +756,81 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
                 {/* Quick Actions */}
                 <div className="bg-white rounded-lg sm:rounded-xl shadow-sm border p-4 sm:p-6">
-                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Quick Actions</h3>
+                  <h3 className="text-base sm:text-lg font-semibold text-ink mb-3 sm:mb-4">Quick Actions</h3>
                   <div className="space-y-2 sm:space-y-3">
                     {role === 'teacher' && (
                       <>
-                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
+                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors touch-manipulation">
                           <div className="flex items-center space-x-3">
-                            <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-                            <span className="font-medium text-gray-900 text-sm sm:text-base">Add Availability</span>
+                            <Plus className="h-4 w-4 sm:h-5 sm:w-5 text-gold-600" />
+                            <span className="font-medium text-ink text-sm sm:text-base">Add Availability</span>
                           </div>
-                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-ink-muted/60" />
                         </button>
                         
-                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
+                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors touch-manipulation">
                           <div className="flex items-center space-x-3">
                             <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-                            <span className="font-medium text-gray-900 text-sm sm:text-base">Upload Document</span>
+                            <span className="font-medium text-ink text-sm sm:text-base">Upload Document</span>
                           </div>
-                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-ink-muted/60" />
                         </button>
                       </>
                     )}
                     
                     {role === 'admin' && (
                       <>
-                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
+                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors touch-manipulation">
                           <div className="flex items-center space-x-3">
-                            <UserCheck className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-                            <span className="font-medium text-gray-900 text-sm sm:text-base">Review Applications</span>
+                            <UserCheck className="h-4 w-4 sm:h-5 sm:w-5 text-gold-600" />
+                            <span className="font-medium text-ink text-sm sm:text-base">Review Applications</span>
                           </div>
-                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-ink-muted/60" />
                         </button>
                         
-                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
+                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors touch-manipulation">
                           <div className="flex items-center space-x-3">
                             <PieChart className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-                            <span className="font-medium text-gray-900 text-sm sm:text-base">Generate Reports</span>
+                            <span className="font-medium text-ink text-sm sm:text-base">Generate Reports</span>
                           </div>
-                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-ink-muted/60" />
                         </button>
                       </>
                     )}
                     
                     {role === 'parent' && (
                       <>
-                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
+                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors touch-manipulation">
                           <div className="flex items-center space-x-3">
-                            <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-                            <span className="font-medium text-gray-900 text-sm sm:text-base">Schedule Session</span>
+                            <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-gold-600" />
+                            <span className="font-medium text-ink text-sm sm:text-base">Schedule Session</span>
                           </div>
-                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-ink-muted/60" />
                         </button>
                         
-                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors touch-manipulation">
+                        <button className="w-full flex items-center justify-between p-3 sm:p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors touch-manipulation">
                           <div className="flex items-center space-x-3">
                             <CreditCard className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-                            <span className="font-medium text-gray-900 text-sm sm:text-base">Make Payment</span>
+                            <span className="font-medium text-ink text-sm sm:text-base">Make Payment</span>
                           </div>
-                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
+                          <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 text-ink-muted/60" />
                         </button>
                       </>
                     )}
                     
-                    <button className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                    <button className="w-full flex items-center justify-between p-4 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
                       <div className="flex items-center space-x-3">
                         <Send className="h-5 w-5 text-purple-600" />
-                        <span className="font-medium text-gray-900">Send Message</span>
+                        <span className="font-medium text-ink">Send Message</span>
                       </div>
-                      <ChevronRight className="h-5 w-5 text-gray-400" />
+                      <ChevronRight className="h-5 w-5 text-ink-muted/60" />
                     </button>
                   </div>
                 </div>
 
                 {/* Recent Activity */}
                 <div className="bg-white rounded-xl shadow-sm border p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
+                  <h3 className="text-lg font-semibold text-ink mb-4">Recent Activity</h3>
                   <div className="space-y-4">
                     {notifications.slice(0, 3).map((notification) => (
                       <div key={notification.id} className="flex items-start space-x-3">
@@ -839,18 +839,18 @@ export default function DashboardLayout({ role, children }: DashboardLayoutProps
                             notification.type === 'success' ? 'bg-green-100' :
                             notification.type === 'warning' ? 'bg-yellow-100' :
                             notification.type === 'error' ? 'bg-red-100' :
-                            'bg-blue-100'
+                            'bg-gold-50'
                           }`}>
                             {notification.type === 'success' ? <CheckCircle className="h-4 w-4 text-green-600" /> :
                              notification.type === 'warning' ? <AlertCircle className="h-4 w-4 text-yellow-600" /> :
                              notification.type === 'error' ? <AlertCircle className="h-4 w-4 text-red-600" /> :
-                             <Bell className="h-4 w-4 text-blue-600" />}
+                             <Bell className="h-4 w-4 text-gold-600" />}
                           </div>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">{notification.title}</p>
-                          <p className="text-sm text-gray-500">{notification.message}</p>
-                          <p className="text-xs text-gray-400">{notification.time}</p>
+                          <p className="text-sm font-medium text-ink">{notification.title}</p>
+                          <p className="text-sm text-ink-muted">{notification.message}</p>
+                          <p className="text-xs text-ink-muted/60">{notification.time}</p>
                         </div>
                       </div>
                     ))}

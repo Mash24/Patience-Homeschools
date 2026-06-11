@@ -15,6 +15,7 @@ import {
   Star
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import PageHero from '@/components/ui/PageHero'
 
 export default function ParentRegistration() {
   const router = useRouter()
@@ -54,18 +55,15 @@ export default function ParentRegistration() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-center">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Join Nelimac Learning</h1>
-            <p className="text-gray-600">Register as a parent to find qualified teachers</p>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-ivory">
+      <PageHero
+        eyebrow="For parents"
+        title="Join Nelimac Learning"
+        subtitle="Register as a parent to find qualified teachers for your children"
+      />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-xl shadow-sm border p-8">
+      <div className="container-custom section-padding">
+        <div className="max-w-3xl mx-auto card-elevated p-8">
           <form onSubmit={handleSubmit}>
             {currentStep === 1 && (
               <motion.div
@@ -73,19 +71,19 @@ export default function ParentRegistration() {
                 animate={{ opacity: 1, x: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Personal Information</h2>
+                <h2 className="text-2xl font-semibold text-ink mb-6">Personal Information</h2>
                 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     Full Name *
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-ink-muted/60" />
                     <input
                       type="text"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-3 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500"
                       placeholder="Enter your full name"
                       required
                     />
@@ -93,16 +91,16 @@ export default function ParentRegistration() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     Email Address *
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-ink-muted/60" />
                     <input
                       type="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-3 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500"
                       placeholder="Enter your email address"
                       required
                     />
@@ -110,16 +108,16 @@ export default function ParentRegistration() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
                     Phone Number
                   </label>
                   <div className="relative">
-                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-ink-muted/60" />
                     <input
                       type="tel"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                      className="w-full pl-10 pr-4 py-3 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500"
                       placeholder="Enter your phone number"
                     />
                   </div>
@@ -129,7 +127,7 @@ export default function ParentRegistration() {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-2 px-6 py-3 bg-gold-500 text-white rounded-lg hover:bg-gold-400 transition-colors"
                   >
                     Next Step
                     <ArrowRight className="h-4 w-4" />
@@ -144,14 +142,14 @@ export default function ParentRegistration() {
                 animate={{ opacity: 1, x: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-2xl font-semibold text-gray-900 mb-6">Children Details</h2>
+                <h2 className="text-2xl font-semibold text-ink mb-6">Children Details</h2>
                 
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <h3 className="text-lg font-medium text-gray-900 mb-4">Child 1</h3>
+                <div className="bg-ivory p-6 rounded-lg">
+                  <h3 className="text-lg font-medium text-ink mb-4">Child 1</h3>
                   
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-ink mb-2">
                         Full Name *
                       </label>
                       <input
@@ -164,13 +162,13 @@ export default function ParentRegistration() {
                             fullName: e.target.value
                           }]
                         })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500"
                         placeholder="Child's full name"
                         required
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-ink mb-2">
                         Grade Level *
                       </label>
                       <input
@@ -183,7 +181,7 @@ export default function ParentRegistration() {
                             level: e.target.value
                           }]
                         })}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                        className="w-full px-3 py-2 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-gold-500"
                         placeholder="e.g., Grade 6, Form 2"
                         required
                       />
@@ -195,14 +193,14 @@ export default function ParentRegistration() {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-6 py-3 bg-gray-200 text-ink rounded-lg hover:bg-gray-300 transition-colors"
                   >
                     Previous
                   </button>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                    className="flex items-center gap-2 px-6 py-3 bg-gold-500 text-white rounded-lg hover:bg-gold-400 transition-colors disabled:opacity-50"
                   >
                     {isLoading ? 'Creating Account...' : 'Create Account'}
                     <CheckCircle className="h-4 w-4" />
@@ -221,15 +219,15 @@ export default function ParentRegistration() {
                   <CheckCircle className="h-8 w-8 text-green-600" />
                 </div>
                 
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Account Created Successfully!</h2>
-                <p className="text-gray-600 mb-6">
+                <h2 className="text-2xl font-semibold text-ink mb-4">Account Created Successfully!</h2>
+                <p className="text-ink-muted mb-6">
                   We've sent a verification link to <strong>{formData.email}</strong>. 
                   Please check your email and click the link to complete your registration.
                 </p>
                 
                 <button
                   onClick={() => router.push('/')}
-                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                  className="px-6 py-3 bg-gold-500 text-white rounded-lg hover:bg-gold-400 transition-colors"
                 >
                   Return to Home
                 </button>
@@ -240,25 +238,25 @@ export default function ParentRegistration() {
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mx-auto mb-4">
-              <Award className="h-6 w-6 text-blue-600" />
+            <div className="w-12 h-12 bg-gold-50 rounded-xl flex items-center justify-center mx-auto mb-4">
+              <Award className="h-6 w-6 text-gold-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Qualified Teachers</h3>
-            <p className="text-gray-600">All teachers are verified and TSC certified</p>
+            <h3 className="text-lg font-semibold text-ink mb-2">Qualified Teachers</h3>
+            <p className="text-ink-muted">All teachers are verified and TSC certified</p>
           </div>
           <div className="text-center">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Calendar className="h-6 w-6 text-green-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Flexible Scheduling</h3>
-            <p className="text-gray-600">Schedule sessions that work for your family</p>
+            <h3 className="text-lg font-semibold text-ink mb-2">Flexible Scheduling</h3>
+            <p className="text-ink-muted">Schedule sessions that work for your family</p>
           </div>
           <div className="text-center">
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mx-auto mb-4">
               <Star className="h-6 w-6 text-purple-600" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Quality Assurance</h3>
-            <p className="text-gray-600">Track progress and provide feedback</p>
+            <h3 className="text-lg font-semibold text-ink mb-2">Quality Assurance</h3>
+            <p className="text-ink-muted">Track progress and provide feedback</p>
           </div>
         </div>
       </div>

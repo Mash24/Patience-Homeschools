@@ -395,94 +395,32 @@ export default function TeacherApplicationForm() {
   }, [canAccessStep])
 
         return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-green-50 via-blue-50 to-purple-50 py-6 sm:py-8 lg:py-12">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="text-center mb-6 sm:mb-8">
-            {/* Badge */}
-            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 sm:mb-6 shadow-sm">
-              <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
-              <span className="text-xs sm:text-sm font-medium text-gray-700">TSC-Certified • Background-Checked</span>
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 mb-3 sm:mb-4 leading-tight">
-              Trusted homeschool teachers<br className="hidden sm:block" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-blue-600">
-                for your child
-              </span>
-            </h1>
-            
-            {/* Subtitle */}
-            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 max-w-2xl mx-auto leading-relaxed">
-              Handpicked tutors available for in-home or online learning across Nairobi. 
-              Get matched with the perfect teacher for your child's needs.
-            </p>
-
-            {/* Programmes */}
-            <div className="flex flex-wrap justify-center items-center gap-1 sm:gap-2 mb-4 sm:mb-6">
-              <span className="text-xs font-medium text-gray-700">CBC</span>
-              <span className="text-gray-400">•</span>
-              <span className="text-xs font-medium text-gray-700">IGCSE</span>
-              <span className="text-gray-400">•</span>
-              <span className="text-xs font-medium text-gray-700">British Programmes</span>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="flex flex-row gap-2 sm:gap-3 justify-center items-center">
-              <button 
-                onClick={() => document.getElementById('teacher-matching-form')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-orange-300 focus:ring-offset-1 flex-1 sm:flex-none"
-              >
-                <span className="flex items-center justify-center space-x-1 sm:space-x-2">
-                  <Star className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="text-xs sm:text-sm">Request a Private Tutor</span>
-                </span>
-              </button>
-              
-              <button 
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="group bg-white border border-gray-300 hover:border-gray-400 text-gray-700 font-medium py-2 sm:py-3 px-3 sm:px-4 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-1 flex-1 sm:flex-none"
-              >
-                <span className="flex items-center justify-center space-x-1 sm:space-x-2">
-                  <FileText className="h-3 w-3 sm:h-4 sm:w-4" />
-                  <span className="text-xs sm:text-sm">Apply as an Elite Teacher</span>
-                </span>
-              </button>
-            </div>
-
-            {/* TSC Note */}
-            <p className="text-xs text-gray-500 mt-2 sm:mt-3">
-              TSC-Verified applicants only
-            </p>
+    <div className="min-h-screen bg-ivory">
+      <section className="relative bg-ink text-white overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(201,162,39,0.18),transparent)]" />
+        <div className="container-custom relative pt-28 pb-12 lg:pb-16 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/10 text-gold-400 text-xs font-semibold uppercase tracking-wider mb-6">
+            <GraduationCap className="h-4 w-4" />
+            TSC-Certified Applicants Only
           </div>
-
-          {/* Benefits Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                <DollarSign className="h-4 w-4 sm:h-5 sm:w-5 text-green-600" />
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium leading-tight max-w-3xl mx-auto">
+            Join Nairobi&apos;s premier teaching faculty
+          </h1>
+          <p className="mt-4 text-white/70 max-w-xl mx-auto leading-relaxed">
+            Apply to teach with Nelimac Learning. Connect with discerning families, set your own schedule, and earn competitive rates.
+          </p>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+            {[
+              { icon: DollarSign, title: 'Competitive Rates', desc: 'KSh 1,500 – 3,000/hr' },
+              { icon: Clock, title: 'Flexible Schedule', desc: 'Choose your hours' },
+              { icon: Shield, title: 'Secure Platform', desc: 'Guaranteed payments' },
+            ].map((item) => (
+              <div key={item.title} className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <item.icon className="h-5 w-5 text-gold-400 mx-auto mb-2" />
+                <p className="text-sm font-semibold">{item.title}</p>
+                <p className="text-xs text-white/50 mt-1">{item.desc}</p>
               </div>
-              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">Competitive Rates</h3>
-              <p className="text-xs text-gray-600">KSh 1,500 - 3,000 per hour</p>
-            </div>
-
-            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              </div>
-              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">Flexible Schedule</h3>
-              <p className="text-xs text-gray-600">Choose your own hours</p>
-            </div>
-
-            <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4 text-center shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2 sm:mb-3">
-                <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
-              </div>
-              <h3 className="text-xs sm:text-sm font-semibold text-gray-900 mb-1">Secure Platform</h3>
-              <p className="text-xs text-gray-600">Guaranteed payments</p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -504,23 +442,23 @@ export default function TeacherApplicationForm() {
                     disabled={!isAccessible}
                     className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                       isActive
-                        ? 'bg-blue-600 text-white shadow-lg scale-110'
+                        ? 'bg-gold-500 text-ink shadow-lg scale-110'
                         : isCompleted
-                        ? 'bg-green-500 text-white'
+                        ? 'bg-sage-500 text-white'
                         : isAccessible
-                        ? 'bg-gray-200 text-gray-600 hover:bg-gray-300'
-                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        ? 'bg-ivory-dark text-ink-muted hover:bg-gold-50'
+                        : 'bg-ivory-dark/50 text-ink-muted/50 cursor-not-allowed'
                     }`}
                   >
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                   <div className="mt-2 text-center px-1">
                     <p className={`text-sm font-medium ${
-                      isActive ? 'text-blue-600' : isCompleted ? 'text-green-600' : 'text-gray-500'
+                      isActive ? 'text-gold-600' : isCompleted ? 'text-green-600' : 'text-ink-muted'
                     }`}>
                       {step.title}
                     </p>
-                    <p className="text-xs text-gray-400 hidden sm:block">{step.description}</p>
+                    <p className="text-xs text-ink-muted/60 hidden sm:block">{step.description}</p>
                   </div>
                   {index < steps.length - 1 && (
                     <div className={`hidden sm:block absolute top-4 sm:top-5 md:top-6 left-1/2 w-full h-0.5 -z-10 ${
@@ -550,7 +488,7 @@ export default function TeacherApplicationForm() {
           <button
             onClick={prevStep}
             disabled={currentStep === 1}
-            className="flex items-center justify-center space-x-2 px-6 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
+            className="flex items-center justify-center space-x-2 px-6 py-3 bg-ivory-dark text-ink rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors text-base"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Previous</span>
@@ -559,7 +497,7 @@ export default function TeacherApplicationForm() {
           {currentStep < steps.length ? (
             <button
               onClick={nextStep}
-              className="flex items-center justify-center space-x-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base"
+              className="flex items-center justify-center space-x-2 px-6 py-3 bg-gold-500 text-white rounded-lg hover:bg-gold-400 transition-colors text-base"
             >
               <span>Next</span>
               <ArrowRight className="w-5 h-5" />
@@ -616,26 +554,26 @@ export default function TeacherApplicationForm() {
               <div className="mx-auto w-12 h-12 sm:w-16 sm:h-16 bg-green-100 rounded-full flex items-center justify-center mb-3 sm:mb-4">
                 <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
               </div>
-              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">Application Submitted!</h2>
-              <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-ink mb-2">Application Submitted!</h2>
+              <p className="text-sm sm:text-base text-ink-muted mb-4 sm:mb-6">
                 We've sent a secure sign-in link to <strong className="break-all">{submittedEmail}</strong>
               </p>
               <div className="space-y-2 sm:space-y-3">
                 <button
                   onClick={() => window.open('mailto:', '_blank')}
-                  className="w-full bg-blue-600 text-white py-2 sm:py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center space-x-2 text-sm sm:text-base"
+                  className="w-full bg-gold-500 text-white py-2 sm:py-3 px-4 rounded-lg hover:bg-gold-400 transition-colors flex items-center justify-center space-x-2 text-sm sm:text-base"
                 >
                   <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                   <span>Open Email App</span>
                 </button>
                 <button
                   onClick={() => router.push('/')}
-                  className="w-full bg-gray-100 text-gray-700 py-2 sm:py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors text-sm sm:text-base"
+                  className="w-full bg-ivory-dark text-ink py-2 sm:py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors text-sm sm:text-base"
                 >
                   Return to Home
                 </button>
               </div>
-              <p className="text-xs sm:text-sm text-gray-500 mt-3 sm:mt-4">
+              <p className="text-xs sm:text-sm text-ink-muted mt-3 sm:mt-4">
                 Didn't receive the email? Check your spam folder or contact support.
               </p>
             </motion.div>
@@ -669,15 +607,15 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
   return (
     <div className="space-y-4 sm:space-y-6">
       <div className="text-center mb-6 sm:mb-8">
-        <User className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Personal Information</h2>
-        <p className="text-sm sm:text-base text-gray-600">Tell us about yourself</p>
+        <User className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gold-600 mx-auto mb-3 sm:mb-4" />
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-ink mb-1 sm:mb-2">Personal Information</h2>
+        <p className="text-sm sm:text-base text-ink-muted">Tell us about yourself</p>
       </div>
 
       {/* Profile Photo Upload */}
       <div className="flex flex-col items-center mb-6 sm:mb-8">
         <div className="relative">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-gray-300 overflow-hidden bg-gray-100 flex items-center justify-center">
+          <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-ink/10 overflow-hidden bg-ivory-dark flex items-center justify-center">
             {formData.documents?.profilePhoto ? (
               <img
                 src={URL.createObjectURL(formData.documents.profilePhoto)}
@@ -685,10 +623,10 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                 className="w-full h-full object-cover"
               />
             ) : (
-              <User className="w-12 h-12 sm:w-16 sm:h-16 text-gray-400" />
+              <User className="w-12 h-12 sm:w-16 sm:h-16 text-ink-muted/60" />
             )}
           </div>
-          <label className="absolute bottom-0 right-0 bg-blue-600 text-white rounded-full p-2 cursor-pointer hover:bg-blue-700 transition-colors">
+          <label className="absolute bottom-0 right-0 bg-gold-500 text-white rounded-full p-2 cursor-pointer hover:bg-gold-400 transition-colors">
             <Camera className="w-4 h-4" />
             <input
               type="file"
@@ -698,9 +636,9 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
             />
           </label>
         </div>
-        <p className="text-sm text-gray-600 mt-2 text-center">
+        <p className="text-sm text-ink-muted mt-2 text-center">
           Upload a clear profile photo<br />
-          <span className="text-xs text-gray-500">JPG, PNG (max 5MB)</span>
+          <span className="text-xs text-ink-muted">JPG, PNG (max 5MB)</span>
         </p>
         {errors['documents.profilePhoto'] && (
           <p className="text-red-500 text-sm mt-1">{errors['documents.profilePhoto']}</p>
@@ -709,15 +647,15 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
             Full Name <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.fullName}
             onChange={(e) => handleInputChange('fullName', e.target.value)}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-              errors.fullName ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-base ${
+              errors.fullName ? 'border-red-500' : 'border-ink/10'
             }`}
             placeholder="Enter your full name"
           />
@@ -725,7 +663,7 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
             Email Address <span className="text-red-500">*</span>
                 </label>
                 <div className="flex flex-col sm:flex-row gap-2">
@@ -733,8 +671,8 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    className={`flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-                      errors.email ? 'border-red-500' : 'border-gray-300'
+                    className={`flex-1 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-base ${
+                      errors.email ? 'border-red-500' : 'border-ink/10'
                     }`}
                     placeholder="your.email@example.com"
                   />
@@ -742,25 +680,25 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
                     type="button"
                     onClick={() => checkEmailExists()}
                     disabled={!formData.email}
-                    className="px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-base transition-colors whitespace-nowrap"
+                    className="px-4 py-3 bg-gold-500 text-white rounded-lg hover:bg-gold-400 disabled:bg-gray-300 disabled:cursor-not-allowed text-base transition-colors whitespace-nowrap"
                   >
                     Check
                   </button>
                 </div>
                 {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                <p className="text-xs text-gray-500 mt-1">Check if you already have an application</p>
+                <p className="text-xs text-ink-muted mt-1">Check if you already have an application</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
             Phone Number <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="tel"
                   value={formData.phone}
             onChange={(e) => handleInputChange('phone', e.target.value)}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-              errors.phone ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-base ${
+              errors.phone ? 'border-red-500' : 'border-ink/10'
             }`}
             placeholder="+254 700 000 000"
           />
@@ -768,15 +706,15 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
             Location <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   value={formData.location}
             onChange={(e) => handleInputChange('location', e.target.value)}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-              errors.location ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-base ${
+              errors.location ? 'border-red-500' : 'border-ink/10'
             }`}
                   placeholder="e.g., Westlands, Nairobi"
                 />
@@ -784,14 +722,14 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
               </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-ink mb-2">
             Gender <span className="text-red-500">*</span>
           </label>
           <select
             value={formData.gender}
             onChange={(e) => handleInputChange('gender', e.target.value)}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-              errors.gender ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-base ${
+              errors.gender ? 'border-red-500' : 'border-ink/10'
             }`}
           >
             <option value="">Select your gender</option>
@@ -803,15 +741,15 @@ function PersonalInfoStep({ formData, updateFormData, errors, checkEmailExists }
             </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-ink mb-2">
             Date of Birth <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
             value={formData.dateOfBirth}
             onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
-            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base ${
-              errors.dateOfBirth ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-base ${
+              errors.dateOfBirth ? 'border-red-500' : 'border-ink/10'
             }`}
           />
           {errors.dateOfBirth && <p className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</p>}
@@ -841,14 +779,14 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
         return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center mb-6 sm:mb-8">
-        <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Professional Information</h2>
-        <p className="text-sm sm:text-base text-gray-600">Tell us about your teaching experience</p>
+        <BookOpen className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gold-600 mx-auto mb-3 sm:mb-4" />
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-ink mb-1 sm:mb-2">Professional Information</h2>
+        <p className="text-sm sm:text-base text-ink-muted">Tell us about your teaching experience</p>
             </div>
 
       {/* Subjects */}
               <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2 sm:mb-3">
+        <label className="block text-sm font-medium text-ink mb-2 sm:mb-3">
           Subjects You Teach <span className="text-red-500">*</span>
                 </label>
         
@@ -862,7 +800,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
                 e.target.value = ''
               }
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            className="w-full px-3 py-2 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-sm"
           >
             <option value="">Add a subject...</option>
             {subjects.filter(subject => !formData.subjects.includes(subject)).map(subject => (
@@ -874,11 +812,11 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
         {/* Selected Subjects */}
         <div className="flex flex-wrap gap-2 mb-3">
           {formData.subjects.map((subject: string) => (
-            <span key={subject} className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs sm:text-sm">
+            <span key={subject} className="inline-flex items-center px-2 py-1 bg-gold-50 text-gold-800 rounded text-xs sm:text-sm">
               {subject}
               <button
                 onClick={() => toggleArrayValue('subjects', subject)}
-                className="ml-1 text-blue-600 hover:text-blue-800"
+                className="ml-1 text-gold-600 hover:text-gold-800"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -895,8 +833,8 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
               onClick={() => toggleArrayValue('subjects', subject)}
               className={`p-2 sm:p-3 rounded-lg border text-xs sm:text-sm font-medium transition-colors ${
                         formData.subjects.includes(subject)
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-blue-500'
+                  ? 'bg-gold-500 text-white border-blue-600'
+                  : 'bg-white text-ink border-ink/10 hover:border-gold-500'
                       }`}
                     >
                       {subject}
@@ -908,7 +846,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Curricula */}
               <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2 sm:mb-3">
+        <label className="block text-sm font-medium text-ink mb-2 sm:mb-3">
           Curricula You Teach <span className="text-red-500">*</span>
                 </label>
         
@@ -922,7 +860,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
                 e.target.value = ''
               }
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            className="w-full px-3 py-2 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-sm"
           >
             <option value="">Add a curriculum...</option>
             {curricula.filter(curriculum => !formData.curricula.includes(curriculum)).map(curriculum => (
@@ -956,7 +894,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
               className={`p-2 sm:p-3 rounded-lg border text-xs sm:text-sm font-medium transition-colors ${
                         formData.curricula.includes(curriculum)
                   ? 'bg-green-600 text-white border-green-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-green-500'
+                  : 'bg-white text-ink border-ink/10 hover:border-green-500'
                       }`}
                     >
                       {curriculum}
@@ -968,7 +906,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Grade Levels */}
               <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2 sm:mb-3">
+        <label className="block text-sm font-medium text-ink mb-2 sm:mb-3">
           Grade Levels <span className="text-red-500">*</span>
                 </label>
         
@@ -982,7 +920,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
                 e.target.value = ''
               }
             }}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+            className="w-full px-3 py-2 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent text-sm"
           >
             <option value="">Add a grade level...</option>
             {gradeLevels.filter(level => !formData.gradeLevels.includes(level)).map(level => (
@@ -1016,7 +954,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
               className={`p-2 sm:p-3 rounded-lg border text-xs sm:text-sm font-medium transition-colors ${
                         formData.gradeLevels.includes(level)
                   ? 'bg-purple-600 text-white border-purple-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-purple-500'
+                  : 'bg-white text-ink border-ink/10 hover:border-purple-500'
                       }`}
                     >
                       {level}
@@ -1028,7 +966,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Experience Years */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
           Years of Teaching Experience <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -1037,8 +975,8 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
                     max="50"
                     value={formData.experienceYears}
           onChange={(e) => handleInputChange('experienceYears', parseInt(e.target.value) || 0)}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-            errors.experienceYears ? 'border-red-500' : 'border-gray-300'
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent ${
+            errors.experienceYears ? 'border-red-500' : 'border-ink/10'
           }`}
           placeholder="Enter years of experience"
         />
@@ -1047,15 +985,15 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Education Background */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-ink mb-2">
           Education Background <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   value={formData.educationBackground}
           onChange={(e) => handleTextareaChange('educationBackground', e.target.value)}
                   rows={4}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-            errors.educationBackground ? 'border-red-500' : 'border-gray-300'
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent ${
+            errors.educationBackground ? 'border-red-500' : 'border-ink/10'
           }`}
                   placeholder="Describe your educational qualifications..."
                 />
@@ -1064,15 +1002,15 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Teaching Philosophy */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-ink mb-2">
           Teaching Philosophy <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   value={formData.teachingPhilosophy}
           onChange={(e) => handleTextareaChange('teachingPhilosophy', e.target.value)}
                   rows={4}
-          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-            errors.teachingPhilosophy ? 'border-red-500' : 'border-gray-300'
+          className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent ${
+            errors.teachingPhilosophy ? 'border-red-500' : 'border-ink/10'
           }`}
           placeholder="Describe your approach to teaching..."
         />
@@ -1081,7 +1019,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Availability */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium text-ink mb-3">
           Availability <span className="text-red-500">*</span>
         </label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -1093,7 +1031,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
               className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                 formData.availability.includes(option)
                   ? 'bg-yellow-600 text-white border-yellow-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-yellow-500'
+                  : 'bg-white text-ink border-ink/10 hover:border-yellow-500'
               }`}
             >
               {option}
@@ -1105,8 +1043,8 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* Hourly Rate Range */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-          Expected Hourly Rate Range <span className="text-gray-400">(Optional)</span>
+                <label className="block text-sm font-medium text-ink mb-3">
+          Expected Hourly Rate Range <span className="text-ink-muted/60">(Optional)</span>
                 </label>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {hourlyRateRanges.map((rate) => (
@@ -1117,7 +1055,7 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
               className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
                 formData.hourlyRateRange === rate
                   ? 'bg-indigo-600 text-white border-indigo-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-indigo-500'
+                  : 'bg-white text-ink border-ink/10 hover:border-indigo-500'
               }`}
             >
               {rate}
@@ -1128,14 +1066,14 @@ function ProfessionalInfoStep({ formData, updateFormData, errors }: any) {
 
       {/* TSC Number */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-          TSC Number <span className="text-gray-400">(Optional)</span>
+                <label className="block text-sm font-medium text-ink mb-2">
+          TSC Number <span className="text-ink-muted/60">(Optional)</span>
                 </label>
         <input
           type="text"
           value={formData.tscNumber}
           onChange={(e) => handleInputChange('tscNumber', e.target.value)}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-4 py-3 border border-ink/10 rounded-lg focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
           placeholder="TSC/12345/2020"
         />
               </div>
@@ -1160,9 +1098,9 @@ function DocumentsStep({ formData, handleFileUpload, removeFile, errors }: any) 
         return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center mb-6 sm:mb-8">
-        <Upload className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Document Upload</h2>
-        <p className="text-sm sm:text-base text-gray-600">Upload your professional documents</p>
+        <Upload className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gold-600 mx-auto mb-3 sm:mb-4" />
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-ink mb-1 sm:mb-2">Document Upload</h2>
+        <p className="text-sm sm:text-base text-ink-muted">Upload your professional documents</p>
             </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -1172,12 +1110,12 @@ function DocumentsStep({ formData, handleFileUpload, removeFile, errors }: any) 
           const errorKey = `documents.${doc.key}`
           
           return (
-            <div key={doc.key} className="border border-gray-200 rounded-lg p-4 sm:p-6">
+            <div key={doc.key} className="border border-ink/10 rounded-lg p-4 sm:p-6">
               <div className="flex items-center space-x-2 sm:space-x-3 mb-3 sm:mb-4">
-                <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600" />
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-ink-muted" />
               <div>
-                  <h3 className="font-medium text-gray-900 text-sm sm:text-base">{doc.label}</h3>
-                  <p className="text-xs sm:text-sm text-gray-500">
+                  <h3 className="font-medium text-ink text-sm sm:text-base">{doc.label}</h3>
+                  <p className="text-xs sm:text-sm text-ink-muted">
                     {doc.required ? 'Required' : 'Optional'}
                   </p>
                 </div>
@@ -1214,11 +1152,11 @@ function DocumentsStep({ formData, handleFileUpload, removeFile, errors }: any) 
                   />
                   <label
                     htmlFor={`file-${doc.key}`}
-                    className="flex flex-col items-center justify-center w-full h-24 sm:h-32 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-blue-500 transition-colors"
+                    className="flex flex-col items-center justify-center w-full h-24 sm:h-32 border-2 border-dashed border-ink/10 rounded-lg cursor-pointer hover:border-gold-500 transition-colors"
                   >
-                    <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-gray-400 mb-1 sm:mb-2" />
-                    <p className="text-xs sm:text-sm text-gray-600">Click to upload</p>
-                    <p className="text-xs text-gray-400">
+                    <Upload className="w-6 h-6 sm:w-8 sm:h-8 text-ink-muted/60 mb-1 sm:mb-2" />
+                    <p className="text-xs sm:text-sm text-ink-muted">Click to upload</p>
+                    <p className="text-xs text-ink-muted/60">
                       {doc.key === 'profilePhoto' ? 'JPG, PNG (max 5MB)' : 'PDF, DOC (max 10MB)'}
                     </p>
                   </label>
@@ -1240,21 +1178,21 @@ function ReviewStep({ formData, onEdit }: any) {
   return (
     <div className="space-y-6 sm:space-y-8">
       <div className="text-center mb-6 sm:mb-8">
-        <Eye className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 mx-auto mb-3 sm:mb-4" />
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-1 sm:mb-2">Review Your Application</h2>
-        <p className="text-sm sm:text-base text-gray-600">Please review all information before submitting</p>
+        <Eye className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-gold-600 mx-auto mb-3 sm:mb-4" />
+        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-ink mb-1 sm:mb-2">Review Your Application</h2>
+        <p className="text-sm sm:text-base text-ink-muted">Please review all information before submitting</p>
               </div>
 
       {/* Personal Information */}
-      <div className="bg-gray-50 rounded-lg p-4 sm:p-6">
+      <div className="bg-ivory rounded-lg p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-3 sm:mb-4 gap-2">
-          <h3 className="text-base sm:text-lg font-semibold text-gray-900 flex items-center space-x-2">
+          <h3 className="text-base sm:text-lg font-semibold text-ink flex items-center space-x-2">
             <User className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Personal Information</span>
           </h3>
             <button
             onClick={() => onEdit(1)}
-            className="flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm sm:text-base"
+            className="flex items-center space-x-1 text-gold-600 hover:text-gold-800 text-sm sm:text-base"
             >
             <Edit3 className="w-3 h-3 sm:w-4 sm:h-4" />
             <span>Edit</span>
@@ -1262,27 +1200,27 @@ function ReviewStep({ formData, onEdit }: any) {
           </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <div>
-            <p className="text-sm text-gray-600">Full Name</p>
+            <p className="text-sm text-ink-muted">Full Name</p>
             <p className="font-medium">{formData.fullName}</p>
         </div>
           <div>
-            <p className="text-sm text-gray-600">Email</p>
+            <p className="text-sm text-ink-muted">Email</p>
             <p className="font-medium">{formData.email}</p>
       </div>
           <div>
-            <p className="text-sm text-gray-600">Phone</p>
+            <p className="text-sm text-ink-muted">Phone</p>
             <p className="font-medium">{formData.phone}</p>
                   </div>
           <div>
-            <p className="text-sm text-gray-600">Location</p>
+            <p className="text-sm text-ink-muted">Location</p>
             <p className="font-medium">{formData.location}</p>
                   </div>
           <div>
-            <p className="text-sm text-gray-600">Gender</p>
+            <p className="text-sm text-ink-muted">Gender</p>
             <p className="font-medium">{formData.gender}</p>
                 </div>
           <div>
-            <p className="text-sm text-gray-600">Date of Birth</p>
+            <p className="text-sm text-ink-muted">Date of Birth</p>
             <p className="font-medium">{formData.dateOfBirth ? new Date(formData.dateOfBirth).toLocaleDateString() : 'Not provided'}</p>
         </div>
       </div>
@@ -1290,8 +1228,8 @@ function ReviewStep({ formData, onEdit }: any) {
         {/* Profile Photo Preview */}
         {formData.documents?.profilePhoto && (
           <div className="mt-4">
-            <p className="text-sm text-gray-600 mb-2">Profile Photo</p>
-            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-gray-300">
+            <p className="text-sm text-ink-muted mb-2">Profile Photo</p>
+            <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-ink/10">
               <img
                 src={URL.createObjectURL(formData.documents.profilePhoto)}
                 alt="Profile preview"
@@ -1303,15 +1241,15 @@ function ReviewStep({ formData, onEdit }: any) {
                   </div>
 
       {/* Professional Information */}
-      <div className="bg-gray-50 rounded-lg p-6">
+      <div className="bg-ivory rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+          <h3 className="text-lg font-semibold text-ink flex items-center space-x-2">
             <BookOpen className="w-5 h-5" />
             <span>Professional Information</span>
           </h3>
                 <button
             onClick={() => onEdit(2)}
-            className="flex items-center space-x-1 text-blue-600 hover:text-blue-800"
+            className="flex items-center space-x-1 text-gold-600 hover:text-gold-800"
           >
             <Edit3 className="w-4 h-4" />
             <span>Edit</span>
@@ -1319,17 +1257,17 @@ function ReviewStep({ formData, onEdit }: any) {
           </div>
         <div className="space-y-4">
           <div>
-            <p className="text-sm text-gray-600 mb-1">Subjects</p>
+            <p className="text-sm text-ink-muted mb-1">Subjects</p>
             <div className="flex flex-wrap gap-2">
               {formData.subjects.map((subject: string) => (
-                <span key={subject} className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm">
+                <span key={subject} className="px-2 py-1 bg-gold-50 text-gold-800 rounded text-sm">
                   {subject}
                 </span>
               ))}
         </div>
       </div>
           <div>
-            <p className="text-sm text-gray-600 mb-1">Curricula</p>
+            <p className="text-sm text-ink-muted mb-1">Curricula</p>
             <div className="flex flex-wrap gap-2">
               {formData.curricula.map((curriculum: string) => (
                 <span key={curriculum} className="px-2 py-1 bg-green-100 text-green-800 rounded text-sm">
@@ -1339,7 +1277,7 @@ function ReviewStep({ formData, onEdit }: any) {
                 </div>
               </div>
           <div>
-            <p className="text-sm text-gray-600 mb-1">Grade Levels</p>
+            <p className="text-sm text-ink-muted mb-1">Grade Levels</p>
             <div className="flex flex-wrap gap-2">
               {formData.gradeLevels.map((level: string) => (
                 <span key={level} className="px-2 py-1 bg-purple-100 text-purple-800 rounded text-sm">
@@ -1350,17 +1288,17 @@ function ReviewStep({ formData, onEdit }: any) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <p className="text-sm text-gray-600">Experience</p>
+              <p className="text-sm text-ink-muted">Experience</p>
               <p className="font-medium">{formData.experienceYears} years</p>
             </div>
             <div>
-              <p className="text-sm text-gray-600">Hourly Rate</p>
+              <p className="text-sm text-ink-muted">Hourly Rate</p>
               <p className="font-medium">{formData.hourlyRateRange || 'Not specified'}</p>
             </div>
           </div>
           {formData.tscNumber && (
             <div>
-              <p className="text-sm text-gray-600">TSC Number</p>
+              <p className="text-sm text-ink-muted">TSC Number</p>
               <p className="font-medium">{formData.tscNumber}</p>
             </div>
           )}
@@ -1368,15 +1306,15 @@ function ReviewStep({ formData, onEdit }: any) {
               </div>
 
       {/* Documents */}
-      <div className="bg-gray-50 rounded-lg p-6">
+      <div className="bg-ivory rounded-lg p-6">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center space-x-2">
+          <h3 className="text-lg font-semibold text-ink flex items-center space-x-2">
             <Upload className="w-5 h-5" />
             <span>Documents</span>
           </h3>
                 <button
             onClick={() => onEdit(3)}
-            className="flex items-center space-x-1 text-blue-600 hover:text-blue-800"
+            className="flex items-center space-x-1 text-gold-600 hover:text-gold-800"
           >
             <Edit3 className="w-4 h-4" />
             <span>Edit</span>
@@ -1387,10 +1325,10 @@ function ReviewStep({ formData, onEdit }: any) {
             .filter(([_, file]) => file)
             .map(([key, file]) => (
               <div key={key} className="flex items-center space-x-3 p-3 bg-white rounded border">
-                <FileText className="w-5 h-5 text-gray-600" />
+                <FileText className="w-5 h-5 text-ink-muted" />
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900">{(file as File).name}</p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-sm font-medium text-ink">{(file as File).name}</p>
+                  <p className="text-xs text-ink-muted">
                     {((file as File).size / 1024 / 1024).toFixed(2)} MB
                   </p>
     </div>

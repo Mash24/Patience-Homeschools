@@ -5,7 +5,7 @@ import ResourceSearch from '@/components/resources/ResourceSearch'
 
 export default function ResourcesPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-ivory">
       <ResourcesHero />
       <ResourceSearch />
       <ResourceCategories />

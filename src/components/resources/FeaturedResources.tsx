@@ -1,171 +1,61 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Download, Star, Clock, Users, BookOpen, FileText, Video, Image } from 'lucide-react'
+import { Download, Star, FileText, BookOpen, Video } from 'lucide-react'
+import SectionHeading from '@/components/ui/SectionHeading'
+
+const resources = [
+  { title: 'CBC Mathematics Mastery Guide', description: 'Step-by-step solutions and practice exercises for all CBC maths concepts.', type: 'PDF Guide', icon: FileText, downloads: '2.3k', rating: 4.9, curriculum: 'CBC' },
+  { title: 'IGCSE Chemistry Lab Manual', description: '25+ experiments with safety protocols and analysis guides.', type: 'Interactive PDF', icon: BookOpen, downloads: '1.8k', rating: 4.8, curriculum: 'IGCSE' },
+  { title: 'British Literature Toolkit', description: 'Literary analysis techniques and classic text study materials.', type: 'Video Series', icon: Video, downloads: '1.5k', rating: 4.9, curriculum: 'British' },
+  { title: 'CBC Science Experiments', description: '50+ hands-on experiments with materials lists and learning outcomes.', type: 'Activity Pack', icon: FileText, downloads: '3.1k', rating: 4.7, curriculum: 'CBC' },
+  { title: 'IGCSE Physics Problem Bank', description: '500+ problems with solutions, categorised by topic and difficulty.', type: 'Practice Set', icon: FileText, downloads: '2.0k', rating: 4.8, curriculum: 'IGCSE' },
+  { title: 'Parent Homeschooling Guide', description: 'Essential strategies for successful homeschooling in Nairobi.', type: 'Parent Guide', icon: BookOpen, downloads: '2.8k', rating: 4.9, curriculum: 'All' },
+]
 
 export default function FeaturedResources() {
-  const featuredResources = [
-    {
-      title: 'CBC Mathematics Mastery Guide',
-      description: 'Comprehensive guide covering all CBC mathematics concepts with step-by-step solutions and practice exercises.',
-      type: 'PDF Guide',
-      icon: FileText,
-      downloads: '2.3k',
-      rating: 4.9,
-      curriculum: 'CBC',
-      level: 'Grade 1-8',
-      color: 'from-blue-500 to-blue-600',
-      featured: true
-    },
-    {
-      title: 'IGCSE Chemistry Lab Manual',
-      description: 'Complete laboratory manual with 25+ experiments, safety protocols, and detailed analysis guides.',
-      type: 'Interactive PDF',
-      icon: BookOpen,
-      downloads: '1.8k',
-      rating: 4.8,
-      curriculum: 'IGCSE',
-      level: 'Grade 9-12',
-      color: 'from-green-500 to-green-600',
-      featured: true
-    },
-    {
-      title: 'British Literature Analysis Toolkit',
-      description: 'Advanced literary analysis techniques, essay writing guides, and classic text study materials.',
-      type: 'Video Series',
-      icon: Video,
-      downloads: '1.5k',
-      rating: 4.9,
-      curriculum: 'British',
-      level: 'A-Level',
-      color: 'from-purple-500 to-purple-600',
-      featured: true
-    },
-    {
-      title: 'CBC Science Experiments Collection',
-      description: '50+ hands-on science experiments with materials lists, procedures, and learning outcomes.',
-      type: 'Activity Pack',
-      icon: Image,
-      downloads: '3.1k',
-      rating: 4.7,
-      curriculum: 'CBC',
-      level: 'Grade 4-6',
-      color: 'from-orange-500 to-orange-600',
-      featured: false
-    },
-    {
-      title: 'IGCSE Physics Problem Bank',
-      description: '500+ physics problems with detailed solutions, categorized by topic and difficulty level.',
-      type: 'Practice Set',
-      icon: FileText,
-      downloads: '2.7k',
-      rating: 4.8,
-      curriculum: 'IGCSE',
-      level: 'Grade 10-11',
-      color: 'from-cyan-500 to-cyan-600',
-      featured: false
-    },
-    {
-      title: 'British History Timeline & Maps',
-      description: 'Interactive timeline and historical maps covering key periods in British history.',
-      type: 'Interactive Resource',
-      icon: Image,
-      downloads: '1.9k',
-      rating: 4.6,
-      curriculum: 'British',
-      level: 'GCSE',
-      color: 'from-red-500 to-red-600',
-      featured: false
-    }
-  ]
-
   return (
-    <section className="py-24 bg-sage-50">
+    <section className="section-padding bg-white">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="heading-md mb-6">
-            Featured
-            <span className="text-gradient-gold"> Premium Resources</span>
-          </h2>
-          <p className="text-luxury max-w-3xl mx-auto">
-            Discover our most popular and highly-rated educational resources, 
-            handpicked by our expert team for their exceptional quality and effectiveness.
-          </p>
-        </div>
+        <SectionHeading
+          eyebrow="Featured"
+          title="Popular resources"
+          description="Our most downloaded guides and materials, free for the community."
+        />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredResources.map((resource, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {resources.map((resource, index) => (
             <motion.div
               key={resource.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -8, scale: 1.02 }}
-              className="card-luxury group cursor-pointer relative"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.08 }}
+              className="card-elevated p-6 flex flex-col"
             >
-              {resource.featured && (
-                <div className="absolute -top-3 -right-3 bg-gradient-to-r from-gold-500 to-gold-400 text-navy-900 px-3 py-1 rounded-full text-xs font-bold shadow-gold">
-                  FEATURED
+              <div className="flex items-start justify-between mb-4">
+                <div className="w-10 h-10 rounded-lg bg-gold-50 flex items-center justify-center">
+                  <resource.icon className="h-5 w-5 text-gold-600" />
                 </div>
-              )}
-
-              <div className="space-y-4">
-                <div className="flex items-start justify-between">
-                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${resource.color} group-hover:scale-110 transition-transform duration-300`}>
-                    <resource.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="flex items-center space-x-1 text-gold-600">
-                    <Star className="h-4 w-4 fill-current" />
-                    <span className="text-sm font-semibold">{resource.rating}</span>
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-navy-900 text-lg mb-2 group-hover:text-gold-600 transition-colors duration-300">
-                    {resource.title}
-                  </h3>
-                  <p className="text-charcoal-600 text-sm leading-relaxed mb-4">
-                    {resource.description}
-                  </p>
-                </div>
-
-                <div className="flex items-center justify-between text-sm text-charcoal-500 mb-4">
-                  <div className="flex items-center space-x-4">
-                    <span className="flex items-center space-x-1">
-                      <Clock className="h-4 w-4" />
-                      <span>{resource.type}</span>
-                    </span>
-                    <span className="flex items-center space-x-1">
-                      <Download className="h-4 w-4" />
-                      <span>{resource.downloads}</span>
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <span className="px-2 py-1 bg-navy-100 text-navy-800 text-xs font-medium rounded-full">
-                      {resource.curriculum}
-                    </span>
-                    <span className="px-2 py-1 bg-sage-100 text-sage-800 text-xs font-medium rounded-full">
-                      {resource.level}
-                    </span>
-                  </div>
-                  
-                  <button className="btn-primary text-sm py-2 px-4 group-hover:scale-105 transition-transform duration-300">
-                    <Download className="h-4 w-4 mr-2" />
-                    Download
-                  </button>
-                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-gold-600 bg-gold-50 px-2 py-1 rounded-full">
+                  {resource.curriculum}
+                </span>
               </div>
+              <h3 className="font-semibold text-ink text-sm mb-2 leading-snug">{resource.title}</h3>
+              <p className="text-xs text-ink-muted leading-relaxed flex-1">{resource.description}</p>
+              <div className="flex items-center justify-between mt-4 pt-4 border-t border-ink/5 text-xs text-ink-muted">
+                <span className="flex items-center gap-1">
+                  <Download className="h-3 w-3" /> {resource.downloads}
+                </span>
+                <span className="flex items-center gap-1">
+                  <Star className="h-3 w-3 fill-gold-400 text-gold-400" /> {resource.rating}
+                </span>
+              </div>
+              <button className="mt-4 w-full py-2.5 border border-ink/10 text-ink text-sm font-semibold rounded-full hover:border-gold-500 hover:text-gold-700 transition-colors">
+                Download Free
+              </button>
             </motion.div>
           ))}
-        </div>
-
-        <div className="text-center mt-12">
-          <button className="btn-outline">
-            View All Resources
-          </button>
         </div>
       </div>
     </section>

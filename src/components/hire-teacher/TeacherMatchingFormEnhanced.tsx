@@ -96,13 +96,13 @@ export default function TeacherMatchingFormEnhanced() {
   }
 
   const subjects = [
-    { value: 'Mathematics', icon: '🔢', category: 'Core', color: 'bg-blue-50 border-blue-200' },
+    { value: 'Mathematics', icon: '🔢', category: 'Core', color: 'bg-gold-50 border-gold-200' },
     { value: 'English', icon: '📚', category: 'Core', color: 'bg-green-50 border-green-200' },
     { value: 'Science', icon: '🔬', category: 'Core', color: 'bg-purple-50 border-purple-200' },
     { value: 'Social Studies', icon: '🌍', category: 'Core', color: 'bg-orange-50 border-orange-200' },
     { value: 'Kiswahili', icon: '🇰🇪', category: 'Language', color: 'bg-red-50 border-red-200' },
     { value: 'French', icon: '🇫🇷', category: 'Language', color: 'bg-indigo-50 border-indigo-200' },
-    { value: 'German', icon: '🇩🇪', category: 'Language', color: 'bg-gray-50 border-gray-200' },
+    { value: 'German', icon: '🇩🇪', category: 'Language', color: 'bg-ivory border-ink/10' },
     { value: 'Computer Studies', icon: '💻', category: 'Technology', color: 'bg-cyan-50 border-cyan-200' },
     { value: 'Art', icon: '🎨', category: 'Creative', color: 'bg-pink-50 border-pink-200' },
     { value: 'Music', icon: '🎵', category: 'Creative', color: 'bg-yellow-50 border-yellow-200' },
@@ -118,7 +118,7 @@ export default function TeacherMatchingFormEnhanced() {
       description: 'Teacher comes to your home',
       benefits: ['Personalized environment', 'No travel for child', 'Family involvement'],
       color: 'bg-green-50 border-green-200',
-      iconColor: 'text-green-600'
+      iconColor: 'text-gold-600'
     },
     { 
       value: 'online', 
@@ -126,8 +126,8 @@ export default function TeacherMatchingFormEnhanced() {
       icon: Calendar, 
       description: 'Virtual lessons via video call',
       benefits: ['Flexible scheduling', 'Access to global teachers', 'Cost effective'],
-      color: 'bg-blue-50 border-blue-200',
-      iconColor: 'text-blue-600'
+      color: 'bg-gold-50 border-gold-200',
+      iconColor: 'text-gold-600'
     },
     { 
       value: 'hybrid', 
@@ -269,7 +269,7 @@ export default function TeacherMatchingFormEnhanced() {
   // Success state
   if (submitStatus === 'success') {
     return (
-      <section id="teacher-matching-form" className="section-padding bg-gradient-to-br from-green-50 to-blue-50">
+      <section id="teacher-matching-form" className="section-padding bg-ivory">
         <div className="container-mobile">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -289,21 +289,21 @@ export default function TeacherMatchingFormEnhanced() {
                 Thank you for your interest! We've received your request and will call you within 24 hours to discuss your child's learning needs.
               </p>
               <div className="bg-green-50 rounded-xl p-6 mb-8">
-                <p className="text-sm text-green-600 mb-2">Reference ID:</p>
+                <p className="text-sm text-gold-600 mb-2">Reference ID:</p>
                 <p className="font-mono text-xl font-bold text-green-800">{leadId}</p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                <div className="text-center p-4 bg-blue-50 rounded-lg">
-                  <Phone className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="font-semibold text-blue-800">24 Hours</div>
-                  <div className="text-sm text-blue-600">Call Back Time</div>
+                <div className="text-center p-4 bg-gold-50 rounded-xl">
+                  <Phone className="h-8 w-8 text-gold-600 mx-auto mb-2" />
+                  <div className="font-semibold text-gold-800">24 Hours</div>
+                  <div className="text-sm text-gold-600">Call Back Time</div>
                 </div>
-                <div className="text-center p-4 bg-purple-50 rounded-lg">
+                <div className="text-center p-4 bg-purple-50 rounded-xl">
                   <Users className="h-8 w-8 text-purple-600 mx-auto mb-2" />
                   <div className="font-semibold text-purple-800">Perfect Match</div>
                   <div className="text-sm text-purple-600">Teacher Selection</div>
                 </div>
-                <div className="text-center p-4 bg-orange-50 rounded-lg">
+                <div className="text-center p-4 bg-orange-50 rounded-xl">
                   <Calendar className="h-8 w-8 text-orange-600 mx-auto mb-2" />
                   <div className="font-semibold text-orange-800">Quick Start</div>
                   <div className="text-sm text-orange-600">Learning Journey</div>
@@ -339,7 +339,7 @@ export default function TeacherMatchingFormEnhanced() {
   }
 
   return (
-    <section id="teacher-matching-form" className="section-padding bg-white">
+    <section id="teacher-matching-form" className="section-padding bg-ivory">
       <div className="container-mobile">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -351,16 +351,16 @@ export default function TeacherMatchingFormEnhanced() {
           {/* Header - Simple Lead Intake */}
           <div className="text-center mb-4 sm:mb-6 lg:mb-8 px-2 sm:px-0">
             <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-green-50 border border-green-200 rounded-full px-2.5 sm:px-3 lg:px-4 py-1 sm:py-1.5 lg:py-2 mb-3 sm:mb-4 lg:mb-6">
-              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
+              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 text-gold-600" />
               <span className="text-xs sm:text-sm font-medium text-green-700">No Signup Required</span>
             </div>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 lg:mb-4 leading-tight">
+            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-ink mb-2 sm:mb-3 lg:mb-4 leading-tight">
               Request a Teacher
             </h2>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-2 sm:px-4 lg:px-0 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-ink-muted max-w-2xl mx-auto px-2 sm:px-4 lg:px-0 leading-relaxed">
               Tell us about your child's learning needs and we'll connect you with the perfect teacher
             </p>
-            <div className="flex items-center justify-center space-x-4 mt-4 text-sm text-gray-500">
+            <div className="flex items-center justify-center space-x-4 mt-4 text-sm text-ink-muted">
               <div className="flex items-center space-x-1">
                 <Clock className="h-4 w-4" />
                 <span>2 minutes</span>
@@ -387,15 +387,15 @@ export default function TeacherMatchingFormEnhanced() {
                       onClick={() => goToStep(step.number)}
                       className={`flex items-center justify-center w-10 h-10 lg:w-12 lg:h-12 rounded-full border-2 transition-all ${
                         currentStep >= step.number 
-                          ? 'bg-blue-600 border-blue-600 text-white shadow-lg' 
-                          : 'bg-white border-gray-300 text-gray-400 hover:border-gray-400'
+                          ? 'bg-gold-500 border-blue-600 text-white shadow-lg' 
+                          : 'bg-white border-ink/10 text-ink-muted/60 hover:border-gray-400'
                       }`}
                     >
                       <step.icon className="h-4 w-4 lg:h-5 lg:w-5" />
                     </button>
                     {index < steps.length - 1 && (
                       <div className={`w-8 lg:w-16 h-0.5 mx-1 lg:mx-2 transition-colors ${
-                        currentStep > step.number ? 'bg-blue-600' : 'bg-gray-300'
+                        currentStep > step.number ? 'bg-gold-500' : 'bg-gray-300'
                       }`} />
                     )}
                   </div>
@@ -412,8 +412,8 @@ export default function TeacherMatchingFormEnhanced() {
                     onClick={() => goToStep(step.number)}
                     className={`flex items-center justify-center w-7 h-7 rounded-full border-2 transition-all ${
                       currentStep >= step.number 
-                        ? 'bg-blue-600 border-blue-600 text-white shadow-md' 
-                        : 'bg-white border-gray-300 text-gray-400'
+                        ? 'bg-gold-500 border-blue-600 text-white shadow-md' 
+                        : 'bg-white border-ink/10 text-ink-muted/60'
                     }`}
                   >
                     <step.icon className="h-2.5 w-2.5" />
@@ -423,12 +423,12 @@ export default function TeacherMatchingFormEnhanced() {
             </div>
 
             <div className="text-center px-2">
-              <span className="text-xs sm:text-sm text-gray-600">
+              <span className="text-xs sm:text-sm text-ink-muted">
                 Step {currentStep} of {steps.length}: {steps[currentStep - 1].title}
               </span>
               <div className="w-full bg-gray-200 rounded-full h-1 sm:h-1.5 lg:h-2 mt-1.5 sm:mt-2">
                 <div 
-                  className="bg-blue-600 h-1 sm:h-1.5 lg:h-2 rounded-full transition-all duration-300"
+                  className="bg-gold-500 h-1 sm:h-1.5 lg:h-2 rounded-full transition-all duration-300"
                   style={{ width: `${(currentStep / steps.length) * 100}%` }}
                 />
               </div>
@@ -437,7 +437,7 @@ export default function TeacherMatchingFormEnhanced() {
 
           {/* Auto-save indicator - Mobile Optimized */}
           <div className="flex justify-end mb-4 sm:mb-6 px-2 sm:px-0">
-            <div className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm text-gray-500">
+            <div className="flex items-center space-x-1.5 sm:space-x-2 text-xs sm:text-sm text-ink-muted">
               {autoSaveStatus === 'saving' && (
                 <>
                   <div className="animate-spin rounded-full h-3 w-3 sm:h-4 sm:w-4 border-b-2 border-blue-600"></div>
@@ -456,7 +456,7 @@ export default function TeacherMatchingFormEnhanced() {
           </div>
 
           {/* Form - Ultra Mobile Optimized */}
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-gray-100 overflow-hidden mx-1 sm:mx-0">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-card border border-ink/5 overflow-hidden mx-1 sm:mx-0">
             <form onSubmit={handleFormSubmit}>
               <AnimatePresence mode="wait">
                 {/* Step 1: Parent Information */}
@@ -470,12 +470,12 @@ export default function TeacherMatchingFormEnhanced() {
                     className="p-4 sm:p-6 lg:p-8"
                   >
                     <div className="flex items-center mb-4 sm:mb-6">
-                      <User className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600 mr-2 sm:mr-3" />
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Parent Information</h3>
+                      <User className="h-5 w-5 sm:h-6 sm:w-6 text-gold-600 mr-2 sm:mr-3" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-ink">Parent Information</h3>
                     </div>
                     
                     {stepErrors[1] && stepErrors[1].length > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
                         <div className="flex items-center">
                           <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
                           <div>
@@ -492,13 +492,13 @@ export default function TeacherMatchingFormEnhanced() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                       <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-1.5 sm:mb-2">
                           Parent Name *
                         </label>
                         <input
                           type="text"
                           {...register('parentName')}
-                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all text-sm sm:text-base"
                           placeholder="Your full name"
                         />
                         {errors.parentName && (
@@ -506,13 +506,13 @@ export default function TeacherMatchingFormEnhanced() {
                         )}
                       </div>
                       <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-1.5 sm:mb-2">
                           Email Address *
                         </label>
                         <input
                           type="email"
                           {...register('email')}
-                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all text-sm sm:text-base"
                           placeholder="your.email@example.com"
                         />
                         {errors.email && (
@@ -520,13 +520,13 @@ export default function TeacherMatchingFormEnhanced() {
                         )}
                       </div>
                       <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-1.5 sm:mb-2">
                           Phone Number
                         </label>
                         <input
                           type="tel"
                           {...register('phone')}
-                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all text-sm sm:text-base"
                           placeholder="+254 XXX XXX XXX"
                         />
                         {errors.phone && (
@@ -534,13 +534,13 @@ export default function TeacherMatchingFormEnhanced() {
                         )}
                       </div>
                       <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-1.5 sm:mb-2">
                           City
                         </label>
                         <input
                           type="text"
                           {...register('city')}
-                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all text-sm sm:text-base"
                           placeholder="Nairobi"
                         />
                         {errors.city && (
@@ -562,12 +562,12 @@ export default function TeacherMatchingFormEnhanced() {
                     className="p-4 sm:p-6 lg:p-8"
                   >
                     <div className="flex items-center mb-4 sm:mb-6">
-                      <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-green-600 mr-2 sm:mr-3" />
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Child Information</h3>
+                      <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-gold-600 mr-2 sm:mr-3" />
+                      <h3 className="text-lg sm:text-xl font-semibold text-ink">Child Information</h3>
                     </div>
                     
                     {stepErrors[2] && stepErrors[2].length > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
                         <div className="flex items-center">
                           <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
                           <div>
@@ -584,13 +584,13 @@ export default function TeacherMatchingFormEnhanced() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6">
                       <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-1.5 sm:mb-2">
                           Child's First Name
                         </label>
                         <input
                           type="text"
                           {...register('childFirstName')}
-                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all text-sm sm:text-base"
                           placeholder="Child's name"
                         />
                         {errors.childFirstName && (
@@ -598,12 +598,12 @@ export default function TeacherMatchingFormEnhanced() {
                         )}
                       </div>
                       <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-1.5 sm:mb-2">
                           Grade Level *
                         </label>
                         <select
                           {...register('gradeLevel')}
-                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-sm sm:text-base"
+                          className="w-full px-3 sm:px-4 py-2 sm:py-2.5 lg:py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all text-sm sm:text-base"
                         >
                           <option value="">Select grade level</option>
                           {[...Array(12)].map((_, i) => (
@@ -632,11 +632,11 @@ export default function TeacherMatchingFormEnhanced() {
                   >
                     <div className="flex items-center mb-4 sm:mb-6">
                       <GraduationCap className="h-5 w-5 sm:h-6 sm:w-6 text-purple-600 mr-2 sm:mr-3" />
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900">Learning Needs</h3>
+                      <h3 className="text-lg sm:text-xl font-semibold text-ink">Learning Needs</h3>
                     </div>
                     
                     {stepErrors[3] && stepErrors[3].length > 0 && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
                         <div className="flex items-center">
                           <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
                           <div>
@@ -653,7 +653,7 @@ export default function TeacherMatchingFormEnhanced() {
                     
                     {/* Curriculum Selection */}
                     <div className="mb-6 sm:mb-8">
-                      <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Preferred Curriculum *</h4>
+                      <h4 className="text-base sm:text-lg font-medium text-ink mb-3 sm:mb-4">Preferred Curriculum *</h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                         {curricula.map((curriculum) => (
                           <label key={curriculum.value} className="relative cursor-pointer">
@@ -663,16 +663,16 @@ export default function TeacherMatchingFormEnhanced() {
                               onChange={() => handleCurriculumChange(curriculum.value)}
                               className="sr-only"
                             />
-                            <div className={`p-3 sm:p-4 rounded-lg border-2 transition-all ${
+                            <div className={`p-3 sm:p-4 rounded-xl border-2 transition-all ${
                               watchedCurricula?.includes(curriculum.value)
-                                ? 'border-blue-500 bg-blue-50'
-                                : 'border-gray-200 hover:border-gray-300'
+                                ? 'border-gold-500 bg-gold-50'
+                                : 'border-ink/10 hover:border-ink/10'
                             }`}>
                               <div className="flex items-center mb-1 sm:mb-2">
                                 <span className="text-xl sm:text-2xl mr-2 sm:mr-3">{curriculum.icon}</span>
-                                <div className="font-medium text-gray-900 text-sm sm:text-base">{curriculum.label}</div>
+                                <div className="font-medium text-ink text-sm sm:text-base">{curriculum.label}</div>
                               </div>
-                              <div className="text-xs sm:text-sm text-gray-600">{curriculum.description}</div>
+                              <div className="text-xs sm:text-sm text-ink-muted">{curriculum.description}</div>
                             </div>
                           </label>
                         ))}
@@ -684,7 +684,7 @@ export default function TeacherMatchingFormEnhanced() {
 
                     {/* Subject Selection */}
                     <div className="mb-6 sm:mb-8">
-                      <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-3 sm:mb-4">Subjects Needed *</h4>
+                      <h4 className="text-base sm:text-lg font-medium text-ink mb-3 sm:mb-4">Subjects Needed *</h4>
                       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
                         {subjects.map((subject) => (
                           <label key={subject.value} className="relative cursor-pointer">
@@ -694,13 +694,13 @@ export default function TeacherMatchingFormEnhanced() {
                               onChange={() => handleSubjectChange(subject.value)}
                               className="sr-only"
                             />
-                            <div className={`p-2 sm:p-3 rounded-lg border-2 transition-all text-center ${
+                            <div className={`p-2 sm:p-3 rounded-xl border-2 transition-all text-center ${
                               watchedSubjects?.includes(subject.value)
-                                ? 'border-blue-500 bg-blue-50'
+                                ? 'border-gold-500 bg-gold-50'
                                 : `${subject.color} hover:border-gray-400`
                             }`}>
                               <div className="text-lg sm:text-xl mb-1">{subject.icon}</div>
-                              <div className="text-xs font-medium text-gray-900 leading-tight">{subject.value}</div>
+                              <div className="text-xs font-medium text-ink leading-tight">{subject.value}</div>
                             </div>
                           </label>
                         ))}
@@ -713,7 +713,7 @@ export default function TeacherMatchingFormEnhanced() {
                     {/* Additional Info */}
                     <div className="space-y-4 sm:space-y-6">
                           <div>
-                        <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2 sm:mb-3">
+                        <label className="block text-xs sm:text-sm font-medium text-ink mb-2 sm:mb-3">
                           Preferred Teaching Mode
                         </label>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
@@ -725,14 +725,14 @@ export default function TeacherMatchingFormEnhanced() {
                             {...register('mode')}
                             className="sr-only"
                           />
-                              <div className={`p-3 sm:p-4 rounded-lg border-2 transition-all ${
+                              <div className={`p-3 sm:p-4 rounded-xl border-2 transition-all ${
                             watchedMode === mode.value
-                              ? 'border-blue-500 bg-blue-50'
+                              ? 'border-gold-500 bg-gold-50'
                               : `${mode.color} hover:border-gray-400`
                           }`}>
                                 <mode.icon className={`h-5 w-5 sm:h-6 sm:w-6 ${mode.iconColor} mb-2`} />
-                                <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">{mode.label}</h4>
-                                <p className="text-xs sm:text-sm text-gray-600">{mode.description}</p>
+                                <h4 className="font-semibold text-ink mb-1 text-sm sm:text-base">{mode.label}</h4>
+                                <p className="text-xs sm:text-sm text-ink-muted">{mode.description}</p>
                           </div>
                         </label>
                       ))}
@@ -740,25 +740,25 @@ export default function TeacherMatchingFormEnhanced() {
                     </div>
                     
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-ink mb-2">
                           Location Area
                         </label>
                         <input
                           type="text"
                           {...register('locationArea')}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                          className="w-full px-4 py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all"
                           placeholder="e.g., Westlands, Karen, Runda"
                         />
                       </div>
                       
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                        <label className="block text-sm font-medium text-ink mb-2">
                           Additional Notes (Optional)
                         </label>
                         <textarea
                           {...register('goals')}
                           rows={3}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none"
+                          className="w-full px-4 py-3 border border-ink/10 rounded-xl focus:ring-2 focus:ring-gold-500/30 focus:border-transparent transition-all resize-none"
                           placeholder="Any specific learning goals, schedule preferences, or special requirements..."
                         />
                       </div>
@@ -777,12 +777,12 @@ export default function TeacherMatchingFormEnhanced() {
                     className="p-4 sm:p-6 lg:p-8"
                   >
                     <div className="flex items-center mb-6">
-                      <Send className="h-6 w-6 text-green-600 mr-3" />
-                      <h3 className="text-xl font-semibold text-gray-900">Ready to Submit?</h3>
+                      <Send className="h-6 w-6 text-gold-600 mr-3" />
+                      <h3 className="text-xl font-semibold text-ink">Ready to Submit?</h3>
                     </div>
                     
                     {submitStatus === 'error' && (
-                      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+                      <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
                         <div className="flex items-center">
                           <AlertCircle className="w-5 h-5 text-red-500 mr-2" />
                           <p className="text-red-700">{errorMessage}</p>
@@ -791,44 +791,44 @@ export default function TeacherMatchingFormEnhanced() {
                     )}
 
                     {/* Summary */}
-                    <div className="bg-gray-50 rounded-lg p-6 mb-6">
-                      <h4 className="font-semibold text-gray-900 mb-4">Your Request Summary</h4>
+                    <div className="bg-ivory rounded-xl p-6 mb-6">
+                      <h4 className="font-semibold text-ink mb-4">Your Request Summary</h4>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Parent:</span>
+                          <span className="text-ink-muted">Parent:</span>
                           <span className="font-medium">{watch('parentName')}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Phone:</span>
+                          <span className="text-ink-muted">Phone:</span>
                           <span className="font-medium">{watch('phone')}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Student:</span>
+                          <span className="text-ink-muted">Student:</span>
                           <span className="font-medium">{watch('childFirstName')} - {watch('gradeLevel')}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Curriculum:</span>
+                          <span className="text-ink-muted">Curriculum:</span>
                           <span className="font-medium">{watchedCurricula?.join(', ') || 'Not selected'}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Subjects:</span>
+                          <span className="text-ink-muted">Subjects:</span>
                           <span className="font-medium">{watchedSubjects?.join(', ') || 'Not selected'}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Mode:</span>
+                          <span className="text-ink-muted">Mode:</span>
                           <span className="font-medium">{teachingModes.find(m => m.value === watchedMode)?.label}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Location:</span>
+                          <span className="text-ink-muted">Location:</span>
                           <span className="font-medium">{watch('locationArea') || 'Not specified'}</span>
                         </div>
                       </div>
                     </div>
 
                     {/* What Happens Next */}
-                    <div className="bg-blue-50 rounded-lg p-6 mb-6">
+                    <div className="bg-gold-50 rounded-xl p-6 mb-6">
                       <h4 className="font-semibold text-blue-900 mb-3">What Happens Next?</h4>
-                      <div className="space-y-3 text-sm text-blue-800">
+                      <div className="space-y-3 text-sm text-gold-800">
                         <div className="flex items-center">
                           <Phone className="h-4 w-4 mr-3 flex-shrink-0" />
                           <span>We'll call you within 24 hours to discuss your needs</span>
@@ -874,7 +874,7 @@ export default function TeacherMatchingFormEnhanced() {
                           </>
                         )}
                       </button>
-                      <p className="text-xs text-gray-500 mt-3">
+                      <p className="text-xs text-ink-muted mt-3">
                         By submitting, you agree to our terms of service and privacy policy
                       </p>
                     </div>
@@ -883,15 +883,15 @@ export default function TeacherMatchingFormEnhanced() {
               </AnimatePresence>
 
               {/* Enhanced Navigation - Ultra Mobile Optimized */}
-              <div className="flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 lg:p-6 xl:p-8 bg-gray-50 border-t border-gray-200 gap-3 sm:gap-0">
+              <div className="flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 lg:p-6 xl:p-8 bg-ivory border-t border-ink/10 gap-3 sm:gap-0">
                 <button
                   type="button"
                   onClick={prevStep}
                   disabled={currentStep === 1}
-                  className={`flex items-center px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg transition-all text-xs sm:text-sm lg:text-base ${
+                  className={`flex items-center px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-xl transition-all text-xs sm:text-sm lg:text-base ${
                     currentStep === 1
-                      ? 'text-gray-400 cursor-not-allowed'
-                      : 'text-gray-700 hover:bg-gray-200'
+                      ? 'text-ink-muted/60 cursor-not-allowed'
+                      : 'text-ink hover:bg-gray-200'
                   }`}
                 >
                   <ArrowLeft className="h-3.5 w-3.5 sm:h-4 sm:w-4 lg:h-5 lg:w-5 mr-1.5 sm:mr-2" />
@@ -904,7 +904,7 @@ export default function TeacherMatchingFormEnhanced() {
                     <div
                       key={index}
                       className={`w-1 h-1 sm:w-1.5 sm:h-1.5 lg:w-2 lg:h-2 rounded-full transition-colors ${
-                        index + 1 === currentStep ? 'bg-blue-600' : 'bg-gray-300'
+                        index + 1 === currentStep ? 'bg-gold-500' : 'bg-gray-300'
                       }`}
                     />
                   ))}
