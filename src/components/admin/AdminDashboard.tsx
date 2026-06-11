@@ -11,7 +11,10 @@ import {
   CheckCircle,
   AlertCircle
 } from 'lucide-react'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase-client'
+import { getAdminActions } from '@/lib/admin/actions'
+import { getPlatformAnalytics, type PlatformAnalytics } from '@/lib/admin/analytics'
 
 interface DashboardStats {
   pendingTeachers: number
@@ -32,28 +35,41 @@ export default function AdminDashboard() {
     openMessages: 0
   })
   const [loading, setLoading] = useState(true)
+  const [analytics, setAnalytics] = useState<PlatformAnalytics | null>(null)
+  const [recentActivities, setRecentActivities] = useState<{
+    id: string
+    message: string
+    timestamp: string
+    icon: typeof CheckCircle
+    color: string
+  }[]>([])
 
   useEffect(() => {
     const loadDashboardData = async () => {
       try {
         const supabase = createClient()
         
-        // Load all stats in parallel
         const [
           pendingTeachersResult,
           approvedTeachersResult,
           newLeadsResult,
           newParentsResult,
           activeAssignmentsResult,
-          openMessagesResult
+          openMessagesResult,
+          actions,
+          analyticsData,
         ] = await Promise.all([
           supabase.from('teachers').select('id', { count: 'exact' }).eq('status', 'submitted'),
           supabase.from('teachers').select('id', { count: 'exact' }).eq('status', 'approved'),
           supabase.from('parent_leads').select('id', { count: 'exact' }).eq('status', 'new'),
           supabase.from('parents').select('id', { count: 'exact' }).eq('status', 'pending'),
           supabase.from('assignments').select('id', { count: 'exact' }).eq('status', 'active'),
-          supabase.from('message_threads').select('id', { count: 'exact' }).eq('status', 'open')
+          supabase.from('message_threads').select('id', { count: 'exact' }).eq('status', 'open'),
+          getAdminActions(10).catch(() => []),
+          getPlatformAnalytics().catch(() => null),
         ])
+
+        if (analyticsData) setAnalytics(analyticsData)
 
         setStats({
           pendingTeachers: pendingTeachersResult.count || 0,
@@ -63,6 +79,37 @@ export default function AdminDashboard() {
           activeAssignments: activeAssignmentsResult.count || 0,
           openMessages: openMessagesResult.count || 0
         })
+
+        const iconForAction = (action: string, entityType: string) => {
+          if (action.includes('approve')) return { icon: CheckCircle, color: 'text-green-600' }
+          if (action.includes('reject')) return { icon: AlertCircle, color: 'text-red-600' }
+          if (entityType.includes('lead') || entityType.includes('parent')) return { icon: UserCheck, color: 'text-gold-600' }
+          if (entityType.includes('assignment')) return { icon: Calendar, color: 'text-purple-600' }
+          if (entityType.includes('message')) return { icon: MessageSquare, color: 'text-red-600' }
+          return { icon: Clock, color: 'text-ink-muted' }
+        }
+
+        const formatTimeAgo = (dateStr: string) => {
+          const diff = Date.now() - new Date(dateStr).getTime()
+          const mins = Math.floor(diff / 60000)
+          if (mins < 60) return `${mins || 1} min ago`
+          const hrs = Math.floor(mins / 60)
+          if (hrs < 24) return `${hrs} hr ago`
+          return `${Math.floor(hrs / 24)} days ago`
+        }
+
+        setRecentActivities(
+          (actions as { id: string; action: string; entity_type: string; created_at: string }[]).map((a) => {
+            const { icon, color } = iconForAction(a.action, a.entity_type)
+            return {
+              id: a.id,
+              message: `${a.action.replace(/_/g, ' ')} · ${a.entity_type.replace(/_/g, ' ')}`,
+              timestamp: formatTimeAgo(a.created_at),
+              icon,
+              color,
+            }
+          })
+        )
       } catch (error) {
         console.error('Error loading dashboard data:', error)
       } finally {
@@ -139,41 +186,6 @@ export default function AdminDashboard() {
     }
   ]
 
-  const recentActivities = [
-    {
-      id: 1,
-      type: 'teacher_approved',
-      message: 'Teacher John Doe approved',
-      timestamp: '2 minutes ago',
-      icon: CheckCircle,
-      color: 'text-green-600'
-    },
-    {
-      id: 2,
-      type: 'new_parent',
-      message: 'New parent request from Sarah Johnson',
-      timestamp: '15 minutes ago',
-      icon: UserCheck,
-      color: 'text-gold-600'
-    },
-    {
-      id: 3,
-      type: 'assignment_created',
-      message: 'Assignment created: Math tutoring',
-      timestamp: '1 hour ago',
-      icon: Calendar,
-      color: 'text-purple-600'
-    },
-    {
-      id: 4,
-      type: 'message_received',
-      message: 'New message from teacher Mike Wilson',
-      timestamp: '2 hours ago',
-      icon: MessageSquare,
-      color: 'text-red-600'
-    }
-  ]
-
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -217,20 +229,24 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-ink mb-4">Recent Activity</h3>
           <div className="space-y-4">
-            {recentActivities.map((activity) => (
-              <div key={activity.id} className="flex items-center space-x-3">
-                <activity.icon className={`h-5 w-5 ${activity.color}`} />
-                <div className="flex-1">
-                  <p className="text-sm text-ink">{activity.message}</p>
-                  <p className="text-xs text-ink-muted">{activity.timestamp}</p>
+            {recentActivities.length === 0 ? (
+              <p className="text-sm text-ink-muted">No recent admin actions yet.</p>
+            ) : (
+              recentActivities.map((activity) => (
+                <div key={activity.id} className="flex items-center space-x-3">
+                  <activity.icon className={`h-5 w-5 ${activity.color}`} />
+                  <div className="flex-1">
+                    <p className="text-sm text-ink capitalize">{activity.message}</p>
+                    <p className="text-xs text-ink-muted">{activity.timestamp}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
           <div className="mt-4 pt-4 border-t border-ink/10">
-            <button className="text-gold-600 hover:text-gold-700 text-sm font-medium">
+            <Link href="/admin/audit" className="text-gold-600 hover:text-gold-700 text-sm font-medium">
               View all activity →
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -238,37 +254,47 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow p-6">
           <h3 className="text-lg font-semibold text-ink mb-4">Quick Actions</h3>
           <div className="space-y-3">
-            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
+            <Link href="/admin/teachers?status=submitted" className="block w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <Users className="h-5 w-5 text-gold-600" />
                 <div>
                   <p className="font-medium text-ink">Review Teacher Applications</p>
-                  <p className="text-sm text-ink-muted">12 pending applications</p>
+                  <p className="text-sm text-ink-muted">{stats.pendingTeachers} pending</p>
                 </div>
               </div>
-            </button>
+            </Link>
             
-            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
+            <Link href="/admin/leads?status=new" className="block w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <UserCheck className="h-5 w-5 text-green-600" />
                 <div>
-                  <p className="font-medium text-ink">Process Parent Requests</p>
-                  <p className="text-sm text-ink-muted">8 new requests</p>
+                  <p className="font-medium text-ink">Process Parent Leads</p>
+                  <p className="text-sm text-ink-muted">{stats.newLeads} new leads</p>
                 </div>
               </div>
-            </button>
+            </Link>
             
-            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
+            <Link href="/admin/messages" className="block w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <MessageSquare className="h-5 w-5 text-red-600" />
                 <div>
                   <p className="font-medium text-ink">Respond to Messages</p>
-                  <p className="text-sm text-ink-muted">5 unread messages</p>
+                  <p className="text-sm text-ink-muted">{stats.openMessages} open threads</p>
                 </div>
               </div>
-            </button>
+            </Link>
             
-            <button className="w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
+            <Link href="/admin/reports" className="block w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
+              <div className="flex items-center space-x-3">
+                <TrendingUp className="h-5 w-5 text-indigo-600" />
+                <div>
+                  <p className="font-medium text-ink">View platform reports</p>
+                  <p className="text-sm text-ink-muted">Leads, assignments & funnel</p>
+                </div>
+              </div>
+            </Link>
+
+            <Link href="/admin/assignments/new" className="block w-full text-left p-3 border border-ink/10 rounded-lg hover:bg-ivory transition-colors">
               <div className="flex items-center space-x-3">
                 <Calendar className="h-4 w-4 sm:h-5 sm:w-5 text-purple-600" />
                 <div>
@@ -276,18 +302,51 @@ export default function AdminDashboard() {
                   <p className="text-xs sm:text-sm text-ink-muted">Match teacher with parent</p>
                 </div>
               </div>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* Charts Section (Placeholder) */}
-      <div className="bg-white rounded-lg shadow-sm border border-ink/10 p-4 sm:p-6">
-        <h3 className="text-lg font-semibold text-ink mb-4">Analytics Overview</h3>
-        <div className="h-48 sm:h-64 bg-ivory-dark rounded-lg flex items-center justify-center">
-          <p className="text-ink-muted text-sm sm:text-base">Charts and analytics will be implemented here</p>
+      {analytics && (
+        <div className="bg-white rounded-lg shadow-sm border border-ink/10 p-4 sm:p-6 space-y-6">
+          <h3 className="text-lg font-semibold text-ink">Analytics overview</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+            {[
+              { label: 'Leads this month', value: analytics.leadsThisMonth },
+              { label: 'New assignments', value: analytics.assignmentsThisMonth },
+              { label: 'Reviews', value: analytics.reviewsTotal },
+              { label: 'Subscribers', value: analytics.subscribersTotal },
+              { label: 'Event sign-ups', value: analytics.registrationsTotal },
+              { label: 'Docs to review', value: analytics.pendingDocuments, href: '/admin/documents' },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className={`bg-ivory rounded-xl p-4 text-center ${'href' in item && item.href ? 'cursor-pointer hover:bg-gold-50 transition-colors' : ''}`}
+                onClick={'href' in item && item.href ? () => { window.location.href = item.href as string } : undefined}
+              >
+                <p className="text-2xl font-bold text-ink">{item.value}</p>
+                <p className="text-xs text-ink-muted mt-1">{item.label}</p>
+              </div>
+            ))}
+          </div>
+          <div>
+            <p className="text-sm font-medium text-ink-muted mb-3">Parent leads (last 6 months)</p>
+            <div className="flex items-end gap-2 h-32">
+              {analytics.leadsByMonth.map((m) => {
+                const max = Math.max(...analytics.leadsByMonth.map((x) => x.count), 1)
+                const height = Math.max((m.count / max) * 100, m.count > 0 ? 8 : 2)
+                return (
+                  <div key={m.label} className="flex-1 flex flex-col items-center gap-1">
+                    <span className="text-xs font-medium text-ink">{m.count}</span>
+                    <div className="w-full bg-gold-500 rounded-t-md transition-all" style={{ height: `${height}%` }} />
+                    <span className="text-[10px] text-ink-muted">{m.label}</span>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }

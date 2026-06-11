@@ -14,93 +14,51 @@ import {
   AlertCircle,
   CheckCircle
 } from 'lucide-react'
-
-interface SystemSettings {
-  email_templates: {
-    approval: string
-    rejection: string
-    assignment: string
-  }
-  auto_approval_rules: {
-    enabled: boolean
-    min_experience: number
-    required_documents: string[]
-  }
-  notification_settings: {
-    email_enabled: boolean
-    in_app_enabled: boolean
-    admin_alerts: boolean
-  }
-  platform_settings: {
-    site_name: string
-    site_url: string
-    support_email: string
-    max_file_size: number
-  }
-}
+import { getSystemSettings, saveSystemSettings, type SystemSettings } from '@/lib/admin/settings-actions'
 
 export default function SettingsManagement() {
-  const [settings, setSettings] = useState<SystemSettings>({
-    email_templates: {
-      approval: 'Your teacher application has been approved!',
-      rejection: 'Your teacher application was not approved.',
-      assignment: 'You have been assigned a new student.'
-    },
-    auto_approval_rules: {
-      enabled: false,
-      min_experience: 2,
-      required_documents: ['degree', 'id']
-    },
-    notification_settings: {
-      email_enabled: true,
-      in_app_enabled: true,
-      admin_alerts: true
-    },
-    platform_settings: {
-      site_name: 'Nelimac Learning',
-      site_url: 'https://patiencehomeschools.com',
-      support_email: 'support@patiencehomeschools.com',
-      max_file_size: 10
-    }
-  })
+  const [settings, setSettings] = useState<SystemSettings | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [saveMessage, setSaveMessage] = useState('')
 
   useEffect(() => {
-    // Simulate API call - replace with actual Supabase queries
-    setTimeout(() => {
-      setLoading(false)
-    }, 1000)
+    getSystemSettings()
+      .then(setSettings)
+      .catch(console.error)
+      .finally(() => setLoading(false))
   }, [])
 
   const handleSave = async () => {
+    if (!settings) return
     setSaving(true)
     setSaveMessage('')
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000))
+      await saveSystemSettings(settings)
       setSaveMessage('Settings saved successfully!')
       setTimeout(() => setSaveMessage(''), 3000)
-    } catch (error) {
+    } catch {
       setSaveMessage('Error saving settings. Please try again.')
     } finally {
       setSaving(false)
     }
   }
 
-  const updateSetting = (section: keyof SystemSettings, key: string, value: any) => {
-    setSettings(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [key]: value
+  const updateSetting = (section: keyof SystemSettings, key: string, value: unknown) => {
+    setSettings((prev) => {
+      if (!prev) return prev
+      return {
+        ...prev,
+        [section]: {
+          ...prev[section],
+          [key]: value,
+        },
       }
-    }))
+    })
   }
 
-  if (loading) {
+  if (loading || !settings) {
     return (
       <div className="flex items-center justify-center h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>

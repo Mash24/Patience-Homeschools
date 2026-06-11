@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import ContactHero from '@/components/contact/ContactHero'
 import ContactForm from '@/components/contact/ContactForm'
 import ContactInfo from '@/components/contact/ContactInfo'
@@ -8,11 +9,12 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-ivory">
       <ContactHero />
-      <ContactForm />
+      <Suspense fallback={<div className="section-padding container-custom"><div className="h-64 bg-ivory-dark rounded-xl animate-pulse" /></div>}>
+        <ContactForm />
+      </Suspense>
       <ContactInfo />
       <FAQ />
       <CTA />
     </div>
   )
 }
-

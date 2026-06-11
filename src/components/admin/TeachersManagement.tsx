@@ -13,10 +13,12 @@ import {
   GraduationCap,
   FileText,
   Search,
-  Filter
+  Filter,
+  Star,
 } from 'lucide-react'
 import { createClient } from '@/lib/supabase-client'
-import { approveTeacher, rejectTeacher, getTeachers } from '@/app/admin/teachers/actions'
+import { approveTeacher, rejectTeacher, getTeachers, getTeacherDocuments, toggleTeacherFeatured } from '@/app/admin/teachers/actions'
+import { getAdminDocumentUrl, verifyTeacherDocument, rejectTeacherDocument } from '@/lib/teachers/documents'
 
 interface Teacher {
   id: string
@@ -29,6 +31,7 @@ interface Teacher {
   education_level: string
   tsc_number: string
   status: 'submitted' | 'under_review' | 'approved' | 'rejected'
+  is_featured?: boolean
   rejection_reason?: string
   created_at: string
 }
@@ -39,11 +42,22 @@ export default function TeachersManagement() {
   const [selectedStatus, setSelectedStatus] = useState<string>('all')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedTeacher, setSelectedTeacher] = useState<Teacher | null>(null)
+  const [teacherDocs, setTeacherDocs] = useState<{ id: string; kind: string; file_name: string; file_path: string; verified_at?: string; rejection_reason?: string }[]>([])
   const [actionLoading, setActionLoading] = useState<string | null>(null)
 
   useEffect(() => {
     loadTeachers()
   }, [selectedStatus])
+
+  useEffect(() => {
+    if (selectedTeacher) {
+      getTeacherDocuments(selectedTeacher.id)
+        .then((docs) => setTeacherDocs(docs || []))
+        .catch(() => setTeacherDocs([]))
+    } else {
+      setTeacherDocs([])
+    }
+  }, [selectedTeacher])
 
   const loadTeachers = async () => {
     try {
@@ -94,6 +108,22 @@ export default function TeachersManagement() {
     } catch (error) {
       console.error('Error approving teacher:', error)
       alert('Failed to approve teacher. Please try again.')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  const handleToggleFeatured = async (teacherId: string, featured: boolean) => {
+    try {
+      setActionLoading(teacherId)
+      await toggleTeacherFeatured(teacherId, featured)
+      await loadTeachers()
+      if (selectedTeacher?.id === teacherId) {
+        setSelectedTeacher((t) => (t ? { ...t, is_featured: featured } : null))
+      }
+    } catch (error) {
+      console.error('Error toggling featured:', error)
+      alert(error instanceof Error ? error.message : 'Failed to update featured status')
     } finally {
       setActionLoading(null)
     }
@@ -220,7 +250,12 @@ export default function TeachersManagement() {
                           </span>
                         </div>
                         <div className="ml-2 sm:ml-4">
-                          <div className="text-sm font-medium text-ink">{teacher.full_name}</div>
+                          <div className="text-sm font-medium text-ink flex items-center gap-1.5">
+                            {teacher.full_name}
+                            {teacher.is_featured && teacher.status === 'approved' && (
+                              <Star className="h-3.5 w-3.5 fill-gold-400 text-gold-400 shrink-0" />
+                            )}
+                          </div>
                           <div className="text-xs sm:text-sm text-ink-muted">{teacher.tsc_number}</div>
                         </div>
                       </div>
@@ -264,6 +299,16 @@ export default function TeachersManagement() {
                         >
                           <Eye className="h-4 w-4" />
                         </button>
+                        {teacher.status === 'approved' && (
+                          <button
+                            onClick={() => handleToggleFeatured(teacher.id, !teacher.is_featured)}
+                            disabled={actionLoading === teacher.id}
+                            title={teacher.is_featured ? 'Remove from featured' : 'Mark as featured'}
+                            className={teacher.is_featured ? 'text-gold-600 hover:text-gold-800' : 'text-ink-muted/60 hover:text-gold-600'}
+                          >
+                            <Star className={`h-4 w-4 ${teacher.is_featured ? 'fill-gold-400' : ''}`} />
+                          </button>
+                        )}
                         {teacher.status === 'submitted' && (
                           <>
                             <button
@@ -366,16 +411,83 @@ export default function TeachersManagement() {
                 </div>
               </div>
               
+              {selectedTeacher.status === 'approved' && (
+                <div className="flex items-center justify-between p-3 bg-gold-50 rounded-lg">
+                  <div>
+                    <p className="text-sm font-medium text-ink">Featured on hire page</p>
+                    <p className="text-xs text-ink-muted">Show this teacher in the featured educators section</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleToggleFeatured(selectedTeacher.id, !selectedTeacher.is_featured)}
+                    disabled={actionLoading === selectedTeacher.id}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                      selectedTeacher.is_featured
+                        ? 'bg-gold-500 text-white'
+                        : 'bg-white border border-ink/10 text-ink-muted hover:text-ink'
+                    }`}
+                  >
+                    <Star className={`h-4 w-4 ${selectedTeacher.is_featured ? 'fill-white' : ''}`} />
+                    {selectedTeacher.is_featured ? 'Featured' : 'Not featured'}
+                  </button>
+                </div>
+              )}
+
               <div>
                 <label className="block text-sm font-medium text-ink">Documents</label>
                 <div className="mt-1 space-y-2">
-                  {selectedTeacher.documents.map((doc, index) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <FileText className="h-4 w-4 text-ink-muted/60" />
-                      <span className="text-sm text-ink">{doc.name}</span>
-                      <button className="text-gold-600 hover:text-gold-800 text-sm">View</button>
-                    </div>
-                  ))}
+                  {teacherDocs.length === 0 ? (
+                    <p className="text-sm text-ink-muted">No documents uploaded.</p>
+                  ) : (
+                    teacherDocs.map((doc) => (
+                      <div key={doc.id} className="flex flex-wrap items-center gap-2 p-2 bg-ivory rounded-lg">
+                        <FileText className="h-4 w-4 text-ink-muted/60 shrink-0" />
+                        <span className="text-sm text-ink flex-1 capitalize">{doc.kind.replace(/_/g, ' ')} · {doc.file_name}</span>
+                        {doc.verified_at ? (
+                          <span className="text-xs text-green-700">Verified</span>
+                        ) : doc.rejection_reason ? (
+                          <span className="text-xs text-red-600">Rejected</span>
+                        ) : (
+                          <>
+                            <button
+                              type="button"
+                              className="text-gold-600 hover:text-gold-800 text-xs"
+                              onClick={async () => {
+                                const url = await getAdminDocumentUrl(doc.file_path)
+                                window.open(url, '_blank')
+                              }}
+                            >
+                              View
+                            </button>
+                            <button
+                              type="button"
+                              className="text-green-600 text-xs"
+                              onClick={async () => {
+                                await verifyTeacherDocument(doc.id)
+                                const docs = await getTeacherDocuments(selectedTeacher.id)
+                                setTeacherDocs(docs || [])
+                              }}
+                            >
+                              Verify
+                            </button>
+                            <button
+                              type="button"
+                              className="text-red-600 text-xs"
+                              onClick={async () => {
+                                const reason = prompt('Rejection reason:')
+                                if (!reason) return
+                                await rejectTeacherDocument(doc.id, reason)
+                                const docs = await getTeacherDocuments(selectedTeacher.id)
+                                setTeacherDocs(docs || [])
+                              }}
+                            >
+                              Reject
+                            </button>
+                          </>
+                        )}
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>

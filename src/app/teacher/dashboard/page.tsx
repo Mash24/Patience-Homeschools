@@ -1,6 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { 
   User, 
@@ -21,17 +22,26 @@ import {
   BookOpen,
   GraduationCap,
   Settings,
-  LogOut,
   Users
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
+import MessagingPanel from '@/components/shared/MessagingPanel'
+import ScheduleManager from '@/components/shared/ScheduleManager'
+import SessionLogManager from '@/components/shared/SessionLogManager'
+import { getTeacherRatingStats } from '@/lib/reviews/actions'
+import TeacherLayout from '@/components/teacher/TeacherLayout'
+import TeacherDocumentManager from '@/components/teacher/TeacherDocumentManager'
+import TeacherProfileEditor from '@/components/teacher/TeacherProfileEditor'
+import TeacherAvailabilityCalendar from '@/components/teacher/TeacherAvailabilityCalendar'
+import NotificationPreferences from '@/components/shared/NotificationPreferences'
 
 interface TeacherProfile {
   id: string
   full_name: string
   email: string
   phone: string
+  bio?: string
   location_area: string
   subjects: string[]
   curricula: string[]
@@ -128,14 +138,17 @@ const statusConfig = {
   suspended: { color: 'bg-red-100 text-red-800', icon: XCircle, label: 'Suspended' }
 }
 
-export default function TeacherDashboard() {
+function TeacherDashboardContent() {
+  const searchParams = useSearchParams()
+  const activeTab = searchParams.get('tab') || 'overview'
+
   const [profile, setProfile] = useState<TeacherProfile | null>(null)
   const [provisionalApplication, setProvisionalApplication] = useState<ProvisionalApplication | null>(null)
   const [documents, setDocuments] = useState<Document[]>([])
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [sessions, setSessions] = useState<ClassSession[]>([])
   const [isLoading, setIsLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState('overview')
+  const [ratingStats, setRatingStats] = useState<{ average: number | null; count: number }>({ average: null, count: 0 })
   const router = useRouter()
 
   useEffect(() => {
@@ -147,7 +160,7 @@ export default function TeacherDashboard() {
       const { data: { user } } = await supabase.auth.getUser()
       
       if (!user) {
-        router.push('/login')
+        router.push('/signin?redirectTo=/teacher/dashboard')
         return
       }
 
@@ -195,6 +208,13 @@ export default function TeacherDashboard() {
       }
 
       setProfile(teacherData)
+
+      try {
+        const stats = await getTeacherRatingStats(user.id)
+        setRatingStats(stats)
+      } catch {
+        setRatingStats({ average: null, count: 0 })
+      }
 
       // Also load provisional application for tracking
       const { data: provisionalData, error: provisionalError } = await supabase
@@ -265,11 +285,6 @@ export default function TeacherDashboard() {
     }
   }
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.push('/')
-  }
-
   const getStatusConfig = (status: string) => {
     return statusConfig[status as keyof typeof statusConfig] || statusConfig.draft
   }
@@ -314,73 +329,16 @@ export default function TeacherDashboard() {
   const statusInfo = getStatusConfig(profile.status)
 
   return (
-    <div className="min-h-screen bg-ivory">
-      {/* Header */}
-      <div className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-gold-500 to-gold-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">
-                  {profile.full_name.split(' ').map(n => n[0]).join('')}
-                </span>
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-ink">Welcome, {profile.full_name}</h1>
-                <p className="text-ink-muted">Teacher Dashboard</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <div className={`px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-2 ${statusInfo.color}`}>
-                <statusInfo.icon className="h-4 w-4" />
-                <span>{statusInfo.label}</span>
-              </div>
-              <button
-                onClick={handleSignOut}
-                className="flex items-center space-x-2 text-ink-muted hover:text-ink transition-colors"
-              >
-                <LogOut className="h-5 w-5" />
-                <span>Sign Out</span>
-              </button>
-            </div>
-          </div>
+    <TeacherLayout
+      teacherName={profile.full_name}
+      statusBadge={
+        <div className={`px-2.5 py-1 rounded-full text-xs font-medium flex items-center gap-1.5 ${statusInfo.color}`}>
+          <statusInfo.icon className="h-3.5 w-3.5" />
+          <span className="hidden sm:inline">{statusInfo.label}</span>
         </div>
-      </div>
-
-      {/* Navigation Tabs */}
-      <div className="container mx-auto px-4 py-6">
-        <div className="bg-white rounded-xl shadow-sm border">
-          <div className="border-b border-ink/10">
-            <nav className="flex space-x-8 px-6">
-              {[
-                { id: 'overview', label: 'Overview', icon: User },
-                { id: 'application', label: 'Application', icon: FileText },
-                { id: 'students', label: 'My Students', icon: Users },
-                { id: 'schedule', label: 'Schedule', icon: Calendar },
-                { id: 'documents', label: 'Documents', icon: FileText },
-                { id: 'profile', label: 'Profile', icon: Settings }
-              ].map(tab => {
-                const Icon = tab.icon
-                return (
-                  <button
-                    key={tab.id}
-                    onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center space-x-2 py-4 border-b-2 transition-colors ${
-                      activeTab === tab.id
-                        ? 'border-gold-500 text-gold-600'
-                        : 'border-transparent text-ink-muted hover:text-ink'
-                    }`}
-                  >
-                    <Icon className="h-5 w-5" />
-                    <span>{tab.label}</span>
-                  </button>
-                )
-              })}
-            </nav>
-          </div>
-
-          {/* Tab Content */}
-          <div className="p-6">
+      }
+    >
+      <div className="space-y-6">
             {activeTab === 'overview' && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -446,11 +404,16 @@ export default function TeacherDashboard() {
                   <div className="bg-white border border-ink/10 rounded-xl p-6">
                     <div className="flex items-center space-x-3">
                       <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                        <FileText className="h-6 w-6 text-purple-600" />
+                        <Star className="h-6 w-6 text-purple-600" />
                       </div>
                       <div>
-                        <p className="text-sm text-ink-muted">Documents</p>
-                        <p className="text-2xl font-bold text-ink">{documents.length}</p>
+                        <p className="text-sm text-ink-muted">Parent rating</p>
+                        <p className="text-2xl font-bold text-ink">
+                          {ratingStats.average != null ? `${ratingStats.average} ★` : '—'}
+                        </p>
+                        {ratingStats.count > 0 && (
+                          <p className="text-xs text-ink-muted">{ratingStats.count} review{ratingStats.count !== 1 ? 's' : ''}</p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -719,50 +682,33 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-ink">Weekly Schedule</h2>
-                
-                {sessions.length === 0 ? (
-                  <div className="text-center py-12">
-                    <Calendar className="h-12 w-12 text-ink-muted/60 mx-auto mb-4" />
-                    <p className="text-ink-muted mb-2">No sessions scheduled</p>
-                    <p className="text-sm text-ink-muted">Sessions will appear here once assigned</p>
-                  </div>
+                <h2 className="text-xl font-semibold text-ink">Availability & schedule</h2>
+                <TeacherAvailabilityCalendar
+                  availability={profile.availability || []}
+                  sessions={sessions}
+                />
+                <ScheduleManager
+                  assignments={assignments.map((a) => ({ id: a.id, subject: a.subject }))}
+                  sessions={sessions}
+                  onUpdated={loadTeacherData}
+                />
+                <SessionLogManager
+                  assignments={assignments.map((a) => ({ id: a.id, subject: a.subject }))}
+                />
+              </motion.div>
+            )}
+
+            {activeTab === 'messages' && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="space-y-6"
+              >
+                <h2 className="text-xl font-semibold text-ink">Messages</h2>
+                {assignments.length > 0 ? (
+                  <MessagingPanel assignmentId={assignments[0].id} title="Student conversations" />
                 ) : (
-                  <div className="space-y-4">
-                    {sessions.map((session) => (
-                      <div key={session.id} className="bg-white border border-ink/10 rounded-xl p-6">
-                        <div className="flex items-center justify-between mb-3">
-                          <h3 className="text-lg font-medium text-ink">
-                            {session.assignment.subject}
-                          </h3>
-                          <span className="px-3 py-1 bg-gold-50 text-gold-800 rounded-full text-sm font-medium">
-                            {session.day_of_week}
-                          </span>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-ink-muted">
-                          <div className="flex items-center gap-2">
-                            <Clock className="h-4 w-4" />
-                            {session.start_time} - {session.end_time}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Users className="h-4 w-4" />
-                            {session.assignment.child.full_name}
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4" />
-                            {session.location || 'TBD'}
-                          </div>
-                        </div>
-                        
-                        {session.notes && (
-                          <p className="text-sm text-ink-muted mt-3 p-3 bg-ivory rounded-lg">
-                            {session.notes}
-                          </p>
-                        )}
-                      </div>
-                    ))}
-                  </div>
+                  <MessagingPanel title="Your conversations" />
                 )}
               </motion.div>
             )}
@@ -773,61 +719,12 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-semibold text-ink">Your Documents</h2>
-                  {profile.status === 'draft' || profile.status === 'rejected' ? (
-                    <button className="bg-gold-500 text-white px-4 py-2 rounded-lg hover:bg-gold-400 transition-colors flex items-center space-x-2">
-                      <Upload className="h-4 w-4" />
-                      <span>Upload New</span>
-                    </button>
-                  ) : null}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {documents.map(doc => (
-                    <div key={doc.id} className="bg-white border border-ink/10 rounded-xl p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-ivory-dark rounded-lg flex items-center justify-center">
-                            <FileText className="h-5 w-5 text-ink-muted" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-ink capitalize">
-                              {doc.kind.replace('_', ' ')}
-                            </h3>
-                            <p className="text-sm text-ink-muted">{doc.file_name}</p>
-                          </div>
-                        </div>
-                        <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          doc.verified_at 
-                            ? 'bg-green-100 text-green-800' 
-                            : 'bg-yellow-100 text-yellow-800'
-                        }`}>
-                          {doc.verified_at ? 'Verified' : 'Pending'}
-                        </div>
-                      </div>
-
-                      {doc.rejection_reason && (
-                        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                          <p className="text-sm text-red-700">
-                            <strong>Rejection Reason:</strong> {doc.rejection_reason}
-                          </p>
-                        </div>
-                      )}
-
-                      <div className="flex items-center space-x-2">
-                        <button className="flex items-center space-x-2 text-gold-600 hover:text-gold-700 transition-colors">
-                          <Eye className="h-4 w-4" />
-                          <span className="text-sm">View</span>
-                        </button>
-                        <button className="flex items-center space-x-2 text-ink-muted hover:text-ink transition-colors">
-                          <Download className="h-4 w-4" />
-                          <span className="text-sm">Download</span>
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <h2 className="text-xl font-semibold text-ink">Your documents</h2>
+                <TeacherDocumentManager
+                  documents={documents}
+                  onUpdated={loadTeacherData}
+                  canUpload={profile.status === 'approved' || profile.status === 'draft' || profile.status === 'submitted' || profile.status === 'under_review'}
+                />
               </motion.div>
             )}
 
@@ -837,104 +734,47 @@ export default function TeacherDashboard() {
                 animate={{ opacity: 1, y: 0 }}
                 className="space-y-6"
               >
-                <h2 className="text-xl font-semibold text-ink">Profile Information</h2>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Full Name</label>
-                      <input
-                        type="text"
-                        value={profile.full_name}
-                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Email</label>
-                      <input
-                        type="email"
-                        value={profile.email}
-                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Phone</label>
-                      <input
-                        type="tel"
-                        value={profile.phone}
-                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
-                        disabled
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Location</label>
-                      <input
-                        type="text"
-                        value={profile.location_area}
-                        className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
-                        disabled
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Subjects</label>
-                      <div className="flex flex-wrap gap-2">
-                        {profile.subjects.map(subject => (
-                          <span key={subject} className="px-3 py-1 bg-gold-50 text-gold-800 rounded-full text-sm">
-                            {subject}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Curricula</label>
-                      <div className="flex flex-wrap gap-2">
-                        {profile.curricula.map(curriculum => (
-                          <span key={curriculum} className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                            {curriculum}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Experience</label>
-                      <p className="text-ink">{profile.experience_years} years</p>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-ink mb-2">Hourly Rate</label>
-                      <p className="text-ink">{profile.hourly_rate_range}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-ink mb-2">Education Background</label>
-                  <textarea
-                    value={profile.education_background}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
-                    disabled
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-ink mb-2">Teaching Philosophy</label>
-                  <textarea
-                    value={profile.teaching_philosophy}
-                    rows={4}
-                    className="w-full px-4 py-3 border border-ink/10 rounded-lg bg-ivory"
-                    disabled
-                  />
-                </div>
+                <h2 className="text-xl font-semibold text-ink">Profile</h2>
+                <TeacherProfileEditor
+                  profile={{
+                    full_name: profile.full_name,
+                    email: profile.email,
+                    phone: profile.phone,
+                    bio: profile.bio,
+                    location_area: profile.location_area,
+                    hourly_rate_range: profile.hourly_rate_range,
+                    availability: profile.availability,
+                    teaching_philosophy: profile.teaching_philosophy,
+                    education_background: profile.education_background,
+                    subjects: profile.subjects,
+                    curricula: profile.curricula,
+                    experience_years: profile.experience_years,
+                  }}
+                  onSaved={loadTeacherData}
+                />
+                <NotificationPreferences />
               </motion.div>
             )}
-          </div>
-        </div>
+      </div>
+    </TeacherLayout>
+  )
+}
+
+function TeacherDashboardLoading() {
+  return (
+    <div className="min-h-screen bg-ivory flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-gold-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-ink-muted">Loading your dashboard...</p>
       </div>
     </div>
+  )
+}
+
+export default function TeacherDashboard() {
+  return (
+    <Suspense fallback={<TeacherDashboardLoading />}>
+      <TeacherDashboardContent />
+    </Suspense>
   )
 }

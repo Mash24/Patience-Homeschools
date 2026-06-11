@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase-server'
 import AdminLayout from '@/components/admin/AdminLayout'
+import UsersManagement from '@/components/admin/UsersManagement'
 
 export default async function AdminUsersPage() {
   const supabase = await createClient()
@@ -13,11 +14,7 @@ export default async function AdminUsersPage() {
 
   return (
     <AdminLayout>
-      <div className="card-elevated p-8">
-        <p className="text-xs font-semibold uppercase tracking-wider text-gold-600 mb-2">Coming Soon</p>
-        <h1 className="font-serif text-2xl font-semibold text-ink mb-3">User Management</h1>
-        <p className="text-ink-muted">Platform user administration will be available in the next release.</p>
-      </div>
+      <UsersManagement />
     </AdminLayout>
   )
 }

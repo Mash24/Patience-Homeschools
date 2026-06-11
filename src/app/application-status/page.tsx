@@ -41,22 +41,24 @@ interface ApplicationStatus {
 
 function ApplicationStatusContent() {
   const searchParams = useSearchParams()
-  const email = searchParams.get('email')
+  const emailParam = searchParams.get('email')
   
   const [application, setApplication] = useState<ApplicationStatus | null>(null)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(!!emailParam)
   const [error, setError] = useState('')
+  const [lookupEmail, setLookupEmail] = useState(emailParam || '')
 
   useEffect(() => {
-    if (email) {
-      fetchApplicationStatus()
+    if (emailParam) {
+      fetchApplicationStatus(emailParam)
     } else {
-      setError('No email provided')
       setLoading(false)
     }
-  }, [email])
+  }, [emailParam])
 
-  const fetchApplicationStatus = async () => {
+  const fetchApplicationStatus = async (email: string) => {
+    setLoading(true)
+    setError('')
     try {
       const response = await fetch('/api/duplicate-application', {
         method: 'POST',
@@ -64,7 +66,7 @@ function ApplicationStatusContent() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: email,
+          email,
           action: 'check-user'
         })
       })
@@ -124,6 +126,43 @@ function ApplicationStatusContent() {
     })
   }
 
+  const handleLookup = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!lookupEmail.trim()) return
+    const url = new URL(window.location.href)
+    url.searchParams.set('email', lookupEmail.trim())
+    window.history.pushState({}, '', url.toString())
+    fetchApplicationStatus(lookupEmail.trim())
+  }
+
+  if (!emailParam && !application && !loading && !error) {
+    return (
+      <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full"
+        >
+          <h1 className="text-2xl font-bold text-ink mb-2">Check application status</h1>
+          <p className="text-ink-muted text-sm mb-6">
+            Enter the email address you used when applying to teach with Nelimac.
+          </p>
+          <form onSubmit={handleLookup} className="space-y-4">
+            <input
+              type="email"
+              required
+              value={lookupEmail}
+              onChange={(e) => setLookupEmail(e.target.value)}
+              placeholder="your.email@example.com"
+              className="input-field w-full"
+            />
+            <button type="submit" className="btn-primary w-full">Look up status</button>
+          </form>
+        </motion.div>
+      </div>
+    )
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-ivory flex items-center justify-center p-4">
@@ -155,11 +194,16 @@ function ApplicationStatusContent() {
           <h1 className="text-2xl font-bold text-ink mb-2">Error</h1>
           <p className="text-ink-muted mb-6">{error}</p>
           <button
-            onClick={() => window.history.back()}
+            onClick={() => {
+              setError('')
+              setApplication(null)
+              setLoading(false)
+              window.history.replaceState({}, '', '/application-status')
+            }}
             className="btn-primary mx-auto"
           >
             <ArrowLeft className="h-4 w-4" />
-            <span>Go Back</span>
+            <span>Try another email</span>
           </button>
         </motion.div>
       </div>

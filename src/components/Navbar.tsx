@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Button from '@/components/ui/Button'
+import MenuToggle from '@/components/ui/MenuToggle'
 
 const navigation = [
   { name: 'Programmes', href: '/curricula' },
@@ -76,13 +77,11 @@ export default function Navbar() {
             </Button>
           </div>
 
-          <button
+          <MenuToggle
+            open={isOpen}
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-ink hover:text-gold-600 transition-colors"
-            aria-label={isOpen ? 'Close menu' : 'Open menu'}
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+            className="lg:hidden"
+          />
         </div>
 
         {isOpen && (

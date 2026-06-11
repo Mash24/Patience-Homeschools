@@ -7,25 +7,36 @@ import {
   LayoutDashboard,
   Users,
   UserCheck,
-  MessageSquare,
-  Bell,
-  Settings,
-  Menu,
-  X,
   LogOut,
   Calendar,
   Inbox,
+  MessageSquare,
+  Bell,
+  Star,
+  Activity,
+  FileText,
+  Shield,
+  Mail,
+  BarChart3,
 } from 'lucide-react'
+import NotificationBell from '@/components/shared/NotificationBell'
+import MenuToggle from '@/components/ui/MenuToggle'
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Leads', href: '/admin/leads', icon: Inbox },
   { name: 'Teachers', href: '/admin/teachers', icon: Users },
+  { name: 'Documents', href: '/admin/documents', icon: FileText },
   { name: 'Parents', href: '/admin/parents', icon: UserCheck },
   { name: 'Assignments', href: '/admin/assignments', icon: Calendar },
+  { name: 'Reports', href: '/admin/reports', icon: BarChart3 },
   { name: 'Messages', href: '/admin/messages', icon: MessageSquare },
+  { name: 'Reviews', href: '/admin/reviews', icon: Star },
+  { name: 'Users', href: '/admin/users', icon: Shield },
+  { name: 'Content', href: '/admin/content', icon: FileText },
+  { name: 'Newsletter', href: '/admin/newsletter', icon: Mail },
+  { name: 'Audit Log', href: '/admin/audit', icon: Activity },
   { name: 'Notifications', href: '/admin/notifications', icon: Bell },
-  { name: 'Settings', href: '/admin/settings', icon: Settings },
 ]
 
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
@@ -72,9 +83,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 </div>
                 <span className="font-serif font-semibold text-ink">Admin</span>
               </Link>
-              <button onClick={() => setSidebarOpen(false)} className="p-2 text-ink-muted">
-                <X className="h-5 w-5" />
-              </button>
+              <MenuToggle open onClick={() => setSidebarOpen(false)} />
             </div>
             <nav className="flex-1 p-4 overflow-y-auto">
               <NavLinks onNavigate={() => setSidebarOpen(false)} />
@@ -110,16 +119,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       <div className="lg:pl-64">
-        <header className="sticky top-0 z-40 h-16 bg-white/90 backdrop-blur-xl border-b border-ink/5 flex items-center justify-between px-4 sm:px-6">
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-2 text-ink-muted hover:text-ink"
-            aria-label="Open menu"
-          >
-            <Menu className="h-6 w-6" />
-          </button>
+        <header className="sticky top-0 z-40 h-16 bg-white/90 backdrop-blur-xl border-b border-ink/5 flex items-center gap-3 px-4 sm:px-6">
+          <div className="flex items-center gap-3 lg:hidden">
+            <MenuToggle open={sidebarOpen} onClick={() => setSidebarOpen((v) => !v)} />
+            <span className="font-serif text-base font-semibold text-ink">Admin</span>
+          </div>
           <p className="hidden lg:block text-sm font-medium text-ink-muted">Administration</p>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 ml-auto">
+            <NotificationBell />
             <div className="h-8 w-8 rounded-full bg-gold-500 flex items-center justify-center">
               <span className="text-xs font-bold text-ink">A</span>
             </div>

@@ -24,6 +24,7 @@ import {
   AlertCircle
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
+import { updateLeadStatus } from '@/app/admin/leads/actions'
 
 interface Parent {
   id: string
@@ -77,6 +78,7 @@ function CreateAssignmentContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const leadId = searchParams.get('leadId')
+  const teacherIdParam = searchParams.get('teacherId')
   
   const [currentStep, setCurrentStep] = useState(1)
   const [parents, setParents] = useState<Parent[]>([])
@@ -128,6 +130,18 @@ function CreateAssignmentContent() {
 
       setTeachers(teachersData || [])
 
+      if (teacherIdParam && teachersData) {
+        const matchedTeacher = teachersData.find((t) => t.id === teacherIdParam)
+        if (matchedTeacher) {
+          setSelectedTeacher(matchedTeacher)
+          setAssignmentData((prev) => ({
+            ...prev,
+            teacher_id: matchedTeacher.id,
+            hourly_rate: parseInt(matchedTeacher.hourly_rate_range?.match(/\d+/)?.[0] || '0', 10) || prev.hourly_rate,
+          }))
+        }
+      }
+
       // If leadId is provided, load the lead and pre-select parent
       if (leadId) {
         const { data: leadData } = await supabase
@@ -137,18 +151,26 @@ function CreateAssignmentContent() {
           .single()
 
         if (leadData) {
-          // Find matching parent or create a placeholder
-          const matchingParent = parentsData?.find(p => p.email === leadData.email)
+          const matchingParent = parentsData?.find((p) => p.email === leadData.email)
           if (matchingParent) {
             setSelectedParent(matchingParent)
-            setAssignmentData(prev => ({
+            setAssignmentData((prev) => ({
               ...prev,
               parent_id: matchingParent.id,
-              location: leadData.location_area,
-              goals: leadData.goals
+              location: leadData.location_area || leadData.city,
+              goals: leadData.goals,
+              subject: leadData.subjects?.[0] || prev.subject,
+              student_level: leadData.grade_level || prev.student_level,
             }))
           }
+          if (teacherIdParam && teachersData?.find((t) => t.id === teacherIdParam)) {
+            setCurrentStep(3)
+          } else if (matchingParent) {
+            setCurrentStep(2)
+          }
         }
+      } else if (teacherIdParam && teachersData?.find((t) => t.id === teacherIdParam)) {
+        setCurrentStep(2)
       }
     } catch (error) {
       console.error('Error loading data:', error)
@@ -165,12 +187,8 @@ function CreateAssignmentContent() {
 
       if (error) throw error
 
-      // Update lead status if this was created from a lead
       if (leadId) {
-        await supabase
-          .from('parent_leads')
-          .update({ status: 'matched' })
-          .eq('id', leadId)
+        await updateLeadStatus(leadId, 'matched')
       }
 
       // Log admin activity

@@ -19,9 +19,11 @@ import {
   BookOpen,
   Calendar,
   DollarSign,
+  Download,
 } from 'lucide-react'
 import type { ParentLead } from '@/lib/schemas'
-import { getLeads, updateLeadStatus, type LeadStatus } from '@/app/admin/leads/actions'
+import { getLeads, updateLeadStatus, bulkUpdateLeadStatus, convertLeadToParent, exportLeadsCsv, type LeadStatus } from '@/app/admin/leads/actions'
+import TeacherMatchSuggestions from '@/components/admin/TeacherMatchSuggestions'
 
 const STATUS_OPTIONS = [
   { value: 'all', label: 'All' },
@@ -58,6 +60,8 @@ export default function LeadsManagement() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedLead, setSelectedLead] = useState<ParentLead | null>(null)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [bulkLoading, setBulkLoading] = useState(false)
 
   useEffect(() => {
     loadLeads()
@@ -103,6 +107,70 @@ export default function LeadsManagement() {
       case 'matched': return CheckCircle
       case 'closed': return XCircle
       default: return Clock
+    }
+  }
+
+  const handleConvert = async (leadId: string) => {
+    if (!confirm('Create a parent account and send an invite email to this lead?')) return
+    try {
+      setActionLoading(leadId)
+      await convertLeadToParent(leadId)
+      await loadLeads()
+      alert('Parent account created and invite email sent.')
+    } catch (error) {
+      console.error('Error converting lead:', error)
+      alert(error instanceof Error ? error.message : 'Failed to convert lead')
+    } finally {
+      setActionLoading(null)
+    }
+  }
+
+  const handleExportCsv = async () => {
+    try {
+      const csv = await exportLeadsCsv(selectedStatus)
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `parent-leads-${selectedStatus}-${new Date().toISOString().slice(0, 10)}.csv`
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Export error:', error)
+      alert('Failed to export leads')
+    }
+  }
+
+  const toggleSelect = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const toggleSelectAll = () => {
+    if (selected.size === filteredLeads.length) {
+      setSelected(new Set())
+    } else {
+      setSelected(new Set(filteredLeads.map((l) => l.id)))
+    }
+  }
+
+  const handleBulkStatus = async (status: LeadStatus) => {
+    const ids = Array.from(selected)
+    if (!ids.length || !confirm(`Update ${ids.length} lead(s) to "${status}"?`)) return
+    setBulkLoading(true)
+    try {
+      await bulkUpdateLeadStatus(ids, status)
+      setSelected(new Set())
+      await loadLeads()
+    } catch (error) {
+      console.error('Bulk update error:', error)
+      alert('Failed to update leads')
+    } finally {
+      setBulkLoading(false)
     }
   }
 
@@ -159,6 +227,13 @@ export default function LeadsManagement() {
               <option key={opt.value} value={opt.value}>{opt.label}</option>
             ))}
           </select>
+          <button
+            onClick={handleExportCsv}
+            className="btn-outline text-sm flex items-center justify-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </button>
         </div>
       </div>
 
@@ -183,11 +258,46 @@ export default function LeadsManagement() {
         ))}
       </div>
 
+      {selected.size > 0 && (
+        <div className="card-elevated p-4 flex flex-wrap items-center gap-3">
+          <span className="text-sm text-ink-muted">{selected.size} selected</span>
+          <button
+            onClick={() => handleBulkStatus('shortlisted')}
+            disabled={bulkLoading}
+            className="btn-outline text-xs"
+          >
+            Shortlist
+          </button>
+          <button
+            onClick={() => handleBulkStatus('matched')}
+            disabled={bulkLoading}
+            className="btn-outline text-xs"
+          >
+            Mark matched
+          </button>
+          <button
+            onClick={() => handleBulkStatus('closed')}
+            disabled={bulkLoading}
+            className="text-xs text-ink-muted border border-ink/10 px-3 py-1.5 rounded-xl hover:bg-ivory"
+          >
+            Close
+          </button>
+        </div>
+      )}
+
       <div className="card-elevated overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-ink/5">
             <thead className="bg-ivory">
               <tr>
+                <th className="px-4 py-3 w-10">
+                  <input
+                    type="checkbox"
+                    checked={selected.size === filteredLeads.length && filteredLeads.length > 0}
+                    onChange={toggleSelectAll}
+                    className="h-4 w-4 text-gold-600 rounded border-ink/20"
+                  />
+                </th>
                 <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-ink-muted">Parent</th>
                 <th className="hidden sm:table-cell px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-ink-muted">Child / Grade</th>
                 <th className="hidden md:table-cell px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-ink-muted">Subjects</th>
@@ -199,7 +309,7 @@ export default function LeadsManagement() {
             <tbody className="divide-y divide-ink/5">
               {filteredLeads.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-4 py-12 text-center text-ink-muted text-sm">
+                  <td colSpan={7} className="px-4 py-12 text-center text-ink-muted text-sm">
                     No leads found. Submissions from the hire-teacher form will appear here.
                   </td>
                 </tr>
@@ -208,6 +318,14 @@ export default function LeadsManagement() {
                   const StatusIcon = getStatusIcon(lead.status)
                   return (
                     <tr key={lead.id} className="hover:bg-ivory/50 transition-colors">
+                      <td className="px-4 py-4">
+                        <input
+                          type="checkbox"
+                          checked={selected.has(lead.id)}
+                          onChange={() => toggleSelect(lead.id)}
+                          className="h-4 w-4 text-gold-600 rounded border-ink/20"
+                        />
+                      </td>
                       <td className="px-4 py-4">
                         <div className="flex items-center gap-3">
                           <div className="h-9 w-9 rounded-full bg-gold-500 flex items-center justify-center shrink-0">
@@ -365,12 +483,25 @@ export default function LeadsManagement() {
                   </div>
                 )}
               </div>
+
+              {(selectedLead.status === 'new' || selectedLead.status === 'shortlisted') && (
+                <TeacherMatchSuggestions leadId={selectedLead.id} />
+              )}
             </div>
 
             <div className="sticky bottom-0 bg-white border-t border-ink/5 px-6 py-4 flex flex-wrap gap-2 justify-end">
               <button onClick={() => setSelectedLead(null)} className="btn-outline text-sm">
                 Close
               </button>
+              {selectedLead.status === 'new' && (
+                <button
+                  onClick={() => handleConvert(selectedLead.id)}
+                  disabled={actionLoading === selectedLead.id}
+                  className="btn-secondary text-sm"
+                >
+                  Create parent account
+                </button>
+              )}
               {selectedLead.status !== 'closed' && (
                 <button
                   onClick={() => handleStatusChange(selectedLead.id, 'closed')}

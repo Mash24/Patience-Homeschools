@@ -59,15 +59,15 @@ function AuthCallbackContent() {
     run()
   }, [router, redirectTo])
 
-  const handleSuccess = (user: any) => {
-    const role = user.app_metadata?.role || user.user_metadata?.role
-    console.log('User role:', role)
-
-    // Always allowlist your redirect
+  const handleSuccess = (user: { app_metadata?: Record<string, unknown>; user_metadata?: Record<string, unknown> }) => {
+    const role = (user.app_metadata?.role || user.user_metadata?.role) as string | undefined
     const allowed = new Set(['/', '/admin', '/teacher/dashboard', '/parent/dashboard'])
-    const finalRedirect = allowed.has(redirectTo) ? redirectTo : '/admin'
-    
-    console.log('Redirecting to:', finalRedirect)
+    let finalRedirect = '/'
+    if (role === 'admin') finalRedirect = '/admin'
+    else if (role === 'teacher') finalRedirect = '/teacher/dashboard'
+    else if (role === 'parent') finalRedirect = '/parent/dashboard'
+    else if (allowed.has(redirectTo)) finalRedirect = redirectTo
+
     router.replace(finalRedirect)
   }
 

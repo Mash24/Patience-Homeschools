@@ -1,20 +1,36 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Send } from 'lucide-react'
 import SectionHeading from '@/components/ui/SectionHeading'
 
 export default function ContactForm() {
+  const searchParams = useSearchParams()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
-    subject: '',
+    subject: searchParams.get('subject') || '',
     message: '',
-    inquiryType: '',
+    inquiryType: searchParams.get('subject')?.startsWith('Event:') ? 'General Inquiry' : '',
   })
+
+  useEffect(() => {
+    const subject = searchParams.get('subject')
+    if (subject) {
+      setFormData((prev) => ({
+        ...prev,
+        subject,
+        inquiryType: subject.startsWith('Event:') ? 'General Inquiry' : prev.inquiryType,
+        message: prev.message || (subject.startsWith('Event:') ? `I would like to register for: ${subject.replace('Event: ', '')}` : prev.message),
+      }))
+    }
+  }, [searchParams])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [submitSuccess, setSubmitSuccess] = useState(false)
 
   const inquiryTypes = [
     'General Inquiry',
@@ -28,10 +44,25 @@ export default function ContactForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setFormData({ name: '', email: '', phone: '', subject: '', message: '', inquiryType: '' })
-    setIsSubmitting(false)
-    alert("Thank you for your message! We'll get back to you within 24 hours.")
+    setSubmitError('')
+    setSubmitSuccess(false)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Failed to send message')
+
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '', inquiryType: '' })
+      setSubmitSuccess(true)
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Failed to send message')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -82,6 +113,14 @@ export default function ContactForm() {
             <label className="label-field">Message</label>
             <textarea className="input-field min-h-[120px] resize-y" required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} />
           </div>
+          {submitError && (
+            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl p-3">{submitError}</p>
+          )}
+          {submitSuccess && (
+            <p className="text-sm text-gold-800 bg-gold-50 border border-gold-200 rounded-xl p-3">
+              Thank you! We&apos;ll get back to you within 24 hours.
+            </p>
+          )}
           <button type="submit" disabled={isSubmitting} className="btn-primary w-full">
             {isSubmitting ? 'Sending...' : 'Send Message'}
             <Send className="h-4 w-4" />

@@ -15,7 +15,8 @@ const explore = [
 const company = [
   { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Application Status', href: '/application-status' },
+  { name: 'Track Tutor Request', href: '/my-request' },
+  { name: 'Teacher Application Status', href: '/application-status' },
 ]
 
 export default function Footer() {

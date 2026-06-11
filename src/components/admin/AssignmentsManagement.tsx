@@ -1,46 +1,49 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { 
   Calendar, 
   Eye, 
   CheckCircle, 
   XCircle, 
   Clock, 
-  Users,
-  User,
-  GraduationCap,
-  DollarSign,
   Search,
   Plus,
-  Edit,
-  Trash2
+  Download,
 } from 'lucide-react'
-import { createClient } from '@/lib/supabase-client'
-import { getAssignments, updateAssignmentStatus } from '@/app/admin/assignments/actions'
+import {
+  getAssignments,
+  updateAssignmentStatus,
+  bulkUpdateAssignmentStatus,
+  exportAssignmentsCsv,
+} from '@/app/admin/assignments/actions'
 
 interface Assignment {
   id: string
   parent_id: string
   teacher_id: string
+  subject?: string
   status: 'pending' | 'active' | 'completed' | 'cancelled'
-  start_date: string
-  end_date: string
-  hourly_rate: number
-  total_hours: number
-  notes: string
+  start_date?: string
+  end_date?: string
+  hourly_rate?: number
+  total_hours?: number
+  notes?: string
   created_at: string
   parent: {
     full_name: string
-    child_name: string
-    email: string
-    phone: string
+    phone?: string
   }
   teacher: {
     full_name: string
     email: string
-    phone: string
+    phone?: string
     subjects: string[]
+  }
+  child?: {
+    full_name?: string
+    level?: string
   }
 }
 
@@ -51,6 +54,8 @@ export default function AssignmentsManagement() {
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedAssignment, setSelectedAssignment] = useState<Assignment | null>(null)
   const [actionLoading, setActionLoading] = useState<string | null>(null)
+  const [selected, setSelected] = useState<Set<string>>(new Set())
+  const [bulkLoading, setBulkLoading] = useState(false)
 
   useEffect(() => {
     loadAssignments()
@@ -68,13 +73,66 @@ export default function AssignmentsManagement() {
     }
   }
 
+  const childName = (a: Assignment) => a.child?.full_name || ''
+
   const filteredAssignments = assignments.filter(assignment => {
     const matchesStatus = selectedStatus === 'all' || assignment.status === selectedStatus
-    const matchesSearch = assignment.teacher.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         assignment.parent.full_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         assignment.parent.child_name.toLowerCase().includes(searchTerm.toLowerCase())
+    const q = searchTerm.toLowerCase()
+    const matchesSearch =
+      assignment.teacher?.full_name?.toLowerCase().includes(q) ||
+      assignment.parent?.full_name?.toLowerCase().includes(q) ||
+      childName(assignment).toLowerCase().includes(q) ||
+      (assignment.subject || '').toLowerCase().includes(q)
     return matchesStatus && matchesSearch
   })
+
+  const toggleSelect = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
+
+  const toggleSelectAll = () => {
+    if (selected.size === filteredAssignments.length) {
+      setSelected(new Set())
+    } else {
+      setSelected(new Set(filteredAssignments.map((a) => a.id)))
+    }
+  }
+
+  const handleBulkStatus = async (status: string) => {
+    const ids = Array.from(selected)
+    if (!ids.length || !confirm(`Update ${ids.length} assignment(s) to "${status}"?`)) return
+    setBulkLoading(true)
+    try {
+      await bulkUpdateAssignmentStatus(ids, status)
+      setSelected(new Set())
+      await loadAssignments()
+    } catch (error) {
+      console.error('Bulk update error:', error)
+      alert('Failed to update assignments')
+    } finally {
+      setBulkLoading(false)
+    }
+  }
+
+  const handleExportCsv = async () => {
+    try {
+      const csv = await exportAssignmentsCsv(selectedStatus)
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `assignments-${selectedStatus}-${new Date().toISOString().slice(0, 10)}.csv`
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      alert('Failed to export assignments')
+    }
+  }
 
   const handleStatusUpdate = async (assignmentId: string, newStatus: string) => {
     try {
@@ -107,14 +165,6 @@ export default function AssignmentsManagement() {
       case 'cancelled': return XCircle
       default: return Clock
     }
-  }
-
-  const handleStatusChange = (assignmentId: string, newStatus: string) => {
-    setAssignments(assignments.map(assignment => 
-      assignment.id === assignmentId 
-        ? { ...assignment, status: newStatus as any }
-        : assignment
-    ))
   }
 
   if (loading) {
@@ -156,13 +206,20 @@ export default function AssignmentsManagement() {
             <option value="cancelled">Cancelled</option>
           </select>
           <button
-            onClick={() => setShowCreateModal(true)}
-            className="w-full sm:w-auto px-4 py-2 bg-gold-500 text-white rounded-md text-sm font-medium hover:bg-gold-400 flex items-center justify-center space-x-2"
+            onClick={handleExportCsv}
+            className="btn-outline text-sm flex items-center justify-center gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Export CSV
+          </button>
+          <Link
+            href="/admin/assignments/new"
+            className="w-full sm:w-auto px-4 py-2 bg-gold-500 text-white rounded-md text-sm font-medium hover:bg-gold-400 flex items-center justify-center gap-2"
           >
             <Plus className="h-4 w-4" />
             <span className="hidden sm:inline">New Assignment</span>
             <span className="sm:hidden">New</span>
-          </button>
+          </Link>
         </div>
       </div>
 
@@ -188,12 +245,35 @@ export default function AssignmentsManagement() {
         ))}
       </div>
 
+      {selected.size > 0 && (
+        <div className="card-elevated p-4 flex flex-wrap items-center gap-3">
+          <span className="text-sm text-ink-muted">{selected.size} selected</span>
+          <button onClick={() => handleBulkStatus('active')} disabled={bulkLoading} className="btn-outline text-xs">
+            Mark active
+          </button>
+          <button onClick={() => handleBulkStatus('completed')} disabled={bulkLoading} className="btn-outline text-xs">
+            Mark completed
+          </button>
+          <button onClick={() => handleBulkStatus('cancelled')} disabled={bulkLoading} className="text-xs text-red-600 border border-red-200 px-3 py-1.5 rounded-xl hover:bg-red-50">
+            Cancel
+          </button>
+        </div>
+      )}
+
       {/* Assignments Table */}
       <div className="bg-white rounded-lg shadow-sm border border-ink/10 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-ivory">
               <tr>
+                <th className="px-3 py-3 w-10">
+                  <input
+                    type="checkbox"
+                    checked={selected.size === filteredAssignments.length && filteredAssignments.length > 0}
+                    onChange={toggleSelectAll}
+                    className="h-4 w-4 text-gold-600 rounded border-ink/20"
+                  />
+                </th>
                 <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-ink-muted uppercase tracking-wider">
                   Assignment
                 </th>
@@ -222,19 +302,29 @@ export default function AssignmentsManagement() {
                 const StatusIcon = getStatusIcon(assignment.status)
                 return (
                   <tr key={assignment.id} className="hover:bg-ivory">
+                    <td className="px-3 py-4">
+                      <input
+                        type="checkbox"
+                        checked={selected.has(assignment.id)}
+                        onChange={() => toggleSelect(assignment.id)}
+                        className="h-4 w-4 text-gold-600 rounded border-ink/20"
+                      />
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="h-10 w-10 bg-purple-600 rounded-full flex items-center justify-center">
                           <span className="text-white font-medium">
-                            {assignment.teacher.subjects?.[0]?.substring(0, 2).toUpperCase() || 'AS'}
+                            {assignment.teacher?.subjects?.[0]?.substring(0, 2).toUpperCase() || 'AS'}
                           </span>
                         </div>
                         <div className="ml-4">
                           <div className="text-sm font-medium text-ink">
-                            {assignment.parent.full_name} → {assignment.teacher.full_name}
+                            {assignment.parent?.full_name} → {assignment.teacher?.full_name}
                           </div>
                           <div className="text-sm text-ink-muted">
-                            Started: {new Date(assignment.start_date).toLocaleDateString()}
+                            {assignment.start_date
+                              ? `Started: ${new Date(assignment.start_date).toLocaleDateString()}`
+                              : `Created: ${new Date(assignment.created_at).toLocaleDateString()}`}
                           </div>
                         </div>
                       </div>
@@ -256,23 +346,27 @@ export default function AssignmentsManagement() {
                       <div className="flex items-center">
                         <div className="h-8 w-8 bg-green-600 rounded-full flex items-center justify-center">
                           <span className="text-white text-xs font-medium">
-                            {assignment.parent.child_name.split(' ').map(n => n[0]).join('')}
+                            {(childName(assignment) || 'S').split(' ').map((n) => n[0]).join('').slice(0, 2)}
                           </span>
                         </div>
                         <div className="ml-3">
-                          <div className="text-sm font-medium text-ink">{assignment.parent.child_name}</div>
-                          <div className="text-sm text-ink-muted">{assignment.parent.full_name}</div>
+                          <div className="text-sm font-medium text-ink">{childName(assignment) || '—'}</div>
+                          <div className="text-sm text-ink-muted">{assignment.child?.level || assignment.parent?.full_name}</div>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                        {assignment.teacher.subjects?.join(', ')}
+                        {assignment.subject || assignment.teacher?.subjects?.join(', ') || '—'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-ink">KSh {assignment.hourly_rate.toLocaleString()}/hr</div>
-                      <div className="text-sm text-ink-muted">{assignment.total_hours} hours</div>
+                      <div className="text-sm text-ink">
+                        {assignment.hourly_rate ? `KSh ${assignment.hourly_rate.toLocaleString()}/hr` : '—'}
+                      </div>
+                      {assignment.total_hours != null && (
+                        <div className="text-sm text-ink-muted">{assignment.total_hours} hours</div>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(assignment.status)}`}>
@@ -342,7 +436,7 @@ export default function AssignmentsManagement() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-ink">Student</label>
-                  <p className="text-sm text-ink">{selectedAssignment.parent.child_name}</p>
+                  <p className="text-sm text-ink">{childName(selectedAssignment) || '—'}</p>
                 </div>
               </div>
               
@@ -360,7 +454,11 @@ export default function AssignmentsManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-ink">Start Date</label>
-                  <p className="text-sm text-ink">{new Date(selectedAssignment.start_date).toLocaleDateString()}</p>
+                  <p className="text-sm text-ink">
+                    {selectedAssignment.start_date
+                      ? new Date(selectedAssignment.start_date).toLocaleDateString()
+                      : '—'}
+                  </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-ink">End Date</label>
@@ -373,7 +471,11 @@ export default function AssignmentsManagement() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-ink">Hourly Rate</label>
-                  <p className="text-sm text-ink">KSh {selectedAssignment.hourly_rate.toLocaleString()}</p>
+                  <p className="text-sm text-ink">
+                    {selectedAssignment.hourly_rate
+                      ? `KSh ${selectedAssignment.hourly_rate.toLocaleString()}`
+                      : '—'}
+                  </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-ink">Total Hours</label>
@@ -398,8 +500,8 @@ export default function AssignmentsManagement() {
               </button>
               {selectedAssignment.status === 'pending' && (
                 <button
-                  onClick={() => {
-                    handleStatusChange(selectedAssignment.id, 'active')
+                  onClick={async () => {
+                    await handleStatusUpdate(selectedAssignment.id, 'active')
                     setSelectedAssignment(null)
                   }}
                   className="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700"
@@ -409,8 +511,8 @@ export default function AssignmentsManagement() {
               )}
               {selectedAssignment.status === 'active' && (
                 <button
-                  onClick={() => {
-                    handleStatusChange(selectedAssignment.id, 'completed')
+                  onClick={async () => {
+                    await handleStatusUpdate(selectedAssignment.id, 'completed')
                     setSelectedAssignment(null)
                   }}
                   className="px-4 py-2 bg-gold-500 text-white rounded-md text-sm font-medium hover:bg-gold-400"
@@ -423,94 +525,6 @@ export default function AssignmentsManagement() {
         </div>
       )}
 
-      {/* Create Assignment Modal */}
-      {showCreateModal && (
-        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-bold text-ink">Create New Assignment</h3>
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="text-ink-muted/60 hover:text-ink-muted"
-              >
-                <XCircle className="h-6 w-6" />
-              </button>
-            </div>
-            
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-ink">Select Teacher</label>
-                  <select className="mt-1 block w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent">
-                    <option>John Doe</option>
-                    <option>Jane Smith</option>
-                    <option>Mike Wilson</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink">Select Parent</label>
-                  <select className="mt-1 block w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent">
-                    <option>Sarah Johnson</option>
-                    <option>Michael Kimani</option>
-                    <option>Grace Wanjiku</option>
-                  </select>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-ink">Subject</label>
-                  <input
-                    type="text"
-                    className="mt-1 block w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
-                    placeholder="Mathematics"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-ink">Hourly Rate</label>
-                  <input
-                    type="number"
-                    className="mt-1 block w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
-                    placeholder="2500"
-                  />
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-ink">Start Date</label>
-                <input
-                  type="date"
-                  className="mt-1 block w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
-                />
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-ink">Notes</label>
-                <textarea
-                  rows={3}
-                  className="mt-1 block w-full px-3 py-2 border border-ink/10 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gold-500/30 focus:border-transparent"
-                  placeholder="Additional notes about the assignment..."
-                />
-              </div>
-            </div>
-            
-            <div className="mt-6 flex justify-end space-x-3">
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 border border-ink/10 rounded-md text-sm font-medium text-ink hover:bg-ivory"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => setShowCreateModal(false)}
-                className="px-4 py-2 bg-gold-500 text-white rounded-md text-sm font-medium hover:bg-gold-400"
-              >
-                Create Assignment
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

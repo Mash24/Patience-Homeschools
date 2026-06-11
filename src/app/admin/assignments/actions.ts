@@ -120,13 +120,14 @@ export async function updateAssignmentStatus(assignmentId: string, status: strin
 
 export async function getAssignments(status?: string) {
   const supabase = await createClient()
-  
+
   let query = supabase
     .from('assignments')
     .select(`
       *,
-      parent:parents(full_name, child_name, email, phone),
-      teacher:teachers(full_name, email, phone, subjects)
+      parent:profiles(full_name, phone),
+      teacher:teachers(full_name, email, phone, subjects),
+      child:children(full_name, level)
     `)
     .order('created_at', { ascending: false })
 
@@ -135,7 +136,40 @@ export async function getAssignments(status?: string) {
   }
 
   const { data, error } = await query
-  
+
   if (error) throw new Error(error.message)
   return data
+}
+
+export async function bulkUpdateAssignmentStatus(assignmentIds: string[], status: string) {
+  if (!assignmentIds.length) return { success: true, count: 0 }
+  let count = 0
+  for (const id of assignmentIds) {
+    await updateAssignmentStatus(id, status)
+    count += 1
+  }
+  return { success: true, count }
+}
+
+export async function exportAssignmentsCsv(status?: string) {
+  const rows = await getAssignments(status === 'all' ? undefined : status)
+  const header = 'id,status,subject,parent,child,teacher,teacher_email,hourly_rate,created_at'
+  const lines = (rows || []).map((a: Record<string, unknown>) => {
+    const parent = a.parent as { full_name?: string } | null
+    const teacher = a.teacher as { full_name?: string; email?: string } | null
+    const child = a.child as { full_name?: string } | null
+    const esc = (v: string) => `"${(v || '').replace(/"/g, '""')}"`
+    return [
+      a.id,
+      a.status,
+      esc(String(a.subject || '')),
+      esc(parent?.full_name || ''),
+      esc(child?.full_name || ''),
+      esc(teacher?.full_name || ''),
+      esc(teacher?.email || ''),
+      a.hourly_rate ?? '',
+      a.created_at,
+    ].join(',')
+  })
+  return [header, ...lines].join('\n')
 }

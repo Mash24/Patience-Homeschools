@@ -24,6 +24,7 @@ const MARKETING_PAGES = [
   '/privacy',
   '/terms',
   '/safeguarding',
+  '/teachers',
 ]
 
 // Pages that should have clean app layout (no marketing navbar/footer)
